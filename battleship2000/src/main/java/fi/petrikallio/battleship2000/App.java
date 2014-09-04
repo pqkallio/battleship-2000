@@ -1,13 +1,14 @@
 package fi.petrikallio.battleship2000;
 
-/**
- * Hello world!
- *
- */
+import fi.petrikallio.battleship2000.sovelluslogiikka.BattleShipGame;
+import fi.petrikallio.battleship2000.sovelluslogiikka.ohjaus.LuoPeli;
+import fi.petrikallio.battleship2000.sovelluslogiikka.saannot.Perussaannot;
+
 public class App 
 {
-    public static void main( String[] args )
+    public static void main( String[] args ) 
+            throws InstantiationException, IllegalAccessException
     {
-        System.out.println( "Hello World!" );
+        BattleShipGame peli = (BattleShipGame) new LuoPeli(new Perussaannot(false)).suorita();
     }
 }
