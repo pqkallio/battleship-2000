@@ -1,0 +1,950 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+border: 1px solid #dddddd;
+padding-top: 10px;
+padding-right: 5px;
+padding-left: 5px;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+</style>
+
+</head>
+<body>
+
+
+<h1>Saannot.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_1'/>
+1
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_1'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_2'/>
+2
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_2'></a>
+</td>
+<td class=''><pre><span  class=''>package fi.petrikallio.battleship2000.sovelluslogiikka.saannot;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_3'/>
+3
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_3'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_4'/>
+4
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_4'></a>
+</td>
+<td class=''><pre><span  class=''>import fi.petrikallio.battleship2000.sovelluslogiikka.domain.alus.Alustyyppi;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_5'/>
+5
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_5'></a>
+</td>
+<td class=''><pre><span  class=''>import fi.petrikallio.battleship2000.sovelluslogiikka.domain.pelaaja.Pelaajatyyppi;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_6'/>
+6
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_6'></a>
+</td>
+<td class=''><pre><span  class=''>import java.util.ArrayList;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_7'/>
+7
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_7'></a>
+</td>
+<td class=''><pre><span  class=''>import java.util.HashMap;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_8'/>
+8
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_8'></a>
+</td>
+<td class=''><pre><span  class=''>import java.util.List;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_9'/>
+9
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_9'></a>
+</td>
+<td class=''><pre><span  class=''>import java.util.Map;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_10'/>
+10
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_10'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_11'/>
+11
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_11'></a>
+</td>
+<td class=''><pre><span  class=''>public class Saannot {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_12'/>
+12
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_12'></a>
+</td>
+<td class=''><pre><span  class=''>    private Map&#60;Saanto, Object&#62; saannot;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_13'/>
+13
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_13'></a>
+</td>
+<td class=''><pre><span  class=''>    </span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_14'/>
+14
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_14'></a>
+</td>
+<td class='covered'><pre><span  class=''>    public Saannot() {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_15'/>
+15
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_15'></a>
+</td>
+<td class='covered'><pre><span  class=''>        this.saannot = new HashMap&#60;&#62;();</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_16'/>
+16
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_16'></a>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_17'/>
+17
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_17'></a>
+</td>
+<td class=''><pre><span  class=''>    </span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_18'/>
+18
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_18'></a>
+</td>
+<td class=''><pre><span  class=''>    public void asetaKentanKoko(int x, int y) {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_19'/>
+19
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_19'></a>
+</td>
+<td class='covered'><pre><span  class=''>        Map&#60;String, Integer&#62; kentanKoko = new HashMap&#60;&#62;();</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_20'/>
+20
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_20'></a>
+</td>
+<td class='covered'><pre><span  class=''>        kentanKoko.put(&#34;x&#34;, x);</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_21'/>
+21
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_21'></a>
+</td>
+<td class='covered'><pre><span  class=''>        kentanKoko.put(&#34;y&#34;, y);</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_22'/>
+22
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_22'></a>
+</td>
+<td class='covered'><pre><span  class=''>        this.saannot.put(Saanto.KENTAN_KOKO, kentanKoko);</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_23'/>
+23
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_23'></a>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_24'/>
+24
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_24'></a>
+</td>
+<td class=''><pre><span  class=''>    </span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_25'/>
+25
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_25'></a>
+</td>
+<td class=''><pre><span  class=''>    public Map&#60;String, Integer&#62; haeKentanKoko() {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_26'/>
+26
+</td>
+<td class='killed'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_26'>1</a>
+</td>
+<td class='covered'><pre><span  class='killed'>        return (HashMap&#60;String, Integer&#62;)this.saannot.get(Saanto.KENTAN_KOKO);</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_27'/>
+27
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_27'></a>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_28'/>
+28
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_28'></a>
+</td>
+<td class=''><pre><span  class=''>    </span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_29'/>
+29
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_29'></a>
+</td>
+<td class=''><pre><span  class=''>    public void asetaAlukset(List&#60;Alustyyppi&#62; alukset) </span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_30'/>
+30
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_30'></a>
+</td>
+<td class=''><pre><span  class=''>            throws InstantiationException, IllegalAccessException{</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_31'/>
+31
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_31'></a>
+</td>
+<td class='covered'><pre><span  class=''>        this.saannot.put(Saanto.ALUKSET, alukset);</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_32'/>
+32
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_32'></a>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_33'/>
+33
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_33'></a>
+</td>
+<td class=''><pre><span  class=''>    </span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_34'/>
+34
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_34'></a>
+</td>
+<td class=''><pre><span  class=''>    public List&#60;Alustyyppi&#62; haeAlustyypit() {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_35'/>
+35
+</td>
+<td class='killed'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_35'>1</a>
+</td>
+<td class='covered'><pre><span  class='killed'>        return (ArrayList&#60;Alustyyppi&#62;)this.saannot.get(Saanto.ALUKSET);</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_36'/>
+36
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_36'></a>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_37'/>
+37
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_37'></a>
+</td>
+<td class=''><pre><span  class=''>    </span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_38'/>
+38
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_38'></a>
+</td>
+<td class=''><pre><span  class=''>    public void asetaLiikkumissaanto(boolean liikkuvatko) {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_39'/>
+39
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_39'></a>
+</td>
+<td class='covered'><pre><span  class=''>        this.saannot.put(Saanto.ALUKSET_LIIKKUVAT, liikkuvatko);</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_40'/>
+40
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_40'></a>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_41'/>
+41
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_41'></a>
+</td>
+<td class=''><pre><span  class=''>    </span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_42'/>
+42
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_42'></a>
+</td>
+<td class=''><pre><span  class=''>    public boolean liikkuvatkoAlukset() {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_43'/>
+43
+</td>
+<td class='survived'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_43'>1</a>
+</td>
+<td class='covered'><pre><span  class='survived'>        return (boolean)this.saannot.get(Saanto.ALUKSET_LIIKKUVAT);</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_44'/>
+44
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_44'></a>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_45'/>
+45
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_45'></a>
+</td>
+<td class=''><pre><span  class=''>    </span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_46'/>
+46
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_46'></a>
+</td>
+<td class=''><pre><span  class=''>    public void asetaAlustenErikoistoiminnot(boolean ovatkoKaytossa) {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_47'/>
+47
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_47'></a>
+</td>
+<td class='covered'><pre><span  class=''>        this.saannot.put(Saanto.ALUSTEN_ERIKOISTOIMINNOT, ovatkoKaytossa);</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_48'/>
+48
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_48'></a>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_49'/>
+49
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_49'></a>
+</td>
+<td class=''><pre><span  class=''>    </span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_50'/>
+50
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_50'></a>
+</td>
+<td class=''><pre><span  class=''>    public boolean aluksillaErikoistoiminnot() {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_51'/>
+51
+</td>
+<td class='survived'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_51'>1</a>
+</td>
+<td class='covered'><pre><span  class='survived'>        return (boolean)this.saannot.get(Saanto.ALUSTEN_ERIKOISTOIMINNOT);</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_52'/>
+52
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_52'></a>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_53'/>
+53
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_53'></a>
+</td>
+<td class=''><pre><span  class=''>    </span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_54'/>
+54
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_54'></a>
+</td>
+<td class=''><pre><span  class=''>    public void asetaPelaajat(List&#60;Pelaajatyyppi&#62; pelaajat) </span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_55'/>
+55
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_55'></a>
+</td>
+<td class=''><pre><span  class=''>            throws InstantiationException, IllegalAccessException {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_56'/>
+56
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_56'></a>
+</td>
+<td class='covered'><pre><span  class=''>        this.saannot.put(Saanto.PELAAJAT, pelaajat);</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_57'/>
+57
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_57'></a>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_58'/>
+58
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_58'></a>
+</td>
+<td class=''><pre><span  class=''>    </span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_59'/>
+59
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_59'></a>
+</td>
+<td class=''><pre><span  class=''>    public List&#60;Pelaajatyyppi&#62; haePelaajatyypit() {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_60'/>
+60
+</td>
+<td class='killed'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_60'>1</a>
+</td>
+<td class='covered'><pre><span  class='killed'>        return (ArrayList&#60;Pelaajatyyppi&#62;)this.saannot.get(Saanto.PELAAJAT);</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_61'/>
+61
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_61'></a>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_62'/>
+62
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_62'></a>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_63'/>
+63
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_63'></a>
+</td>
+<td class=''><pre><span  class=''>    public Map&#60;Saanto, Object&#62; haeSaannot() {</span></pre></td></tr>
+
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_64'/>
+64
+</td>
+<td class='survived'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_64'>1</a>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return saannot;</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_65'/>
+65
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_65'></a>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@2bc9c421_66'/>
+66
+</td>
+<td class=''>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_66'></a>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2bc9c421_26'>26</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_26'/> 
+
+<p class='KILLED'>mutated return of Object value for fi/petrikallio/battleship2000/sovelluslogiikka/saannot/Saannot::haeKentanKoko to ( if (x != null) null else throw new RuntimeException ) : KILLED -> fi.petrikallio.battleship2000.sovelluslogiikka.domain.pelaaja.PelaajaTest.fi.petrikallio.battleship2000.sovelluslogiikka.domain.pelaaja.PelaajaTest</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2bc9c421_35'>35</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_35'/> 
+
+<p class='KILLED'>mutated return of Object value for fi/petrikallio/battleship2000/sovelluslogiikka/saannot/Saannot::haeAlustyypit to ( if (x != null) null else throw new RuntimeException ) : KILLED -> fi.petrikallio.battleship2000.sovelluslogiikka.domain.pelaaja.PelaajaTest.fi.petrikallio.battleship2000.sovelluslogiikka.domain.pelaaja.PelaajaTest</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2bc9c421_43'>43</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_43'/> 
+
+<p class='SURVIVED'>replaced return of integer sized value with (x == 0 ? 1 : 0) : SURVIVED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2bc9c421_51'>51</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_51'/> 
+
+<p class='SURVIVED'>replaced return of integer sized value with (x == 0 ? 1 : 0) : SURVIVED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2bc9c421_60'>60</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_60'/> 
+
+<p class='KILLED'>mutated return of Object value for fi/petrikallio/battleship2000/sovelluslogiikka/saannot/Saannot::haePelaajatyypit to ( if (x != null) null else throw new RuntimeException ) : KILLED -> fi.petrikallio.battleship2000.sovelluslogiikka.domain.pelaaja.PelaajaTest.fi.petrikallio.battleship2000.sovelluslogiikka.domain.pelaaja.PelaajaTest</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@2bc9c421_64'>64</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@2bc9c421_64'/> 
+
+<p class='NO_COVERAGE'>mutated return of Object value for fi/petrikallio/battleship2000/sovelluslogiikka/saannot/Saannot::haeSaannot to ( if (x != null) null else throw new RuntimeException ) : NO_COVERAGE</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+
+<li class='mutator'>MATH_MUTATOR</li>
+
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>fi.petrikallio.battleship2000.sovelluslogiikka.domain.pelaaja.PelaajaTest.fi.petrikallio.battleship2000.sovelluslogiikka.domain.pelaaja.PelaajaTest (82 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 0.30
+
+</body>
+</html>
