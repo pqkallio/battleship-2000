@@ -1,3 +1,8 @@
-﻿2.9.2014
-Git- ja Maven-säädöt        1h
-Määrittelydokumentti      0.5h
+|**2.9.2014**               |       |
+|-----------------------|-------|
+|Git- ja Maven-säädöt   |    1h |
+|Määrittelydokumentti   |  0.5h |
+|**3.9.2014**               |      |
+|Koodausta, sovelluslogiikka| 4h   |
+|**4.9.2014**           |      |
+|Koodausta, sovelluslogiikka|  4h   |
