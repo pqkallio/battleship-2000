@@ -1,0 +1,20 @@
+
+package fi.petrikallio.battleship2000.sovelluslogiikka.domain.pelaaja;
+
+public class Ihminen extends Pelaaja {
+
+    @Override
+    public void pelaaVuoro() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public String toString() {
+        return "ihminen";
+    }
+
+    @Override
+    public void sijoitteleAluksetPelikentalle() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+}
