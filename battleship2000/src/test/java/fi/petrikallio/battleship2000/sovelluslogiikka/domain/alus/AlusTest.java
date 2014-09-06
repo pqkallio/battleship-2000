@@ -1,7 +1,7 @@
 
 package fi.petrikallio.battleship2000.sovelluslogiikka.domain.alus;
 
-import fi.petrikallio.battleship2000.sovelluslogiikka.saannot.AluksenPituussaannot;
+import fi.petrikallio.battleship2000.sovelluslogiikka.saannot.Kokorajoitteet;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -49,32 +49,32 @@ public class AlusTest {
     
     @Test
     public void luodunAluksenJonkaPituudeksiAnnetaanMinimiPituusPituusOnOikein() {
-        Alus minimiPituusAlus = new Alus(AluksenPituussaannot.vahimmaispituus());
-        assertEquals(AluksenPituussaannot.vahimmaispituus(), alus.getAluksenPituus());
+        Alus minimiPituusAlus = new Alus(Kokorajoitteet.aluksenVahimmaispituus());
+        assertEquals(Kokorajoitteet.aluksenVahimmaispituus(), alus.getAluksenPituus());
     }
     
     @Test
     public void aluksenPituusEiVoiOllaNolla() {
         Alus tyhjaAlus = new Alus(0);
-        assertEquals(AluksenPituussaannot.vahimmaispituus(), tyhjaAlus.getAluksenPituus());
+        assertEquals(Kokorajoitteet.aluksenVahimmaispituus(), tyhjaAlus.getAluksenPituus());
     }
     
     @Test
     public void aluksenPituusEiVoiOllaNegatiivinen() {
         Alus tyhjaAlus = new Alus(-1);
-        assertEquals(AluksenPituussaannot.vahimmaispituus(), tyhjaAlus.getAluksenPituus());
+        assertEquals(Kokorajoitteet.aluksenVahimmaispituus(), tyhjaAlus.getAluksenPituus());
     }
     
     @Test
     public void alusVoiOllaaEnimmaismittainen() {
-        Alus isoAlus = new Alus(AluksenPituussaannot.enimmaispituus());
-        assertEquals(AluksenPituussaannot.enimmaispituus(), isoAlus.getAluksenPituus());
+        Alus isoAlus = new Alus(Kokorajoitteet.aluksenEnimmaispituus());
+        assertEquals(Kokorajoitteet.aluksenEnimmaispituus(), isoAlus.getAluksenPituus());
     }
     
     @Test
     public void aluksenPituusEiVoiYlittaaEnimmaismittaa() {
-        Alus isoAlus = new Alus(AluksenPituussaannot.enimmaispituus() + 1);
-        assertEquals(AluksenPituussaannot.enimmaispituus(), isoAlus.getAluksenPituus());
+        Alus isoAlus = new Alus(Kokorajoitteet.aluksenEnimmaispituus() + 1);
+        assertEquals(Kokorajoitteet.aluksenEnimmaispituus(), isoAlus.getAluksenPituus());
     }
     
     @Test
@@ -133,6 +133,11 @@ public class AlusTest {
     public void kunAlustaKaantaaNeljaKertaaVastapaivaanOnSuuntaIta() {
         kaannaAlustaVastapaivaan(this.alus, 4);
         assertEquals(Suunta.ITA, this.alus.getSuunta());
+    }
+    
+    @Test
+    public void aluksenOsatVastaavatParametrinaSyotettyjaOsia() {
+        
     }
     
     private void kaannaAlustaMyotapaivaan(Alus alus, int kertaa) {

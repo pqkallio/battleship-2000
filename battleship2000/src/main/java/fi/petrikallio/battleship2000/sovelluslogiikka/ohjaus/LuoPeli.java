@@ -59,7 +59,8 @@ public class LuoPeli implements Ohjausluokka {
     }
 
     private Pelikentta lisaaPelaajallePelikentta() {
-        Map<String, Integer> kentanKoko = this.saannot.haeKentanKoko();
-        return new Pelikentta(kentanKoko.get("x"), kentanKoko.get("y"));
+        int leveys = this.saannot.haeKentanLeveys();
+        int korkeus = this.saannot.haeKentanKorkeus();
+        return new Pelikentta(leveys, korkeus);
     }
 }

@@ -1,7 +1,7 @@
 
 package fi.petrikallio.battleship2000.sovelluslogiikka.domain.alus;
 
-import fi.petrikallio.battleship2000.sovelluslogiikka.saannot.AluksenPituussaannot;
+import fi.petrikallio.battleship2000.sovelluslogiikka.saannot.Kokorajoitteet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,8 +82,8 @@ public class Alus implements Liikkuva, Kaantyva {
     }
 
     private int palautaLopullinenPituus(int toivottuPituus) {
-        int min = AluksenPituussaannot.vahimmaispituus();
-        int max = AluksenPituussaannot.enimmaispituus();
+        int min = Kokorajoitteet.aluksenVahimmaispituus();
+        int max = Kokorajoitteet.aluksenEnimmaispituus();
         
         if (toivottuPituus >= min && toivottuPituus <= max) {
             return toivottuPituus;
@@ -107,4 +107,6 @@ public class Alus implements Liikkuva, Kaantyva {
         
         return this.mahdollisetSuunnat.get(0);
     }
+    
+    private
 }

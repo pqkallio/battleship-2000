@@ -15,19 +15,20 @@ public class Saannot {
         this.saannot = new HashMap<>();
     }
     
-    public void asetaKentanKoko(int x, int y) {
-        Map<String, Integer> kentanKoko = new HashMap<>();
-        kentanKoko.put("x", x);
-        kentanKoko.put("y", y);
+    public void asetaKentanKoko(int leveys, int korkeus) {
+        Map<Saanto, Integer> kentanKoko = new HashMap<>();
+        
+        kentanKoko.put(Saanto.KENTAN_LEVEYS, tarkistettuKentanSivunPituus(leveys));
+        kentanKoko.put(Saanto.KENTAN_KORKEUS, tarkistettuKentanSivunPituus(korkeus));
+        
         this.saannot.put(Saanto.KENTAN_KOKO, kentanKoko);
     }
     
-    public Map<String, Integer> haeKentanKoko() {
-        return (HashMap<String, Integer>)this.saannot.get(Saanto.KENTAN_KOKO);
+    public Map<Saanto, Integer> haeKentanKoko() {
+        return (HashMap<Saanto, Integer>)this.saannot.get(Saanto.KENTAN_KOKO);
     }
     
-    public void asetaAlukset(List<Alustyyppi> alukset) 
-            throws InstantiationException, IllegalAccessException{
+    public void asetaAlukset(List<Alustyyppi> alukset) {
         this.saannot.put(Saanto.ALUKSET, alukset);
     }
     
@@ -51,8 +52,7 @@ public class Saannot {
         return (boolean)this.saannot.get(Saanto.ALUSTEN_ERIKOISTOIMINNOT);
     }
     
-    public void asetaPelaajat(List<Pelaajatyyppi> pelaajat) 
-            throws InstantiationException, IllegalAccessException {
+    public void asetaPelaajat(List<Pelaajatyyppi> pelaajat){
         this.saannot.put(Saanto.PELAAJAT, pelaajat);
     }
     
@@ -62,5 +62,41 @@ public class Saannot {
 
     public Map<Saanto, Object> haeSaannot() {
         return saannot;
+    }
+    
+    public int haeKentanLeveys() {
+        return haeKentanKoko().get(Saanto.KENTAN_LEVEYS);
+    }
+    
+    public int haeKentanKorkeus() {
+        return haeKentanKoko().get(Saanto.KENTAN_KORKEUS);
+    }
+    // REFAKTOROI NÄMÄ!!!!
+    // Kokorajoitteet HashMap<EnumSaanto, HashMap<EnumMinMax, Integer>>
+    private Integer tarkistettuKentanSivunPituus(int sivunPituus) {
+        int min = Kokorajoitteet.kentanSivunVahimmaispituus();
+        int max = Kokorajoitteet.kentanSivunEnimmaispituus();
+        
+        if (sivunPituus < min) return min;
+        else if (sivunPituus > max) return max;
+        else return sivunPituus;
+    }
+    
+    private Integer tarkistettuPelaajienMaara(int maara) {
+        int min = Kokorajoitteet.pelaajienVahimmaismaara();
+        int max = Kokorajoitteet.pelaajienEnimmaismaara();
+        
+        if (maara < min) return min;
+        else if (maara > max) return max;
+        else return maara;
+    }
+    
+    private Integer tarkistettuAlustenMaara(int maara) {
+        int min = Kokorajoitteet.alustenVahimmaismaara();
+        int max = Kokorajoitteet.alustenVahimmaismaara();
+        
+        if (maara < min) return min;
+        else if (maara > max) return max;
+        else return maara;
     }
 }

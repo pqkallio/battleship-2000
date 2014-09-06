@@ -63,14 +63,14 @@ public class PelaajaTest {
     @Test
     public void pelaajanPelikentanKorkeusOnSamaKuinSaannoissaMaaritetty() {
         int pelaajanKentanKorkeus = this.ihminen.haePelikentta().haeKorkeus();
-        int saantojenKentanKorkeus = (int)this.saannot.haeKentanKoko().get("y");
+        int saantojenKentanKorkeus = this.saannot.haeKentanKorkeus();
         assertEquals(saantojenKentanKorkeus, pelaajanKentanKorkeus);
     }
     
     @Test
     public void pelaajanPelikentanLeveysOnSamaKuinSaannoissaMaaritetty() {
         int pelaajanKentanLeveys = this.ihminen.haePelikentta().haeLeveys();
-        int saantojenKentanLeveys = (int)this.saannot.haeKentanKoko().get("x");
+        int saantojenKentanLeveys = this.saannot.haeKentanLeveys();
         assertEquals(saantojenKentanLeveys, pelaajanKentanLeveys);
     }
     
