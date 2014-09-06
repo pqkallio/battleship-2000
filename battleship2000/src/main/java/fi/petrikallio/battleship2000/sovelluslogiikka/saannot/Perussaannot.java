@@ -25,12 +25,7 @@ public class Perussaannot extends Saannot {
     private void alukset() {
         List<Alustyyppi> alukset = new ArrayList<>();
         Collections.addAll(alukset, alustyypit);
-        
-        try {
-            super.asetaAlukset(alukset);
-        } catch (InstantiationException | IllegalAccessException e) {
-            System.out.println(e.getClass() + ": " + e.getLocalizedMessage());
-        }
+        super.asetaAlukset(alukset);
     }
 
     private void pelaajat(boolean tietokonettaVastaan) {
@@ -44,10 +39,7 @@ public class Perussaannot extends Saannot {
             pelaajat.add(Pelaajatyyppi.IHMINEN);
         }
         
-        try {
-            super.asetaPelaajat(pelaajat);
-        } catch (InstantiationException | IllegalAccessException e) {
-            System.out.println(e.getClass() + ": " + e.getLocalizedMessage());
-        }
+        super.asetaPelaajat(pelaajat);
+        
     }
 }

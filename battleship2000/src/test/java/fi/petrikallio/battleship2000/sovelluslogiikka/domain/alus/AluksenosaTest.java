@@ -75,13 +75,13 @@ public class AluksenosaTest {
     
     @Test
     public void uudenAluksenosanBooleanEhjaOnTrue() {
-        assertTrue(this.osa.onkoEhja());
+        assertTrue(this.osa.onEhja());
     }
     
     @Test
     public void kunAluksenosaanOsuuPalauttaaOnkoEhjaMetodiFalse() {
         this.osa.osuma();
-        assertFalse(this.osa.onkoEhja());
+        assertFalse(this.osa.onEhja());
     }
     
     @Test
@@ -176,5 +176,78 @@ public class AluksenosaTest {
         }
         
         assertTrue(kaikkiHyvin);
+    }
+    
+    @Test
+    public void kunAlusLuodaanOnAluksenPaaMetodiPalauttaaFalse() {
+        assertFalse(this.osa.onAluksenPaa());
+    }
+    
+    @Test
+    public void aluksenosanOllessaAluksenPaaPalauttaaMetodiTrue() {
+        this.osa.asetaAluksenPaa(true);
+        assertTrue(this.osa.onAluksenPaa());
+    }
+    
+    @Test
+    public void kunAsetaAluksenPaaMetodilleAnetaanArvoksiFalsePalauttaaMetodiOnAluksenPaaFalsen() {
+        this.osa.asetaAluksenPaa(true);
+        this.osa.asetaAluksenPaa(false);
+        assertFalse(this.osa.onAluksenPaa());
+    }
+    
+    @Test
+    public void kunAlusLuodaanOnAluksenPeraMetodiPalauttaaFalse() {
+        assertFalse(this.osa.onAluksenPera());
+    }
+    
+    @Test
+    public void aluksenosanOllessaAluksenPeraPalauttaaMetodiTrue() {
+        this.osa.asetaAluksenPera(true);
+        assertTrue(this.osa.onAluksenPera());
+    }
+    
+    @Test
+    public void kunAsetaAluksenPeraMetodilleAnetaanArvoksiFalsePalauttaaMetodiOnAluksenPeraFalsen() {
+        this.osa.asetaAluksenPera(true);
+        this.osa.asetaAluksenPera(false);
+        assertFalse(this.osa.onAluksenPera());
+    }
+    
+    @Test
+    public void josOsalleAsettaaNegatiivisenSijainninAsettuuSijainniksiNolla() {
+        boolean kaikkiHyvin = false;
+        this.osa.asetaSijainti(-1, -1);
+        
+        if (this.osa.getX() == 0 && this.osa.getY() == 0) {
+            kaikkiHyvin = true;
+        }
+        
+        assertTrue(kaikkiHyvin);
+    }
+    
+    @Test
+    public void josOsalleAsettaaSijainninYliPelikentanEnimmaisKoonAsettuuSijainniksiMaksimiMiinusYksi() {
+        boolean kaikkiHyvin = false;
+        this.osa.asetaSijainti(Kokorajoitteet.kentanSivunEnimmaispituus(), 
+                Kokorajoitteet.kentanSivunEnimmaispituus());
+        
+        if (this.osa.getX() == Kokorajoitteet.kentanSivunEnimmaispituus() - 1 
+                && this.osa.getY() == Kokorajoitteet.kentanSivunEnimmaispituus() - 1) {
+            kaikkiHyvin = true;
+        }
+        
+        assertTrue(kaikkiHyvin);
+    }
+    
+    @Test
+    public void metodiOnTuhottuPalauttaaFalseJosOnEhjaPalauttaaTrue() {
+        assertFalse(this.osa.onTuhottu());
+    }
+    
+    @Test
+    public void metodiOnTuhottuPalauttaaTrueJosOnEhjaPalauuttaaFalse() {
+        this.osa.osuma();
+        assertTrue(this.osa.onTuhottu());
     }
 }
