@@ -71,13 +71,13 @@ public class Aluksenosa implements Liikkuva, Osuttava {
     @Override
     public void liiku() {}
 
-    private int tarkastettuSijaintiX(int sijainti) {
-        int max = emoalus.getPelikentta().haeLeveys() - 1;
-        
-        if (sijainti < 0) return 0;
-        else if (sijainti > max) return max;
-        else return sijainti;
-    }
+//    private int tarkastettuSijaintiX(int sijainti) {
+//        int max = emoalus.getPelikentta().haeLeveys() - 1;
+//        
+//        if (sijainti < 0) return 0;
+//        else if (sijainti > max) return max;
+//        else return sijainti;
+//    }
 
     @Override
     public boolean onTuhottu() {
@@ -88,11 +88,11 @@ public class Aluksenosa implements Liikkuva, Osuttava {
         return emoalus;
     }
 
-    private int tarkastettuSijaintiY(int sijainti) {
-        int max = emoalus.getPelikentta().haeKorkeus()- 1;
-        
-        if (sijainti < 0) return 0;
-        else if (sijainti > max) return max;
-        else return sijainti;
-    }
+//    private int tarkastettuSijaintiY(int sijainti) {
+//        int max = emoalus.getPelikentta().haeKorkeus()- 1;
+//        
+//        if (sijainti < 0) return 0;
+//        else if (sijainti > max) return max;
+//        else return sijainti;
+//    }
 }

@@ -47,35 +47,35 @@ public class AluksenosaTest {
         assertEquals(0, this.osa.getY());
     }
     
-    @Test
-    public void uudenAluksenosanXEiVoiOllaNegatiivinen() {
-        Aluksenosa osa2 = new Aluksenosa();
-        osa2.asetaSijainti(-1, -1);
-        assertEquals(0, osa2.getX());
-    }
+//    @Test
+//    public void uudenAluksenosanXEiVoiOllaNegatiivinen() {
+//        Aluksenosa osa2 = new Aluksenosa();
+//        osa2.asetaSijainti(-1, -1);
+//        assertEquals(0, osa2.getX());
+//    }
     
-    @Test
-    public void uudenAluksenosanYEiVoiOllaNegatiivinen() {
-        Aluksenosa osa2 = new Aluksenosa();
-        osa2.asetaSijainti(-1, -1);
-        assertEquals(0, osa2.getY());
-    }
+//    @Test
+//    public void uudenAluksenosanYEiVoiOllaNegatiivinen() {
+//        Aluksenosa osa2 = new Aluksenosa();
+//        osa2.asetaSijainti(-1, -1);
+//        assertEquals(0, osa2.getY());
+//    }
     
-    @Test
-    public void uudenAluksenosanXEiVoiOllaEnemmanKuinKentanEnimmaisX() {
-        int maxPlusYksi = Kokorajoitteet.kentanSivunEnimmaispituus();
-        Aluksenosa osa2 = new Aluksenosa();
-        osa2.asetaSijainti(maxPlusYksi, maxPlusYksi);
-        assertEquals(maxPlusYksi - 1, osa2.getX());
-    }
+//    @Test
+//    public void uudenAluksenosanXEiVoiOllaEnemmanKuinKentanEnimmaisX() {
+//        int maxPlusYksi = Kokorajoitteet.kentanSivunEnimmaispituus();
+//        Aluksenosa osa2 = new Aluksenosa();
+//        osa2.asetaSijainti(maxPlusYksi, maxPlusYksi);
+//        assertEquals(maxPlusYksi - 1, osa2.getX());
+//    }
     
-    @Test
-    public void uudenAluksenosanYEiVoiOllaEnemmanKuinKentanEnimmaisY() {
-        int maxPlusYksi = Kokorajoitteet.kentanSivunEnimmaispituus();
-        Aluksenosa osa2 = new Aluksenosa();
-        osa2.asetaSijainti(maxPlusYksi, maxPlusYksi);
-        assertEquals(maxPlusYksi - 1, osa2.getY());
-    }
+//    @Test
+//    public void uudenAluksenosanYEiVoiOllaEnemmanKuinKentanEnimmaisY() {
+//        int maxPlusYksi = Kokorajoitteet.kentanSivunEnimmaispituus();
+//        Aluksenosa osa2 = new Aluksenosa();
+//        osa2.asetaSijainti(maxPlusYksi, maxPlusYksi);
+//        assertEquals(maxPlusYksi - 1, osa2.getY());
+//    }
     
     @Test
     public void uudenAluksenosanBooleanEhjaOnTrue() {
@@ -116,31 +116,31 @@ public class AluksenosaTest {
         assertEquals(0, this.osa.getY());
     }
     
-    @Test
-    public void aluksenosaanLiikutetaanXAkselillaPositiivisellaArvollaKentanRajanYliJaXPaivittyyOikein() {
-        int maxPlusYksi = Kokorajoitteet.kentanSivunEnimmaispituus();
-        this.osa.liiku(maxPlusYksi, 0);
-        assertEquals(Kokorajoitteet.kentanSivunEnimmaispituus()-1, this.osa.getX());
-    }
+//    @Test
+//    public void aluksenosaanLiikutetaanXAkselillaPositiivisellaArvollaKentanRajanYliJaXPaivittyyOikein() {
+//        int maxPlusYksi = Kokorajoitteet.kentanSivunEnimmaispituus();
+//        this.osa.liiku(maxPlusYksi, 0);
+//        assertEquals(Kokorajoitteet.kentanSivunEnimmaispituus()-1, this.osa.getX());
+//    }
     
-    @Test
-    public void aluksenosaaLiikutetaanXAkselillaNegatiiviseenArvoonJaXEiAlitaNollaa() {
-        this.osa.liiku(-1, 0);
-        assertEquals(0, this.osa.getX());
-    }
+//    @Test
+//    public void aluksenosaaLiikutetaanXAkselillaNegatiiviseenArvoonJaXEiAlitaNollaa() {
+//        this.osa.liiku(-1, 0);
+//        assertEquals(0, this.osa.getX());
+//    }
     
-    @Test
-    public void aluksenosaanLiikutetaanYAkselillaPositiivisellaArvollaKentanRajanYliJaYPaivittyyOikein() {
-        int maxPlusYksi = Kokorajoitteet.kentanSivunEnimmaispituus();
-        this.osa.liiku(0, maxPlusYksi);
-        assertEquals(Kokorajoitteet.kentanSivunEnimmaispituus()-1, this.osa.getY());
-    }
+//    @Test
+//    public void aluksenosaanLiikutetaanYAkselillaPositiivisellaArvollaKentanRajanYliJaYPaivittyyOikein() {
+//        int maxPlusYksi = Kokorajoitteet.kentanSivunEnimmaispituus();
+//        this.osa.liiku(0, maxPlusYksi);
+//        assertEquals(Kokorajoitteet.kentanSivunEnimmaispituus()-1, this.osa.getY());
+//    }
     
-    @Test
-    public void aluksenosaaLiikutetaanYAkselillaNegatiiviseenArvoonJaYEiAlitaNollaa() {
-        this.osa.liiku(0, -1);
-        assertEquals(0, this.osa.getX());
-    }
+//    @Test
+//    public void aluksenosaaLiikutetaanYAkselillaNegatiiviseenArvoonJaYEiAlitaNollaa() {
+//        this.osa.liiku(0, -1);
+//        assertEquals(0, this.osa.getX());
+//    }
     
     @Test
     public void aluksenosaanLiikutetaanXAkselillaNollaJaXPysyySamana() {
@@ -219,31 +219,31 @@ public class AluksenosaTest {
         assertFalse(this.osa.onAluksenPaa());
     }
     
-    @Test
-    public void josOsalleAsettaaNegatiivisenSijainninAsettuuSijainniksiNolla() {
-        boolean kaikkiHyvin = false;
-        this.osa.asetaSijainti(-1, -1);
-        
-        if (this.osa.getX() == 0 && this.osa.getY() == 0) {
-            kaikkiHyvin = true;
-        }
-        
-        assertTrue(kaikkiHyvin);
-    }
+//    @Test
+//    public void josOsalleAsettaaNegatiivisenSijainninAsettuuSijainniksiNolla() {
+//        boolean kaikkiHyvin = false;
+//        this.osa.asetaSijainti(-1, -1);
+//        
+//        if (this.osa.getX() == 0 && this.osa.getY() == 0) {
+//            kaikkiHyvin = true;
+//        }
+//        
+//        assertTrue(kaikkiHyvin);
+//    }
     
-    @Test
-    public void josOsalleAsettaaSijainninYliPelikentanEnimmaisKoonAsettuuSijainniksiMaksimiMiinusYksi() {
-        boolean kaikkiHyvin = false;
-        this.osa.asetaSijainti(Kokorajoitteet.kentanSivunEnimmaispituus(), 
-                Kokorajoitteet.kentanSivunEnimmaispituus());
-        
-        if (this.osa.getX() == Kokorajoitteet.kentanSivunEnimmaispituus() - 1 
-                && this.osa.getY() == Kokorajoitteet.kentanSivunEnimmaispituus() - 1) {
-            kaikkiHyvin = true;
-        }
-        
-        assertTrue(kaikkiHyvin);
-    }
+//    @Test
+//    public void josOsalleAsettaaSijainninYliPelikentanEnimmaisKoonAsettuuSijainniksiMaksimiMiinusYksi() {
+//        boolean kaikkiHyvin = false;
+//        this.osa.asetaSijainti(Kokorajoitteet.kentanSivunEnimmaispituus(), 
+//                Kokorajoitteet.kentanSivunEnimmaispituus());
+//        
+//        if (this.osa.getX() == Kokorajoitteet.kentanSivunEnimmaispituus() - 1 
+//                && this.osa.getY() == Kokorajoitteet.kentanSivunEnimmaispituus() - 1) {
+//            kaikkiHyvin = true;
+//        }
+//        
+//        assertTrue(kaikkiHyvin);
+//    }
     
     @Test
     public void metodiOnTuhottuPalauttaaFalseJosOnEhjaPalauttaaTrue() {

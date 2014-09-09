@@ -1,0 +1,190 @@
+<html>
+<head>
+  
+    <style type='text/css'>
+   
+   .tests{ 
+     width : 50%;
+     float : left;
+   }
+   
+   .mutees{
+     float : right;
+     width : 50%;
+   }
+   
+   .unit {
+     padding-top : 20px;
+     clear : both;
+   }
+   
+   .coverage_bar {
+    display : inline-block;
+    height : 1.1em;
+    width: 130px;
+    background: #FAA;
+    margin: 0 5px;
+    vertical-align: middle;
+    border: 1px solid #AAA;
+    position : relative;
+   }
+   
+   .coverage_complete {
+    display : inline-block;
+    height : 100%;
+    background: #DFD;
+    float: left;
+   }
+   
+   .coverage_ledgend {
+        position : absolute;
+        height : 100%;
+        width : 100%;
+        left : 0;
+        top : 0;
+        text-align : center;
+   }
+   
+   .line, .mut {
+        vertical-align : middle;
+   }
+   
+   .coveragePercentage {
+    display: inline-block;
+    width: 3em;
+    text-align: right;
+   }
+  </style>
+  
+</head>
+<body>
+
+<h1>Pit Test Coverage Report</h1>
+
+<h3>Project Summary</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Number of Classes</th>
+            <th>Line Coverage</th>
+            <th>Mutation Coverage</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>27</td>
+            <td>61% <div class="coverage_bar"><div class="coverage_complete" style="width:61%"></div><div class="coverage_ledgend">332/546</div></div></td>
+            <td>46% <div class="coverage_bar"><div class="coverage_complete" style="width:46%"></div><div class="coverage_ledgend">167/365</div></div></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h3>Breakdown by Package</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Number of Classes</th>
+            <th>Line Coverage</th>
+            <th>Mutation Coverage</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td><a href="./fi.petrikallio.battleship2000/index.html">fi.petrikallio.battleship2000</a></td>
+            <td>1</td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/7</div></div></td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/3</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./fi.petrikallio.battleship2000.sovelluslogiikka/index.html">fi.petrikallio.battleship2000.sovelluslogiikka</a></td>
+            <td>1</td>
+            <td><div class="coveragePercentage">43% </div><div class="coverage_bar"><div class="coverage_complete" style="width:43%"></div><div class="coverage_ledgend">18/42</div></div></td>
+            <td><div class="coveragePercentage">15% </div><div class="coverage_bar"><div class="coverage_complete" style="width:15%"></div><div class="coverage_ledgend">3/20</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./fi.petrikallio.battleship2000.sovelluslogiikka.domain.alus/index.html">fi.petrikallio.battleship2000.sovelluslogiikka.domain.alus</a></td>
+            <td>9</td>
+            <td><div class="coveragePercentage">92% </div><div class="coverage_bar"><div class="coverage_complete" style="width:92%"></div><div class="coverage_ledgend">173/188</div></div></td>
+            <td><div class="coveragePercentage">71% </div><div class="coverage_bar"><div class="coverage_complete" style="width:71%"></div><div class="coverage_ledgend">109/153</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./fi.petrikallio.battleship2000.sovelluslogiikka.domain.pelaaja/index.html">fi.petrikallio.battleship2000.sovelluslogiikka.domain.pelaaja</a></td>
+            <td>4</td>
+            <td><div class="coveragePercentage">25% </div><div class="coverage_bar"><div class="coverage_complete" style="width:25%"></div><div class="coverage_ledgend">28/110</div></div></td>
+            <td><div class="coveragePercentage">12% </div><div class="coverage_bar"><div class="coverage_complete" style="width:12%"></div><div class="coverage_ledgend">7/59</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./fi.petrikallio.battleship2000.sovelluslogiikka.domain.pelikentta/index.html">fi.petrikallio.battleship2000.sovelluslogiikka.domain.pelikentta</a></td>
+            <td>2</td>
+            <td><div class="coveragePercentage">62% </div><div class="coverage_bar"><div class="coverage_complete" style="width:62%"></div><div class="coverage_ledgend">29/47</div></div></td>
+            <td><div class="coveragePercentage">30% </div><div class="coverage_bar"><div class="coverage_complete" style="width:30%"></div><div class="coverage_ledgend">15/50</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./fi.petrikallio.battleship2000.sovelluslogiikka.domain.pistelasku/index.html">fi.petrikallio.battleship2000.sovelluslogiikka.domain.pistelasku</a></td>
+            <td>1</td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/8</div></div></td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/1</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./fi.petrikallio.battleship2000.sovelluslogiikka.ohjaus/index.html">fi.petrikallio.battleship2000.sovelluslogiikka.ohjaus</a></td>
+            <td>2</td>
+            <td><div class="coveragePercentage">60% </div><div class="coverage_bar"><div class="coverage_complete" style="width:60%"></div><div class="coverage_ledgend">28/47</div></div></td>
+            <td><div class="coveragePercentage">45% </div><div class="coverage_bar"><div class="coverage_complete" style="width:45%"></div><div class="coverage_ledgend">9/20</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./fi.petrikallio.battleship2000.sovelluslogiikka.saannot/index.html">fi.petrikallio.battleship2000.sovelluslogiikka.saannot</a></td>
+            <td>3</td>
+            <td><div class="coveragePercentage">79% </div><div class="coverage_bar"><div class="coverage_complete" style="width:79%"></div><div class="coverage_ledgend">56/71</div></div></td>
+            <td><div class="coveragePercentage">51% </div><div class="coverage_bar"><div class="coverage_complete" style="width:51%"></div><div class="coverage_ledgend">24/47</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./fi.petrikallio.battleship2000.ui/index.html">fi.petrikallio.battleship2000.ui</a></td>
+            <td>1</td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/9</div></div></td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/5</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./fi.petrikallio.battleship2000.ui.ohjausluokat/index.html">fi.petrikallio.battleship2000.ui.ohjausluokat</a></td>
+            <td>1</td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/7</div></div></td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/1</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./fi.petrikallio.battleship2000.ui.pages/index.html">fi.petrikallio.battleship2000.ui.pages</a></td>
+            <td>1</td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/7</div></div></td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/2</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./fi.petrikallio.battleship2000.util/index.html">fi.petrikallio.battleship2000.util</a></td>
+            <td>1</td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/3</div></div></td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/4</div></div></td>
+        </tr>
+
+     </tbody>
+</table>
+<br/>
+
+
+
+<hr/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 0.30
+
+</body>
+</html>
