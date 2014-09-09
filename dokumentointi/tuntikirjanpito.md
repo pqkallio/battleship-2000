@@ -11,4 +11,10 @@
 |Testien kirjoittamista, luokkien parantelua|  3h   |
 |**6.9.2014**           |      |
 |Testien kirjoittamista, luokkien parantelua|  3h   |
-|**YHTEENSÄ**            |**approx.15.5h**      |
+|**7.9.2014**          |       |
+|Testien kirjoittamista, luokkien parantelua|  3h   |
+|**8.9.2014**          |           |
+|Alusten asettelun testaamista, korjauksia |   2h  |
+|**9.9.2014**             |             |
+|Alusten asettelun ongelmaratkaisua, korjauksia | 2h   |
+|**YHTEENSÄ**            |**approx. 22.5 h**      |
