@@ -20,6 +20,7 @@ public class Perussaannot extends Saannot {
         super.asetaKentanKoko(10, 10);
         super.asetaLiikkumissaanto(false);
         super.asetaAlustenErikoistoiminnot(false);
+        super.asetaRuutuaVoiPommittaaUseastiSaanto(false);
     }
 
     private void alukset() {

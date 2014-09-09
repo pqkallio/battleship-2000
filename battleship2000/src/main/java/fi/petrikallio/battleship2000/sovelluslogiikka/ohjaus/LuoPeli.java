@@ -10,7 +10,6 @@ import fi.petrikallio.battleship2000.sovelluslogiikka.domain.pelikentta.Pelikent
 import fi.petrikallio.battleship2000.sovelluslogiikka.saannot.Saannot;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class LuoPeli implements Ohjausluokka {
     private Saannot saannot;
@@ -31,6 +30,7 @@ public class LuoPeli implements Ohjausluokka {
         
         peli.asetaAluksetLiikkuvat(this.saannot.liikkuvatkoAlukset());
         peli.asetaAlustenErikoistoiminnot(this.saannot.aluksillaErikoistoiminnot());
+        peli.asetaRuutuaVoiPommittaaUseasti(this.saannot.ruutuaVoiPommittaaUseasti());
         
         return peli;
     }
@@ -40,19 +40,21 @@ public class LuoPeli implements Ohjausluokka {
         
         for (Pelaajatyyppi tyyppi : this.saannot.haePelaajatyypit()) {
             Pelaaja pelaaja = (Pelaaja) tyyppi.haeLuokka().newInstance();
-            pelaaja.asetaAlukset(lisaaPelaajalleAlukset());
             pelaaja.asetaPelikentta(lisaaPelaajallePelikentta());
+            pelaaja.asetaAlukset(lisaaPelaajalleAlukset(pelaaja));
             pelaajat.add(pelaaja);
         }
         
         return pelaajat;
     }
 
-    private List<Alus> lisaaPelaajalleAlukset() throws InstantiationException, IllegalAccessException {
+    private List<Alus> lisaaPelaajalleAlukset(Pelaaja pelaaja) throws InstantiationException, IllegalAccessException {
         List<Alus> pelaajanAlukset = new ArrayList<>();
         
         for (Alustyyppi tyyppi : this.saannot.haeAlustyypit()) {
-            pelaajanAlukset.add((Alus)tyyppi.haeLuokka().newInstance());
+            Alus lisattava = (Alus)tyyppi.haeLuokka().newInstance();
+            lisattava.setPelikentta(pelaaja.haePelikentta());
+            pelaajanAlukset.add(lisattava);
         }
         
         return pelaajanAlukset;

@@ -1,26 +1,30 @@
 
 package fi.petrikallio.battleship2000.sovelluslogiikka.domain.alus;
 
-import fi.petrikallio.battleship2000.sovelluslogiikka.saannot.Kokorajoitteet;
-
 public class Aluksenosa implements Liikkuva, Osuttava {
+    private Alus emoalus;
     private int x;
     private int y;
     private boolean ehja;
     private boolean aluksenPaa;
     private boolean aluksenPera;
     
-    public Aluksenosa(int x, int y) {
-        this.x = tarkastettuSijainti(x);
-        this.y = tarkastettuSijainti(y);
+    public Aluksenosa(Alus emoalus) {
         this.ehja = true;
         this.aluksenPaa = false;
         this.aluksenPera = false;
+        this.emoalus = emoalus;
+        this.x = 0;
+        this.y = 0;
+    }
+    
+    public Aluksenosa() {
+        this(null);
     }
     
     public void asetaSijainti(int x, int y) {
-        this.x = tarkastettuSijainti(x);
-        this.y = tarkastettuSijainti(y);
+        this.x = x;
+        this.y = y;
     }
     
     public void osuma() {
@@ -32,12 +36,14 @@ public class Aluksenosa implements Liikkuva, Osuttava {
         return ehja;
     }
 
-    public void asetaAluksenPaa(boolean aluksenPaa) {
-        this.aluksenPaa = aluksenPaa;
+    public void asetaAluksenPaa() {
+        this.aluksenPaa = true;
+        this.aluksenPera = false;
     }
 
-    public void asetaAluksenPera(boolean aluksenPera) {
-        this.aluksenPera = aluksenPera;
+    public void asetaAluksenPera() {
+        this.aluksenPaa = false;
+        this.aluksenPera = true;
     }
     
     public boolean onAluksenPaa() {
@@ -58,15 +64,15 @@ public class Aluksenosa implements Liikkuva, Osuttava {
 
     @Override
     public void liiku(int dx, int dy) {
-        asetaSijainti(tarkastettuSijainti(this.x + dx),
-                this.y = tarkastettuSijainti(this.y + dy));
+        asetaSijainti(this.x + dx,
+                this.y + dy);
     }
 
     @Override
     public void liiku() {}
 
-    private int tarkastettuSijainti(int sijainti) {
-        int max = Kokorajoitteet.kentanSivunEnimmaispituus() - 1;
+    private int tarkastettuSijaintiX(int sijainti) {
+        int max = emoalus.getPelikentta().haeLeveys() - 1;
         
         if (sijainti < 0) return 0;
         else if (sijainti > max) return max;
@@ -76,5 +82,17 @@ public class Aluksenosa implements Liikkuva, Osuttava {
     @Override
     public boolean onTuhottu() {
         return !this.ehja;
+    }
+
+    public Alus getEmoalus() {
+        return emoalus;
+    }
+
+    private int tarkastettuSijaintiY(int sijainti) {
+        int max = emoalus.getPelikentta().haeKorkeus()- 1;
+        
+        if (sijainti < 0) return 0;
+        else if (sijainti > max) return max;
+        else return sijainti;
     }
 }

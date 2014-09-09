@@ -2,7 +2,6 @@
 package fi.petrikallio.battleship2000.sovelluslogiikka.domain.alus;
 
 import fi.petrikallio.battleship2000.sovelluslogiikka.saannot.Kokorajoitteet;
-import fi.petrikallio.battleship2000.util.Kokonaislukutyokalut;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -30,7 +29,8 @@ public class AluksenosaTest {
     
     @Before
     public void setUp() {
-        this.osa = new Aluksenosa(0, 0);
+        this.osa = new Aluksenosa();
+        this.osa.asetaSijainti(0, 0);
     }
     
     @After
@@ -49,27 +49,31 @@ public class AluksenosaTest {
     
     @Test
     public void uudenAluksenosanXEiVoiOllaNegatiivinen() {
-        Aluksenosa osa2 = new Aluksenosa(-1, -1);
+        Aluksenosa osa2 = new Aluksenosa();
+        osa2.asetaSijainti(-1, -1);
         assertEquals(0, osa2.getX());
     }
     
     @Test
     public void uudenAluksenosanYEiVoiOllaNegatiivinen() {
-        Aluksenosa osa2 = new Aluksenosa(-1, -1);
+        Aluksenosa osa2 = new Aluksenosa();
+        osa2.asetaSijainti(-1, -1);
         assertEquals(0, osa2.getY());
     }
     
     @Test
     public void uudenAluksenosanXEiVoiOllaEnemmanKuinKentanEnimmaisX() {
         int maxPlusYksi = Kokorajoitteet.kentanSivunEnimmaispituus();
-        Aluksenosa osa2 = new Aluksenosa(maxPlusYksi, maxPlusYksi);
+        Aluksenosa osa2 = new Aluksenosa();
+        osa2.asetaSijainti(maxPlusYksi, maxPlusYksi);
         assertEquals(maxPlusYksi - 1, osa2.getX());
     }
     
     @Test
     public void uudenAluksenosanYEiVoiOllaEnemmanKuinKentanEnimmaisY() {
         int maxPlusYksi = Kokorajoitteet.kentanSivunEnimmaispituus();
-        Aluksenosa osa2 = new Aluksenosa(maxPlusYksi, maxPlusYksi);
+        Aluksenosa osa2 = new Aluksenosa();
+        osa2.asetaSijainti(maxPlusYksi, maxPlusYksi);
         assertEquals(maxPlusYksi - 1, osa2.getY());
     }
     
@@ -92,7 +96,8 @@ public class AluksenosaTest {
     
     @Test
     public void aluksenosaanLiikutetaanXAkselillaNegatiivisellaArvollaJaXPaivittyyOikein() {
-        Aluksenosa osa2 = new Aluksenosa(1, 1);
+        Aluksenosa osa2 = new Aluksenosa();
+        osa2.asetaSijainti(1, 1);
         osa2.liiku(-1, 0);
         assertEquals(0, this.osa.getX());
     }
@@ -105,7 +110,8 @@ public class AluksenosaTest {
     
     @Test
     public void aluksenosaanLiikutetaanYAkselillaNegatiivisellaArvollaJaYPaivittyyOikein() {
-        Aluksenosa osa2 = new Aluksenosa(1, 1);
+        Aluksenosa osa2 = new Aluksenosa();
+        osa2.asetaSijainti(1, 1);
         osa2.liiku(0, -1);
         assertEquals(0, this.osa.getY());
     }
@@ -184,17 +190,17 @@ public class AluksenosaTest {
     }
     
     @Test
-    public void aluksenosanOllessaAluksenPaaPalauttaaMetodiTrue() {
-        this.osa.asetaAluksenPaa(true);
+    public void aluksenosanOllessaAluksenPaaPalauttaaOnAluksenPaaMetodiTrue() {
+        this.osa.asetaAluksenPaa();
         assertTrue(this.osa.onAluksenPaa());
     }
     
     @Test
-    public void kunAsetaAluksenPaaMetodilleAnetaanArvoksiFalsePalauttaaMetodiOnAluksenPaaFalsen() {
-        this.osa.asetaAluksenPaa(true);
-        this.osa.asetaAluksenPaa(false);
-        assertFalse(this.osa.onAluksenPaa());
+    public void aluksenosanOllessaAluksenPaaPalauttaaOnAluksenPeraMetodiFalse() {
+        this.osa.asetaAluksenPaa();
+        assertFalse(this.osa.onAluksenPera());
     }
+    
     
     @Test
     public void kunAlusLuodaanOnAluksenPeraMetodiPalauttaaFalse() {
@@ -202,16 +208,15 @@ public class AluksenosaTest {
     }
     
     @Test
-    public void aluksenosanOllessaAluksenPeraPalauttaaMetodiTrue() {
-        this.osa.asetaAluksenPera(true);
+    public void aluksenosanOllessaAluksenPeraPalauttaaOnAluksenPeraMetodiTrue() {
+        this.osa.asetaAluksenPera();
         assertTrue(this.osa.onAluksenPera());
     }
     
     @Test
-    public void kunAsetaAluksenPeraMetodilleAnetaanArvoksiFalsePalauttaaMetodiOnAluksenPeraFalsen() {
-        this.osa.asetaAluksenPera(true);
-        this.osa.asetaAluksenPera(false);
-        assertFalse(this.osa.onAluksenPera());
+    public void aluksenosanOllessaAluksenPeraPalauttaaOnAluksenPaaMetodiFalse() {
+        this.osa.asetaAluksenPera();
+        assertFalse(this.osa.onAluksenPaa());
     }
     
     @Test

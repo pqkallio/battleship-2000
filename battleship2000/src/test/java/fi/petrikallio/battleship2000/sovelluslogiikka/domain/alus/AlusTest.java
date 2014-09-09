@@ -1,6 +1,7 @@
 
 package fi.petrikallio.battleship2000.sovelluslogiikka.domain.alus;
 
+import fi.petrikallio.battleship2000.sovelluslogiikka.domain.pelikentta.Pelikentta;
 import fi.petrikallio.battleship2000.sovelluslogiikka.saannot.Kokorajoitteet;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -15,6 +16,8 @@ import static org.junit.Assert.*;
  */
 public class AlusTest {
     private Alus alus;
+    private Aluksenosa[] aluksenosat;
+    private Pelikentta kentta;
     
     public AlusTest() {
     }
@@ -30,7 +33,10 @@ public class AlusTest {
     
     @Before
     public void setUp() {
-        this.alus = new Alus(1);
+        this.alus = new Alus(4);
+        this.kentta = new Pelikentta(10, 10);
+        this.alus.setPelikentta(kentta);
+        this.aluksenosat = this.alus.getOsat();
     }
     
     @After
@@ -40,30 +46,35 @@ public class AlusTest {
     @Test
     public void luodunAluksenJonkaPituudeksiAnnetaanMinimiPituusPituusOnOikein() {
         Alus minimiPituusAlus = new Alus(Kokorajoitteet.aluksenVahimmaispituus());
+        minimiPituusAlus.setPelikentta(kentta);
         assertEquals(Kokorajoitteet.aluksenVahimmaispituus(), minimiPituusAlus.getAluksenPituus());
     }
     
     @Test
     public void aluksenPituusEiVoiOllaNolla() {
         Alus tyhjaAlus = new Alus(0);
+        tyhjaAlus.setPelikentta(kentta);
         assertEquals(Kokorajoitteet.aluksenVahimmaispituus(), tyhjaAlus.getAluksenPituus());
     }
     
     @Test
     public void aluksenPituusEiVoiOllaNegatiivinen() {
         Alus tyhjaAlus = new Alus(-1);
+        tyhjaAlus.setPelikentta(kentta);
         assertEquals(Kokorajoitteet.aluksenVahimmaispituus(), tyhjaAlus.getAluksenPituus());
     }
     
     @Test
     public void alusVoiOllaaEnimmaismittainen() {
         Alus isoAlus = new Alus(Kokorajoitteet.aluksenEnimmaispituus());
+        isoAlus.setPelikentta(kentta);
         assertEquals(Kokorajoitteet.aluksenEnimmaispituus(), isoAlus.getAluksenPituus());
     }
     
     @Test
     public void aluksenPituusEiVoiYlittaaEnimmaismittaa() {
         Alus isoAlus = new Alus(Kokorajoitteet.aluksenEnimmaispituus() + 1);
+        isoAlus.setPelikentta(kentta);
         assertEquals(Kokorajoitteet.aluksenEnimmaispituus(), isoAlus.getAluksenPituus());
     }
     
@@ -162,47 +173,128 @@ public class AlusTest {
     public void getMahdollisetSuunnatPalauttaaArrayListinJossaOnNeljaPaailmansuuntaa() {
         assertEquals(4, this.alus.getMahdollisetSuunnat().size());
     }
+ 
+    // REFAKTOROI!!
     
     @Test
     public void intParametritSaavaLiikuMetodiLiikuttaaKaikkiaAluksenOsiaSamanVerranSamaanSuuntaan() {
         boolean kaikkiHyvin = true;
         int dx = 2;
         int dy = 3;
-        Alus alus2 = new Alus(4);
         
-        int ensimmaisenOsanX = alus2.getOsat()[0].getX();
-        int ensimmaisenOsanY = alus2.getOsat()[0].getY();
-        int toisenOsanX = alus2.getOsat()[1].getX();
-        int toisenOsanY = alus2.getOsat()[1].getY();
-        int kolmannenOsanX = alus2.getOsat()[2].getX();
-        int kolmannenOsanY = alus2.getOsat()[2].getY();
-        int neljannenOsanX = alus2.getOsat()[3].getX();
-        int neljannenOsanY = alus2.getOsat()[3].getY();
+        int ensimmaisenOsanX = alus.getOsat()[0].getX();
+        int ensimmaisenOsanY = alus.getOsat()[0].getY();
+        int toisenOsanX = alus.getOsat()[1].getX();
+        int toisenOsanY = alus.getOsat()[1].getY();
+        int kolmannenOsanX = alus.getOsat()[2].getX();
+        int kolmannenOsanY = alus.getOsat()[2].getY();
+        int neljannenOsanX = alus.getOsat()[3].getX();
+        int neljannenOsanY = alus.getOsat()[3].getY();
         
-        alus2.liiku(dx, dy);
+        alus.liiku(dx, dy);
         
-        if (!(ensimmaisenOsanX + dx == alus2.getOsat()[0].getX())) {
+        if (!(ensimmaisenOsanX + dx == alus.getOsat()[0].getX())) {
             kaikkiHyvin = false;
         }
-        if (!(toisenOsanX + dx == alus2.getOsat()[1].getX())) {
+        if (!(toisenOsanX + dx == alus.getOsat()[1].getX())) {
             kaikkiHyvin = false;
         }
-        if (!(kolmannenOsanX + dx == alus2.getOsat()[2].getX())) {
+        if (!(kolmannenOsanX + dx == alus.getOsat()[2].getX())) {
             kaikkiHyvin = false;
         }
-        if (!(neljannenOsanX + dx == alus2.getOsat()[3].getX())) {
+        if (!(neljannenOsanX + dx == alus.getOsat()[3].getX())) {
             kaikkiHyvin = false;
         }
-        if (!(ensimmaisenOsanY + dy == alus2.getOsat()[0].getY())) {
+        if (!(ensimmaisenOsanY + dy == alus.getOsat()[0].getY())) {
             kaikkiHyvin = false;
         }
-        if (!(toisenOsanY + dy == alus2.getOsat()[1].getY())) {
+        if (!(toisenOsanY + dy == alus.getOsat()[1].getY())) {
             kaikkiHyvin = false;
         }
-        if (!(kolmannenOsanY + dy == alus2.getOsat()[2].getY())) {
+        if (!(kolmannenOsanY + dy == alus.getOsat()[2].getY())) {
             kaikkiHyvin = false;
         }
-        if (!(neljannenOsanY + dy == alus2.getOsat()[3].getY())) {
+        if (!(neljannenOsanY + dy == alus.getOsat()[3].getY())) {
+            kaikkiHyvin = false;
+        }
+        
+        assertTrue(kaikkiHyvin);
+    }
+    
+    // REFAKTOROI!!
+    
+    @Test
+    public void aluksenSuuntaanPerustuvaLiikuMetodiLiikuttaaKaikkiaAluksenOsiaSamanVerranSamaanSuuntaan() {
+        boolean kaikkiHyvin = true;
+        int dx = alus.getSuunta().getDx();
+        int dy = alus.getSuunta().getDy();
+        
+        int ensimmaisenOsanX = alus.getOsat()[0].getX();
+        int ensimmaisenOsanY = alus.getOsat()[0].getY();
+        int toisenOsanX = alus.getOsat()[1].getX();
+        int toisenOsanY = alus.getOsat()[1].getY();
+        int kolmannenOsanX = alus.getOsat()[2].getX();
+        int kolmannenOsanY = alus.getOsat()[2].getY();
+        int neljannenOsanX = alus.getOsat()[3].getX();
+        int neljannenOsanY = alus.getOsat()[3].getY();
+        
+        alus.liiku();
+        
+        if (!(ensimmaisenOsanX + dx == alus.getOsat()[0].getX())) {
+            kaikkiHyvin = false;
+        }
+        if (!(toisenOsanX + dx == alus.getOsat()[1].getX())) {
+            kaikkiHyvin = false;
+        }
+        if (!(kolmannenOsanX + dx == alus.getOsat()[2].getX())) {
+            kaikkiHyvin = false;
+        }
+        if (!(neljannenOsanX + dx == alus.getOsat()[3].getX())) {
+            kaikkiHyvin = false;
+        }
+        if (!(ensimmaisenOsanY + dy == alus.getOsat()[0].getY())) {
+            kaikkiHyvin = false;
+        }
+        if (!(toisenOsanY + dy == alus.getOsat()[1].getY())) {
+            kaikkiHyvin = false;
+        }
+        if (!(kolmannenOsanY + dy == alus.getOsat()[2].getY())) {
+            kaikkiHyvin = false;
+        }
+        if (!(neljannenOsanY + dy == alus.getOsat()[3].getY())) {
+            kaikkiHyvin = false;
+        }
+        
+        assertTrue(kaikkiHyvin);
+    }
+    
+    // REFAKTOROI!!
+    
+    @Test
+    public void aluksenSuuntaanPerustuvaLiikuMetodiEiLiikutaAluksenOsiaPelikentanUlkopuolelleLanteen() {
+        boolean kaikkiHyvin = true;
+        
+        int ensimmaisenOsanX = alus.getOsat()[0].getX();
+        int ensimmaisenOsanY = alus.getOsat()[0].getY();
+        int toisenOsanX = alus.getOsat()[1].getX();
+        int toisenOsanY = alus.getOsat()[1].getY();
+        int kolmannenOsanX = alus.getOsat()[2].getX();
+        int kolmannenOsanY = alus.getOsat()[2].getY();
+        int neljannenOsanX = alus.getOsat()[3].getX();
+        int neljannenOsanY = alus.getOsat()[3].getY();
+        
+        alus.setSuunta(Suunta.LANSI);
+        
+        alus.liiku();
+        
+        if (aluksenosat[0].getX() != ensimmaisenOsanX 
+                || aluksenosat[1].getX() != toisenOsanX
+                || aluksenosat[2].getX() != kolmannenOsanX
+                || aluksenosat[3].getX() != neljannenOsanX
+                || aluksenosat[0].getY() != ensimmaisenOsanY
+                || aluksenosat[1].getY() != toisenOsanY
+                || aluksenosat[2].getY() != kolmannenOsanY
+                || aluksenosat[3].getY() != neljannenOsanY) {
             kaikkiHyvin = false;
         }
         
@@ -210,62 +302,284 @@ public class AlusTest {
     }
     
     @Test
-    public void aluksenSuuntaanPerustuvaLiikuMetodiLiikuttaaKaikkiaAluksenOsiaSamanVerranSamaanSuuntaan() {
+    public void aluksenSuuntaanPerustuvaLiikuMetodiEiLiikutaAluksenOsiaPelikentanUlkopuolellePohjoiseen() {
         boolean kaikkiHyvin = true;
-        Alus alus2 = new Alus(4);
-        int dx = alus2.getSuunta().getDx();
-        int dy = alus2.getSuunta().getDy();
         
-        int ensimmaisenOsanX = alus2.getOsat()[0].getX();
-        int ensimmaisenOsanY = alus2.getOsat()[0].getY();
-        int toisenOsanX = alus2.getOsat()[1].getX();
-        int toisenOsanY = alus2.getOsat()[1].getY();
-        int kolmannenOsanX = alus2.getOsat()[2].getX();
-        int kolmannenOsanY = alus2.getOsat()[2].getY();
-        int neljannenOsanX = alus2.getOsat()[3].getX();
-        int neljannenOsanY = alus2.getOsat()[3].getY();
+        alus.setSuunta(Suunta.POHJOINEN);
         
-        alus2.liiku();
+        int ensimmaisenOsanX = alus.getOsat()[0].getX();
+        int ensimmaisenOsanY = alus.getOsat()[0].getY();
+        int toisenOsanX = alus.getOsat()[1].getX();
+        int toisenOsanY = alus.getOsat()[1].getY();
+        int kolmannenOsanX = alus.getOsat()[2].getX();
+        int kolmannenOsanY = alus.getOsat()[2].getY();
+        int neljannenOsanX = alus.getOsat()[3].getX();
+        int neljannenOsanY = alus.getOsat()[3].getY();
         
-        if (!(ensimmaisenOsanX + dx == alus2.getOsat()[0].getX())) {
-            kaikkiHyvin = false;
-        }
-        if (!(toisenOsanX + dx == alus2.getOsat()[1].getX())) {
-            kaikkiHyvin = false;
-        }
-        if (!(kolmannenOsanX + dx == alus2.getOsat()[2].getX())) {
-            kaikkiHyvin = false;
-        }
-        if (!(neljannenOsanX + dx == alus2.getOsat()[3].getX())) {
-            kaikkiHyvin = false;
-        }
-        if (!(ensimmaisenOsanY + dy == alus2.getOsat()[0].getY())) {
-            kaikkiHyvin = false;
-        }
-        if (!(toisenOsanY + dy == alus2.getOsat()[1].getY())) {
-            kaikkiHyvin = false;
-        }
-        if (!(kolmannenOsanY + dy == alus2.getOsat()[2].getY())) {
-            kaikkiHyvin = false;
-        }
-        if (!(neljannenOsanY + dy == alus2.getOsat()[3].getY())) {
+        alus.liiku();
+        
+        if (aluksenosat[0].getX() != ensimmaisenOsanX 
+                || aluksenosat[1].getX() != toisenOsanX
+                || aluksenosat[2].getX() != kolmannenOsanX
+                || aluksenosat[3].getX() != neljannenOsanX
+                || aluksenosat[0].getY() != ensimmaisenOsanY
+                || aluksenosat[1].getY() != toisenOsanY
+                || aluksenosat[2].getY() != kolmannenOsanY
+                || aluksenosat[3].getY() != neljannenOsanY) {
             kaikkiHyvin = false;
         }
         
         assertTrue(kaikkiHyvin);
     }
     
+    @Test
+    public void aluksenSuuntaanPerustuvaLiikuMetodiEiLiikutaAluksenOsiaPelikentanUlkopuolelleItaan() {
+        boolean kaikkiHyvin = true;
+        
+        alus.setSuunta(Suunta.ITA);
+        alus.asetaSijainti(alus.getPelikentta().haeLeveys() - aluksenosat.length, 
+                alus.getPelikentta().haeKorkeus()- aluksenosat.length);
+        
+        int ensimmaisenOsanX = alus.getOsat()[0].getX();
+        int ensimmaisenOsanY = alus.getOsat()[0].getY();
+        int toisenOsanX = alus.getOsat()[1].getX();
+        int toisenOsanY = alus.getOsat()[1].getY();
+        int kolmannenOsanX = alus.getOsat()[2].getX();
+        int kolmannenOsanY = alus.getOsat()[2].getY();
+        int neljannenOsanX = alus.getOsat()[3].getX();
+        int neljannenOsanY = alus.getOsat()[3].getY();
+        
+        alus.liiku();
+        
+        if (aluksenosat[0].getX() != ensimmaisenOsanX 
+                || aluksenosat[1].getX() != toisenOsanX
+                || aluksenosat[2].getX() != kolmannenOsanX
+                || aluksenosat[3].getX() != neljannenOsanX
+                || aluksenosat[0].getY() != ensimmaisenOsanY
+                || aluksenosat[1].getY() != toisenOsanY
+                || aluksenosat[2].getY() != kolmannenOsanY
+                || aluksenosat[3].getY() != neljannenOsanY) {
+            kaikkiHyvin = false;
+        }
+        
+        assertTrue(kaikkiHyvin);
+    }
+    
+    @Test
+    public void aluksenSuuntaanPerustuvaLiikuMetodiEiLiikutaAluksenOsiaPelikentanUlkopuolelleEtelaan() {
+        boolean kaikkiHyvin = true;
+        
+        alus.setSuunta(Suunta.ETELA);
+        alus.asetaSijainti(alus.getPelikentta().haeLeveys() - aluksenosat.length, 
+                alus.getPelikentta().haeKorkeus() - aluksenosat.length);
+        
+        int ensimmaisenOsanX = alus.getOsat()[0].getX();
+        int ensimmaisenOsanY = alus.getOsat()[0].getY();
+        int toisenOsanX = alus.getOsat()[1].getX();
+        int toisenOsanY = alus.getOsat()[1].getY();
+        int kolmannenOsanX = alus.getOsat()[2].getX();
+        int kolmannenOsanY = alus.getOsat()[2].getY();
+        int neljannenOsanX = alus.getOsat()[3].getX();
+        int neljannenOsanY = alus.getOsat()[3].getY();
+        
+        alus.liiku();
+        
+        if (aluksenosat[0].getX() != ensimmaisenOsanX 
+                || aluksenosat[1].getX() != toisenOsanX
+                || aluksenosat[2].getX() != kolmannenOsanX
+                || aluksenosat[3].getX() != neljannenOsanX
+                || aluksenosat[0].getY() != ensimmaisenOsanY
+                || aluksenosat[1].getY() != toisenOsanY
+                || aluksenosat[2].getY() != kolmannenOsanY
+                || aluksenosat[3].getY() != neljannenOsanY) {
+            kaikkiHyvin = false;
+        }
+        
+        assertTrue(kaikkiHyvin);
+    }
+    
+    // REFAKTOROI!!
+    
+    @Test
+    public void maaritaOsienSijaintiPelikentallaMetodiJarjestaaOsatOikeinKunSuuntaPOHJOINEN() {
+        boolean kaikkiHyvin = true;
+        
+        alus.setSuunta(Suunta.POHJOINEN);
+        
+        int ensimmaisenOsanX = aluksenosat[0].getX();
+        int ensimmaisenOsanY = aluksenosat[0].getY();
+        
+        for (int i = 1; i < aluksenosat.length; i++) {
+            if (ensimmaisenOsanX != aluksenosat[i].getX() 
+                    || ensimmaisenOsanY != aluksenosat[i].getY() - i) {
+                kaikkiHyvin = false;
+            }
+        }
+        
+        if (!aluksenosat[0].onAluksenPaa() || aluksenosat[0].onAluksenPera()
+                || aluksenosat[1].onAluksenPaa() || aluksenosat[1].onAluksenPera()
+                || aluksenosat[2].onAluksenPaa() || aluksenosat[2].onAluksenPera()
+                || aluksenosat[3].onAluksenPaa() || !aluksenosat[3].onAluksenPera()) {
+            kaikkiHyvin = false;
+        }
+            
+        
+        assertTrue(kaikkiHyvin);
+    }
+    
+    // REFAKTOROI!!
+    
+    @Test
+    public void maaritaOsienSijaintiPelikentallaMetodiJarjestaaOsatOikeinKunSuuntaITA() {
+        boolean kaikkiHyvin = true;
+        
+        alus.setSuunta(Suunta.ITA);
+        int ensimmaisenOsanX = aluksenosat[0].getX();
+        int ensimmaisenOsanY = aluksenosat[0].getY();
+        
+        for (int i = 1; i < aluksenosat.length; i++) {
+            if (ensimmaisenOsanY != aluksenosat[i].getY() 
+                    || ensimmaisenOsanX != aluksenosat[i].getX() - i) {
+                kaikkiHyvin = false;
+            }
+        }
+        
+        if (aluksenosat[0].onAluksenPaa() || !aluksenosat[0].onAluksenPera()
+                || aluksenosat[1].onAluksenPaa() || aluksenosat[1].onAluksenPera()
+                || aluksenosat[2].onAluksenPaa() || aluksenosat[2].onAluksenPera()
+                || !aluksenosat[3].onAluksenPaa() || aluksenosat[3].onAluksenPera()) {
+            kaikkiHyvin = false;
+        }
+            
+        
+        assertTrue(kaikkiHyvin);
+    }
+    
+    // REFAKTOROI!!
+    
+    @Test
+    public void maaritaOsienSijaintiPelikentallaMetodiJarjestaaOsatOikeinKunSuuntaETELA() {
+        boolean kaikkiHyvin = true;
+        
+        alus.setSuunta(Suunta.ETELA);
+        
+        int ensimmaisenOsanX = aluksenosat[0].getX();
+        int ensimmaisenOsanY = aluksenosat[0].getY();
+        
+        for (int i = 1; i < aluksenosat.length; i++) {
+            if (ensimmaisenOsanX != aluksenosat[i].getX() 
+                    || ensimmaisenOsanY != aluksenosat[i].getY() - i) {
+                kaikkiHyvin = false;
+            }
+        }
+        
+        if (aluksenosat[0].onAluksenPaa() || !aluksenosat[0].onAluksenPera()
+                || aluksenosat[1].onAluksenPaa() || aluksenosat[1].onAluksenPera()
+                || aluksenosat[2].onAluksenPaa() || aluksenosat[2].onAluksenPera()
+                || !aluksenosat[3].onAluksenPaa() || aluksenosat[3].onAluksenPera()) {
+            kaikkiHyvin = false;
+        }
+            
+        
+        assertTrue(kaikkiHyvin);
+    }
+    
+    // REFAKTOROI!!
+    
+    @Test
+    public void maaritaOsienSijaintiPelikentallaMetodiJarjestaaOsatOikeinKunSuuntaLANSI() {
+        boolean kaikkiHyvin = true;
+        
+        alus.setSuunta(Suunta.LANSI);
+        
+        int ensimmaisenOsanX = aluksenosat[0].getX();
+        int ensimmaisenOsanY = aluksenosat[0].getY();
+        
+        for (int i = 1; i < aluksenosat.length; i++) {
+            if (ensimmaisenOsanY != aluksenosat[i].getY() 
+                    || ensimmaisenOsanX != aluksenosat[i].getX() - i) {
+                kaikkiHyvin = false;
+            }
+        }
+        
+        if (!aluksenosat[0].onAluksenPaa() || aluksenosat[0].onAluksenPera()
+                || aluksenosat[1].onAluksenPaa() || aluksenosat[1].onAluksenPera()
+                || aluksenosat[2].onAluksenPaa() || aluksenosat[2].onAluksenPera()
+                || aluksenosat[3].onAluksenPaa() || !aluksenosat[3].onAluksenPera()) {
+            kaikkiHyvin = false;
+        }
+        
+        assertTrue(kaikkiHyvin);
+    }
+    
+    @Test
+    public void kunAlusLuodaanSeOnEhja() {
+        assertTrue(this.alus.onEhja());
+    }
+    
+    @Test
+    public void kunAlusLuodaanSeEiOleTuhottu() {
+        assertFalse(this.alus.onTuhottu());
+    }
+    
+    @Test
+    public void kunAluksenOsaanOsutaanAlusEiOleEhja() {
+        alus.getOsat()[0].osuma();
+        
+        assertFalse(alus.onEhja());
+    }
+    
+    @Test
+    public void kunAluksenOsaanOsutaanAlusEiOleTuhottuJosSillaOnEhjiaOsia() {
+        alus.getOsat()[0].osuma();
+        
+        assertFalse(alus.onTuhottu());
+    }
+    
+    @Test
+    public void kunAluksenKaikkiinOsiinOsutaanAlusOnTuhottu() {
+        for (Aluksenosa osa : alus.getOsat()) {
+            osa.osuma();
+        }
+        
+        assertTrue(alus.onTuhottu());
+    }
+    
+    @Test
+    public void yksikaanAluksenosanGetXTaiGetYEiVoiOllaPienempiKuinNollaTaiSuurempiTaiYhtaSuuriKuinAluksenPelikentanKoko() {
+        boolean kaikkiHyvin = true;
+        alus.asetaSijainti(-1, -1);
+        
+        for (Aluksenosa aluksenosa : alus.getOsat()) {
+            if (aluksenosa.getX() < 0 
+                    || aluksenosa.getX() >= alus.getPelikentta().haeLeveys()
+                    || aluksenosa.getY() < 0 
+                    || aluksenosa.getY() >= alus.getPelikentta().haeKorkeus()) {
+                kaikkiHyvin = false;
+            }
+        }
+        
+        assertTrue(kaikkiHyvin);
+    }
+    
+    @Test 
+    public void konstruktoriIlmanParametrejaLuoAluksenJonkaPituusOnKolme() {
+        Alus parametritonKonstruktoriAlus = new Alus();
+        parametritonKonstruktoriAlus.setPelikentta(kentta);
+        assertEquals(3, parametritonKonstruktoriAlus.getOsat().length);
+    }
+    
     // TÄSTÄ ETEENPÄIN TESTIEN APUMETODIT
     
     private void kaannaAlustaMyotapaivaan(Alus alus, int kertaa) {
         for (int i = 0; i < kertaa; i++) {
-            this.alus.kaannaMyotapaivaan();
+            alus.kaannaMyotapaivaan();
         }
     }
     
     private void kaannaAlustaVastapaivaan(Alus alus, int kertaa) {
         for (int i = 0; i < kertaa; i++) {
-            this.alus.kaannaVastapaivaan();
+            alus.kaannaVastapaivaan();
         }
     }
 }

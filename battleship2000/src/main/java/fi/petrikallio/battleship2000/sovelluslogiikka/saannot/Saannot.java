@@ -44,6 +44,14 @@ public class Saannot {
         return (boolean)this.saannot.get(Saanto.ALUKSET_LIIKKUVAT);
     }
     
+    public void asetaRuutuaVoiPommittaaUseastiSaanto(boolean voiPommittaaUseasti) {
+        this.saannot.put(Saanto.RUUTUA_VOI_POMMITTAA_USEASTI, voiPommittaaUseasti);
+    }
+    
+    public boolean ruutuaVoiPommittaaUseasti() {
+        return (boolean)this.saannot.get(Saanto.RUUTUA_VOI_POMMITTAA_USEASTI);
+    }
+    
     public void asetaAlustenErikoistoiminnot(boolean ovatkoKaytossa) {
         this.saannot.put(Saanto.ALUSTEN_ERIKOISTOIMINNOT, ovatkoKaytossa);
     }

@@ -4,7 +4,7 @@ package fi.petrikallio.battleship2000.sovelluslogiikka.domain.alus;
 public class Sukellusvene extends Alus {
     
     public Sukellusvene() {
-        super(3);
+        super(3, 5);
     }
     
     @Override
