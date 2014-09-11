@@ -17,4 +17,8 @@
 |Alusten asettelun testaamista, korjauksia |   2h  |
 |**9.9.2014**             |             |
 |Alusten asettelun ongelmaratkaisua, korjauksia | 2h   |
-|**YHTEENSÄ**            |**approx. 22.5 h**      |
+|**10.9.2014**             |             |
+|Refaktorointia, koodin muuttaminen englanninkieliseksi (huoh...) | 2h   |
+|**11.9.2014**             |             |
+|Pakkausrakenteen muuttaminen, refaktorointi, ohjausluokka alusten sijoittelemiselle | 2h   |
+|**YHTEENSÄ**            |**approx. 26.5 h**      |
