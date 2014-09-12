@@ -21,4 +21,6 @@
 |Refaktorointia, koodin muuttaminen englanninkieliseksi (huoh...) | 2h   |
 |**11.9.2014**             |             |
 |Pakkausrakenteen muuttaminen, refaktorointi, ohjausluokka alusten sijoittelemiselle | 2h   |
-|**YHTEENSÄ**            |**approx. 26.5 h**      |
+|**12.9.2014**             |             |
+|Sovelluslogiikka toimii, peliä voi pelata!   | 3h  |
+|**YHTEENSÄ**            |**approx. 29.5 h**      |
