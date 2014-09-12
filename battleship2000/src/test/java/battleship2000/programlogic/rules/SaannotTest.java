@@ -4,7 +4,7 @@ package battleship2000.programlogic.rules;
 import battleship2000.programlogic.rules.BasicRules;
 import battleship2000.programlogic.rules.SizeLimits;
 import battleship2000.programlogic.rules.Rules;
-import battleship2000.programlogic.rules.Saanto;
+import battleship2000.programlogic.rules.Rule;
 import battleship2000.programlogic.domain.ship.ShipType;
 import battleship2000.programlogic.domain.player.PlayerType;
 import java.util.ArrayList;
@@ -61,24 +61,24 @@ public class SaannotTest {
     
     @Test
     public void haeKentanKokoMetodiPalauttaaHashMapinJokaSisaltaaAvaimenKENTAN_LEVEYS() {
-        assertTrue(this.perussaannot.haeKentanKoko().containsKey(Saanto.KENTAN_LEVEYS));
+        assertTrue(this.perussaannot.haeKentanKoko().containsKey(Rule.TABLE_WIDTH));
     }
     
     @Test
     public void haeKentanKokoMetodiPalauttaaHashMapinJokaSisaltaaAvaimenKENTAN_KORKEUS() {
-        assertTrue(this.perussaannot.haeKentanKoko().containsKey(Saanto.KENTAN_KORKEUS));
+        assertTrue(this.perussaannot.haeKentanKoko().containsKey(Rule.TABLE_HEIGHT));
     }
     
     @Test
     public void kentanLeveysTallentuuHashMapiinAvaimeenKENTAN_LEVEYS() {
         this.tyhjatSaannot.asetaKentanKoko(10, 15);
-        assertEquals(10, (int)this.tyhjatSaannot.haeKentanKoko().get(Saanto.KENTAN_LEVEYS));
+        assertEquals(10, (int)this.tyhjatSaannot.haeKentanKoko().get(Rule.TABLE_WIDTH));
     }
     
     @Test
     public void kentanKorkeusTallentuuHashMapiinAvaimeenKENTAN_KORKEUS() {
         this.tyhjatSaannot.asetaKentanKoko(10, 15);
-        assertEquals(15, (int)this.tyhjatSaannot.haeKentanKoko().get(Saanto.KENTAN_KORKEUS));
+        assertEquals(15, (int)this.tyhjatSaannot.haeKentanKoko().get(Rule.TABLE_HEIGHT));
     }
     
     @Test

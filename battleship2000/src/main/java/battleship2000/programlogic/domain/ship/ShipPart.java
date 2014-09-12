@@ -14,8 +14,6 @@ public class ShipPart implements Movable, Hittable {
         this.shipsFront = false;
         this.shipsRear = false;
         this.motherShip = motherShip;
-        this.x = 0;
-        this.y = 0;
     }
     
     public ShipPart() {

@@ -21,9 +21,25 @@ public class Human extends Player {
     
     @Override
     public Square chooseASquare(Table table, boolean aSquareCanBeHitMultipleTimes) {
+        Scanner reader = new Scanner(System.in);
+        Square square = null;
         
+        while (square == null) {
+            System.out.println("Choose a square to bomb!");
+            System.out.print("x: ");
+            int x = Integer.parseInt(reader.nextLine());
+            System.out.print("y: ");
+            int y = Integer.parseInt(reader.nextLine());
+
+            if (x > -1 && x < table.getWidth() - 1 && y > - 1 && y < table.getHeight()) {
+                if (!table.getTable().get(y).get(x).isHit() 
+                        || aSquareCanBeHitMultipleTimes) {
+                    square = table.getTable().get(y).get(x);
+                }
+            }
+        }
         
-        return null;
+        return square;
     }
     
     @Override
@@ -84,11 +100,9 @@ public class Human extends Player {
             System.out.print("y: ");
             int y = Integer.parseInt(reader.nextLine());
             if (ship.setPosition(x, y)) {
-                ship.setIsOnTable(true);
                 System.out.print("Position set, are you happy? (y/n) ");
                 String ok = reader.nextLine();
                 if (ok.equals("y")) {
-                    ship.setPosition(x, y);
                     break;
                 }
             } else {
@@ -101,7 +115,7 @@ public class Human extends Player {
         System.out.println("");
         
         while (true) {
-            System.out.println("Ship's direction is now " + ship.getHeading());
+            System.out.println("Ship's direction is now " + ship.getDirection());
             System.out.print("Do you want to change the direction? (y/n) ");
             String will = reader.nextLine();
             if (will.equals("y")) {
@@ -128,28 +142,7 @@ public class Human extends Player {
         }
         
         System.out.println("");
-        printTable();
+        super.printTable();
         System.out.println("");
-    }
-
-    private void printTable() {
-        Table table = super.getTable();
-        
-        for (Integer y : table.getTable().keySet()) {
-            for (Square square : table.getTable().get(y).values()) {
-                if (square.getShipPart() == null) {
-                    System.out.print("O");
-                } else {
-                    if (square.getShipPart().isShipsFront()) {
-                        System.out.print("F");
-                    } else if (square.getShipPart().isShipsRear()) {
-                        System.out.print("R");
-                    } else {
-                        System.out.print("X");
-                    }
-                }
-            }
-            System.out.println("");
-        }
     }
 }

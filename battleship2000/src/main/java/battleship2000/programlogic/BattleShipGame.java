@@ -72,21 +72,15 @@ public class BattleShipGame {
         return shipsAreSpecialized;
     }
     
-    public void run() throws InterruptedException {
+    public void run() {
         while (continues) {
             this.turn++;
             
             Player player = getPlayer(turn);
             Player foe = getFoe(turn);
             
-            if (player.getClass() == Human.class) {
-                while (chosenSquare == null) {
-                    Thread.sleep(500);
-                }
-            } else {
-                chosenSquare = player.chooseASquare(foe.getTable(), 
-                        this.aSquareCanBeHitMultipleTimes);
-            }
+            chosenSquare = player.chooseASquare(foe.getTable(), 
+                    this.aSquareCanBeHitMultipleTimes);
             
             continues = (boolean) new PlayTurn(player, foe, chosenSquare).execute();
             chosenSquare = null;

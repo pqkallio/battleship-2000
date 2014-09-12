@@ -35,10 +35,12 @@ public class PlayTurn implements Controller {
         
         player.addPoints(turnsPoints);
         
+        foe.printTable();
+        
         if (foe.allShipsDestroyed()) {
-            return true;
-        } else {
             return false;
+        } else {
+            return true;
         }
     }
 }

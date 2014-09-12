@@ -1,6 +1,7 @@
 
 package battleship2000.programlogic.control;
 
+import battleship2000.programlogic.domain.position.Position;
 import battleship2000.programlogic.domain.ship.Direction;
 import battleship2000.programlogic.domain.ship.Ship;
 import battleship2000.programlogic.domain.ship.ShipPart;
@@ -10,28 +11,25 @@ public class SetShipsPosition {
     private Ship ship;
     private Table table;
     private ShipPart[] parts;
-    private Direction heading;
+    private Position[] positions;
+    private Direction direction;
     
     public SetShipsPosition(Ship ship) {
         this.ship = ship;
         this.table = ship.getTable();
         this.parts = ship.getParts();
-        this.heading = ship.getHeading();
+        this.direction = ship.getDirection();
     }
     
     public boolean setShipsPosition(int x, int y) {
-        table.removePartsFromTable(parts);
+        positions = getPartPlacementBasedOnHeading(x, y);
+        checkPartPlacementOnTable(positions);
         
-        partPlacementBasedOnHeading(x, y);
-        
-        addFrontAndRear();
-        
-        if (!checkPartCollisionsOnTable(parts)) {
+        if (!checkPartCollisionsOnTable(positions)) {
             return false;
-        } else { 
-            checkPartPlacementOnTable(parts);
-            return true;
         }
+        
+        return true;
     }
     
     private void checkPartPlacementOnTable(ShipPart[] shipParts) {
@@ -51,8 +49,37 @@ public class SetShipsPosition {
             setShipsPosition((-1 * firstPartX) + firstPartX, lastPartY);
         } else if (firstPartY < 0) {
             setShipsPosition(0, (-1 * lastPartY) + lastPartY);
+        }
+    }
+    
+    private void checkPartPlacementOnTable(Position[] positions) {
+        int firstPartX = positions[0].getX();
+        int firstPartY = positions[0].getY();
+        int lastPartX = positions[positions.length - 1].getX();
+        int lastPartY = positions[positions.length - 1].getY();
+        int lastIndex = positions.length - 1;
+        int lastTableX = this.table.getWidth() - 1;
+        int lastTableY = this.table.getHeight() - 1;
+        
+        if (ship.getDirection() == Direction.EAST 
+                || ship.getDirection() == Direction.WEST) {
+            if (lastPartX > lastTableX) {
+                setShipsPosition(lastPartX - (lastPartX - lastTableX) - lastIndex, lastPartY);
+            } else if (lastPartY > lastTableY) {
+                setShipsPosition(lastPartX, lastPartY - (lastPartY - lastTableY));
+            }
         } else {
-            this.table.placeShipOnTable(ship);
+            if (lastPartX > lastTableX) {
+                setShipsPosition(lastPartX - (lastPartX - lastTableX), lastPartY);
+            } else if (lastPartY > lastTableY) {
+                setShipsPosition(lastPartX, lastPartY - (lastPartY - lastTableY) - lastIndex);
+            }
+        }
+        
+        if (firstPartX < 0) {
+            setShipsPosition((-1 * firstPartX) + firstPartX, lastPartY);
+        } else if (firstPartY < 0) {
+            setShipsPosition(0, (-1 * lastPartY) + lastPartY);
         }
     }
     
@@ -69,25 +96,56 @@ public class SetShipsPosition {
     }
 
 
-    private void partPlacementBasedOnHeading(int x, int y) {
-        if (heading == Direction.EAST || heading == Direction.WEST) {
-            for (int i = 0; i < parts.length; i++) {
-                parts[i].setPosition(x + i, y);
+    private Position[] getPartPlacementBasedOnHeading(int x, int y) {
+        Position[] partPositions = new Position[parts.length];
+        
+        if (direction == Direction.EAST || direction == Direction.WEST) {
+            for (int i = 0; i < partPositions.length; i++) {
+                partPositions[i] = new Position(x + i, y);
             }
         } else {
-            for (int i = 0; i < parts.length; i++) {
-                parts[i].setPosition(x, y + i);
+            for (int i = 0; i < partPositions.length; i++) {
+                partPositions[i] = new Position(x, y + i);
             }
         }
+        
+        return partPositions;
     }
 
     private void addFrontAndRear() {
-        if (heading == Direction.WEST || heading == Direction.NORTH) {
+        if (direction == Direction.WEST || direction == Direction.NORTH) {
             parts[0].setShipsFront();
             parts[parts.length - 1].setShipsRear();
         } else {
             parts[0].setShipsRear();
             parts[parts.length - 1].setShipsFront();
         }
+    }
+    
+    public void placeShipOnTable() {
+        if (ship.isOnTable()) {
+            table.removePartsFromTable(parts);
+        }
+        
+        for (int i = 0; i < this.positions.length; i++) {
+            parts[i].setPosition(positions[i].getX(), positions[i].getY());
+        }
+        
+        addFrontAndRear();
+        this.table.placeShipOnTable(ship);
+    }
+
+    private boolean checkPartCollisionsOnTable(Position[] positions) {
+        for (Position position : positions) {
+            if (position.getX() > -1 && position.getX() < table.getWidth()
+                    && position.getY() > -1 && position.getY() < table.getHeight()) {
+                if (table.getTable().get(position.getY()).get(position.getX()).getShipPart() != null) {
+                    if (table.getTable().get(position.getY()).get(position.getX()).getShipPart().getMotherShip() != ship) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 }

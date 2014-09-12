@@ -55,6 +55,7 @@ public class CreateGame implements Controller {
         for (ShipType type : this.rules.getShipTypes()) {
             Ship shipToAdd = (Ship)type.getShipClass().newInstance();
             shipToAdd.setTable(player.getTable());
+            shipToAdd.setIsOnTable(false);
             playersShips.add(shipToAdd);
         }
         

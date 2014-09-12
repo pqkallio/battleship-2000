@@ -83,7 +83,7 @@ public class AlusTest {
     
     @Test
     public void luodunAluksenSuuntaOnIta() {
-        assertEquals(Direction.EAST, alus.getHeading());
+        assertEquals(Direction.EAST, alus.getDirection());
     }
     
     @Test
@@ -111,49 +111,49 @@ public class AlusTest {
     @Test
     public void kunAlustaKaantaaKerranMyotapaivaanOnSuuntaEtela() {
         kaannaAlustaMyotapaivaan(this.alus, 1);
-        assertEquals(Direction.SOUTH, this.alus.getHeading());
+        assertEquals(Direction.SOUTH, this.alus.getDirection());
     }
     
     @Test
     public void kunAlustaKaantaaKaksiKertaaMyotapaivaanOnSuuntaLansi() {
         kaannaAlustaMyotapaivaan(this.alus, 2);
-        assertEquals(Direction.WEST, this.alus.getHeading());
+        assertEquals(Direction.WEST, this.alus.getDirection());
     }
     
     @Test
     public void kunAlustaKaantaaKolmeKertaaMyotapaivaanOnSuuntaPohjoinen() {
         kaannaAlustaMyotapaivaan(this.alus, 3);
-        assertEquals(Direction.NORTH, this.alus.getHeading());
+        assertEquals(Direction.NORTH, this.alus.getDirection());
     }
     
     @Test
     public void kunAlustaKaantaaNeljaKertaaMyotapaivaanOnSuuntaIta() {
         kaannaAlustaMyotapaivaan(this.alus, 4);
-        assertEquals(Direction.EAST, this.alus.getHeading());
+        assertEquals(Direction.EAST, this.alus.getDirection());
     }
     
     @Test
     public void kunAlustaKaantaaKerranVastapaivaanOnSuuntaPohjoinen() {
         kaannaAlustaVastapaivaan(this.alus, 1);
-        assertEquals(Direction.NORTH, this.alus.getHeading());
+        assertEquals(Direction.NORTH, this.alus.getDirection());
     }
     
     @Test
     public void kunAlustaKaantaaKaksiKertaaVastapaivaanOnSuuntaLansi() {
         kaannaAlustaVastapaivaan(this.alus, 2);
-        assertEquals(Direction.WEST, this.alus.getHeading());
+        assertEquals(Direction.WEST, this.alus.getDirection());
     }
     
     @Test
     public void kunAlustaKaantaaKolmeKertaaVastapaivaanOnSuuntaEtela() {
         kaannaAlustaVastapaivaan(this.alus, 3);
-        assertEquals(Direction.SOUTH, this.alus.getHeading());
+        assertEquals(Direction.SOUTH, this.alus.getDirection());
     }
     
     @Test
     public void kunAlustaKaantaaNeljaKertaaVastapaivaanOnSuuntaIta() {
         kaannaAlustaVastapaivaan(this.alus, 4);
-        assertEquals(Direction.EAST, this.alus.getHeading());
+        assertEquals(Direction.EAST, this.alus.getDirection());
     }
     
     @Test
@@ -161,7 +161,7 @@ public class AlusTest {
         this.alus.setDirection(Direction.NORTH);
         this.alus.setDirection(Direction.SOUTH);
         
-        assertEquals(Direction.SOUTH, this.alus.getHeading());
+        assertEquals(Direction.SOUTH, this.alus.getDirection());
     }
     
     @Test
@@ -169,7 +169,7 @@ public class AlusTest {
         this.alus.setDirection(Direction.NORTH);
         this.alus.setDirection(Direction.SOUTHWEST);
         
-        assertEquals(Direction.NORTH, this.alus.getHeading());
+        assertEquals(Direction.NORTH, this.alus.getDirection());
     }
     
     @Test
@@ -229,8 +229,8 @@ public class AlusTest {
     @Test
     public void aluksenSuuntaanPerustuvaLiikuMetodiLiikuttaaKaikkiaAluksenOsiaSamanVerranSamaanSuuntaan() {
         boolean kaikkiHyvin = true;
-        int dx = alus.getHeading().getDx();
-        int dy = alus.getHeading().getDy();
+        int dx = alus.getDirection().getDx();
+        int dy = alus.getDirection().getDy();
         
         int ensimmaisenOsanX = alus.getParts()[0].getX();
         int ensimmaisenOsanY = alus.getParts()[0].getY();

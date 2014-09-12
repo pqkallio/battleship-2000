@@ -43,8 +43,6 @@ public class Ship implements Movable, Turnable, Hittable {
     
     public void setTable(Table gameTable) {
         this.table = gameTable;
-        
-        setPosition(0, 0);
     }
 
     public Table getTable() {
@@ -55,7 +53,7 @@ public class Ship implements Movable, Turnable, Hittable {
         return parts;
     }
 
-    public Direction getHeading() {
+    public Direction getDirection() {
         return direction;
     }
 
@@ -162,9 +160,7 @@ public class Ship implements Movable, Turnable, Hittable {
         if (indexOfPresentDirection + i >= 0 &&
                 indexOfPresentDirection + i < this.possibleDirections.size()) {
             return this.possibleDirections.get(indexOfPresentDirection + i);
-        }
-        
-        if (indexOfPresentDirection + i < 0) {
+        } else if (indexOfPresentDirection + i < 0) {
             return this.possibleDirections.get(this.possibleDirections.size()-1);
         }
         
@@ -193,8 +189,24 @@ public class Ship implements Movable, Turnable, Hittable {
 //        return aluksenosat;
 //    }
 
+    public int getX() {
+        return parts[0].getX();
+    }
+    
+    public int getY() {
+        return parts[0].getY();
+    }
+    
     public boolean setPosition(int x, int y) {
-        return new SetShipsPosition(this).setShipsPosition(x, y);
+        SetShipsPosition setPosition = new SetShipsPosition(this);
+        
+        if (setPosition.setShipsPosition(x, y)) {
+            setIsOnTable(true);
+            setPosition.placeShipOnTable();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
