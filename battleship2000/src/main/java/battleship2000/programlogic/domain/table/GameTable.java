@@ -10,8 +10,12 @@ import java.util.TreeMap;
 public class GameTable implements Table {
     private Map<Integer, Map<Integer, Square>> table;
     private List<Ship> ships;
+    private int width;
+    private int height;
     
     public GameTable(int width, int height) {
+        this.width = width;
+        this.height = height;
         this.table = createGameTable(width, height);
     }
             
@@ -28,7 +32,7 @@ public class GameTable implements Table {
             field.put(i, new TreeMap<Integer, Square>());
             
             for (int j = 0; j < width; j++) {
-                field.get(i).put(j, new Square(j, i));
+                field.get(i).put(j, new Square(this, j, i));
             }
         }
         
@@ -37,16 +41,17 @@ public class GameTable implements Table {
 
     @Override
     public int getWidth() {
-        return this.table.get(0).size();
+        return width;
     }
 
     @Override
     public int getHeight() {
-        return this.table.size();
+        return height;
     }
     
     @Override
     public void placeShipOnTable(Ship ship) {
+        ship.setIsOnTable(true);
         placeShipOnTable(ship.getParts());
     }
 
@@ -62,10 +67,12 @@ public class GameTable implements Table {
     @Override
     public void removePartsFromTable(ShipPart[] parts) {
         for (ShipPart part : parts) {
-            if (part.getX() > -1 && part.getX() < getWidth()
-                    && part.getY() > -1 && part.getY() < getHeight()) {
-                if (part == this.table.get(part.getY()).get(part.getX()).getShipPart()) {
-                    this.table.get(part.getY()).get(part.getX()).removeShipPart();
+            if (part.getPosition() != null) {
+                if (part.getX() > -1 && part.getX() < getWidth()
+                        && part.getY() > -1 && part.getY() < getHeight()) {
+                    if (part == this.table.get(part.getY()).get(part.getX()).getShipPart()) {
+                        this.table.get(part.getY()).get(part.getX()).removeShipPart();
+                    }
                 }
             }
         }

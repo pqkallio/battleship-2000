@@ -1,7 +1,6 @@
 
 package battleship2000.programlogic;
 
-import battleship2000.programlogic.domain.player.Human;
 import battleship2000.programlogic.domain.player.Player;
 import battleship2000.programlogic.domain.table.Square;
 import battleship2000.programlogic.control.PlayTurn;
@@ -10,7 +9,7 @@ import java.util.List;
 
 public class BattleShipGame {
     private List<Player> players;
-    private List<Observer> observers;
+    private List<LogicObserver> observers;
     private boolean aSquareCanBeHitMultipleTimes;
     private boolean shipsAreMovable;
     private boolean shipsAreSpecialized;
@@ -26,17 +25,33 @@ public class BattleShipGame {
         this.chosenSquare = null;
     }
 
-    public void addObserver(Observer observer) {
+    public boolean continues() {
+        return continues;
+    }
+
+    public void incrementTurn() {
+        this.turn++;
+    }
+    
+    public int getTurn() {
+        return turn;
+    }
+
+    public Square getChosenSquare() {
+        return chosenSquare;
+    }
+    
+    public void addObserver(LogicObserver observer) {
         this.observers.add(observer);
     }
 
-    public List<Observer> getObservers() {
+    public List<LogicObserver> getObservers() {
         return observers;
     }
     
-    public void notifyObservers() {
-        for (Observer observer : this.observers) {
-            observer.update();
+    public void notifyObservers(Object object) {
+        for (LogicObserver observer : this.observers) {
+            observer.update(object);
         }
     }
     
@@ -76,8 +91,8 @@ public class BattleShipGame {
         while (continues) {
             this.turn++;
             
-            Player player = getPlayer(turn);
-            Player foe = getFoe(turn);
+            Player player = getTurnsPlayer(turn);
+            Player foe = getTurnsFoe(turn);
             
             chosenSquare = player.chooseASquare(foe.getTable(), 
                     this.aSquareCanBeHitMultipleTimes);
@@ -87,12 +102,12 @@ public class BattleShipGame {
         }
     }
 
-    private Player getPlayer(int turn) {
+    public Player getTurnsPlayer(int turn) {
         if (turn % 2 != 0) return this.players.get(0);
         else return this.players.get(1);
     }
 
-    private Player getFoe(int turn) {
+    public Player getTurnsFoe(int turn) {
         if (turn % 2 == 0) return this.players.get(0);
         else return this.players.get(1);
     }

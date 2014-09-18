@@ -15,22 +15,33 @@ public class Ship implements Movable, Turnable, Hittable {
     protected Table table;
     protected int shotsPerRound;
     protected boolean isOnTable;
+    protected String name;
     
     public Ship() {
-        this(3, 1);
+        this(3, 1, "Ship");
     }
     
     public Ship(int length) {
-        this(length, 1);
+        this(length, 1, "Ship");
     }
     
-    public Ship(int length, int shotsPerRound) {
+    public Ship(int length, int shotsPerRound, String name) {
+        this.name = name;
         this.possibleDirections = new ArrayList<>();
         addPossibleDirections();
         this.direction = Direction.EAST;
         createShipParts(length, this.direction);
         this.shotsPerRound = shotsPerRound;
         this.isOnTable = false;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 
     public boolean isOnTable() {
@@ -111,27 +122,27 @@ public class Ship implements Movable, Turnable, Hittable {
     }
 
     @Override
-    public boolean turnClockwise() {
+    public void turnClockwise() {
         this.direction = getNeighborDirection(1);
         
-        if (setPosition(parts[0].getX(), parts[0].getY())) {
-            return true;
-        } else {
-            this.direction = getNeighborDirection(-1);
-            return false;
-        }
+//        if (setPosition(parts[0].getX(), parts[0].getY())) {
+//            return true;
+//        } else {
+//            this.direction = getNeighborDirection(-1);
+//            return false;
+//        }
     }
 
     @Override
-    public boolean turnCounterClockwise() {
+    public void turnCounterClockwise() {
         this.direction = getNeighborDirection(-1);
         
-        if (setPosition(parts[0].getX(), parts[0].getY())) {
-            return true;
-        } else {
-            this.direction = getNeighborDirection(1);
-            return false;
-        }
+//        if (setPosition(parts[0].getX(), parts[0].getY())) {
+//            return true;
+//        } else {
+//            this.direction = getNeighborDirection(1);
+//            return false;
+//        }
     }
 
     private void addPossibleDirections() {

@@ -17,8 +17,8 @@ public class BasicRules extends Rules {
     public BasicRules(boolean againstTheComputer) {
         setShips();
         setPlayers(againstTheComputer);
-        super.asetaKentanKoko(10, 10);
-        super.setShipsMoveRule(false);
+        super.setTableSize(10, 10);
+        super.setShipsAreMovableRule(false);
         super.setSpecializedShips(false);
         super.setASquareCanBeHitMultipleTimesRule(false);
     }
@@ -26,7 +26,7 @@ public class BasicRules extends Rules {
     private void setShips() {
         List<ShipType> ships = new ArrayList<>();
         Collections.addAll(ships, shipTypes);
-        super.createShips(ships);
+        super.setShipTypes(ships);
     }
 
     private void setPlayers(boolean againstTheComputer) {
@@ -40,7 +40,7 @@ public class BasicRules extends Rules {
             players.add(PlayerType.HUMAN);
         }
         
-        super.createPlayers(players);
+        super.setPlayerTypes(players);
         
     }
 }

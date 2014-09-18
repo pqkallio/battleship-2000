@@ -89,25 +89,4 @@ public abstract class Player {
         
         return true;
     }
-    
-    public void printTable() {
-        for (Integer y : table.getTable().keySet()) {
-            for (Square square : table.getTable().get(y).values()) {
-                if (square.isHit()) {
-                    System.out.print("X");
-                } else if (square.getShipPart() == null) {
-                    System.out.print("O");
-                } else {
-                    if (square.getShipPart().isShipsFront()) {
-                        System.out.print("F");
-                    } else if (square.getShipPart().isShipsRear()) {
-                        System.out.print("R");
-                    } else {
-                        System.out.print("M");
-                    }
-                }
-            }
-            System.out.println("");
-        }
-    }
 }

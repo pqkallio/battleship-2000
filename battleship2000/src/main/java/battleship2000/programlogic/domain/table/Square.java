@@ -3,17 +3,32 @@ package battleship2000.programlogic.domain.table;
 
 import battleship2000.programlogic.domain.ship.ShipPart;
 import battleship2000.programlogic.domain.points.Points;
+import battleship2000.programlogic.domain.position.Position;
 
 public class Square implements Comparable<Square> {
-    private int x;
-    private int y;
+    private Position position;
+    private Table table;
     private ShipPart part;
     private boolean hit;
     
-    public Square(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public Square(Table table, int x, int y) {
+        if (table != null && x > -1 && x < table.getWidth() 
+                && y > -1 && y < table.getHeight()) {
+            this.position = new Position(x, y);
+        } else {
+            throw new IllegalArgumentException("The parameters given aren't valid");
+        }
+        
+        this.table = table;
         this.hit = false;
+    }
+
+    public Table getTable() {
+        return table;
+    }
+
+    public ShipPart getPart() {
+        return part;
     }
     
     public void setShipPart(ShipPart part) {
@@ -29,11 +44,11 @@ public class Square implements Comparable<Square> {
     }
 
     public int getX() {
-        return x;
+        return position.getX();
     }
 
     public int getY() {
-        return y;
+        return position.getY();
     }
 
     public boolean isHit() {
@@ -56,11 +71,11 @@ public class Square implements Comparable<Square> {
     
     @Override
     public int compareTo(Square comparedTo) {
-        if (this.x < comparedTo.getX()) return -1;
-        else if (this.x > comparedTo.getX()) return 1;
+        if (this.getY() < comparedTo.getY()) return -1;
+        else if (this.getY() > comparedTo.getY()) return 1;
         else {
-            if (this.y < comparedTo.getY()) return -1;
-            else if (this.y > comparedTo.getY()) return 1;
+            if (this.getX() < comparedTo.getX()) return -1;
+            else if (this.getX() > comparedTo.getX()) return 1;
             else return 0;
         }
     }

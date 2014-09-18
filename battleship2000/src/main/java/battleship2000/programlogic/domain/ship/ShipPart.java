@@ -1,10 +1,11 @@
 
 package battleship2000.programlogic.domain.ship;
 
+import battleship2000.programlogic.domain.position.Position;
+
 public class ShipPart implements Movable, Hittable {
     private Ship motherShip;
-    private int x;
-    private int y;
+    private Position position;
     private boolean intact;
     private boolean shipsFront;
     private boolean shipsRear;
@@ -21,8 +22,7 @@ public class ShipPart implements Movable, Hittable {
     }
     
     public void setPosition(int x, int y) {
-        this.x = x;
-        this.y = y;
+        this.position = new Position(x, y);
     }
     
     public void hit() {
@@ -53,30 +53,26 @@ public class ShipPart implements Movable, Hittable {
     }
     
     public int getX() {
-        return x;
+        return this.position.getX();
     }
 
     public int getY() {
-        return y;
+        return this.position.getY();
+    }
+
+    public Position getPosition() {
+        return position;
     }
 
     @Override
     public boolean move(int dx, int dy) {
-        setPosition(this.x + dx,
-                this.y + dy);
+        setPosition(position.getX() + dx,
+                position.getY() + dy);
         return true;
     }
 
     @Override
     public boolean move() {return true;}
-
-//    private int tarkastettuSijaintiX(int sijainti) {
-//        int max = emoalus.getPelikentta().haeLeveys() - 1;
-//        
-//        if (sijainti < 0) return 0;
-//        else if (sijainti > max) return max;
-//        else return sijainti;
-//    }
 
     @Override
     public boolean isDestroyed() {
@@ -86,12 +82,4 @@ public class ShipPart implements Movable, Hittable {
     public Ship getMotherShip() {
         return motherShip;
     }
-
-//    private int tarkastettuSijaintiY(int sijainti) {
-//        int max = emoalus.getPelikentta().haeKorkeus()- 1;
-//        
-//        if (sijainti < 0) return 0;
-//        else if (sijainti > max) return max;
-//        else return sijainti;
-//    }
 }

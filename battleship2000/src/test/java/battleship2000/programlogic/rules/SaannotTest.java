@@ -51,40 +51,40 @@ public class SaannotTest {
     
     @Test
     public void saannotOlioLuodessaEiSisallaSaantoja() {
-        assertEquals(0, tyhjatSaannot.haeSaannot().size());
+        assertEquals(0, tyhjatSaannot.getRules().size());
     }
     
     @Test
     public void kentanKokoTallentuuHashMapiinJossaKaksiAvainta() {
-        assertEquals(2, this.perussaannot.haeKentanKoko().size());
+        assertEquals(2, this.perussaannot.getTableSize().size());
     }
     
     @Test
     public void haeKentanKokoMetodiPalauttaaHashMapinJokaSisaltaaAvaimenKENTAN_LEVEYS() {
-        assertTrue(this.perussaannot.haeKentanKoko().containsKey(Rule.TABLE_WIDTH));
+        assertTrue(this.perussaannot.getTableSize().containsKey(Rule.TABLE_WIDTH));
     }
     
     @Test
     public void haeKentanKokoMetodiPalauttaaHashMapinJokaSisaltaaAvaimenKENTAN_KORKEUS() {
-        assertTrue(this.perussaannot.haeKentanKoko().containsKey(Rule.TABLE_HEIGHT));
+        assertTrue(this.perussaannot.getTableSize().containsKey(Rule.TABLE_HEIGHT));
     }
     
     @Test
     public void kentanLeveysTallentuuHashMapiinAvaimeenKENTAN_LEVEYS() {
-        this.tyhjatSaannot.asetaKentanKoko(10, 15);
-        assertEquals(10, (int)this.tyhjatSaannot.haeKentanKoko().get(Rule.TABLE_WIDTH));
+        this.tyhjatSaannot.setTableSize(10, 15);
+        assertEquals(10, (int)this.tyhjatSaannot.getTableSize().get(Rule.TABLE_WIDTH));
     }
     
     @Test
     public void kentanKorkeusTallentuuHashMapiinAvaimeenKENTAN_KORKEUS() {
-        this.tyhjatSaannot.asetaKentanKoko(10, 15);
-        assertEquals(15, (int)this.tyhjatSaannot.haeKentanKoko().get(Rule.TABLE_HEIGHT));
+        this.tyhjatSaannot.setTableSize(10, 15);
+        assertEquals(15, (int)this.tyhjatSaannot.getTableSize().get(Rule.TABLE_HEIGHT));
     }
     
     @Test
     public void kentanLeveydenOllessaPienempiKuinSallittuVahimmaispituusLeveysOnSallittuVahimmaispituus() {
         int min = SizeLimits.getMinimumTableWidth();
-        this.tyhjatSaannot.asetaKentanKoko(min-1, min-1);
+        this.tyhjatSaannot.setTableSize(min-1, min-1);
         
         assertEquals(min, this.tyhjatSaannot.getTableWidth());
     }
@@ -92,7 +92,7 @@ public class SaannotTest {
     @Test
     public void kentanLeveydenOllessaSuurempiKuinSallittuEnimmaispituusLeveysOnSallittuEnimmaispituus() {
         int max = SizeLimits.getMaximumTableWidth();
-        this.tyhjatSaannot.asetaKentanKoko(max+1, max+1);
+        this.tyhjatSaannot.setTableSize(max+1, max+1);
         
         assertEquals(max, this.tyhjatSaannot.getTableWidth());
     }
@@ -100,7 +100,7 @@ public class SaannotTest {
     @Test
     public void kentanKorkeudenOllessaPienempiKuinSallittuVahimmaispituusKorkeusOnSallittuVahimmaispituus() {
         int min = SizeLimits.getMinimumTableWidth();
-        this.tyhjatSaannot.asetaKentanKoko(min-1, min-1);
+        this.tyhjatSaannot.setTableSize(min-1, min-1);
         
         assertEquals(min, this.tyhjatSaannot.getTableHeight());
     }
@@ -108,7 +108,7 @@ public class SaannotTest {
     @Test
     public void kentanKorkeudenOllessaSuurempiKuinSallittuEnimmaispituusKorkeusOnSallittuEnimmaispituus() {
         int max = SizeLimits.getMaximumTableWidth();
-        this.tyhjatSaannot.asetaKentanKoko(max+1, max+1);
+        this.tyhjatSaannot.setTableSize(max+1, max+1);
         
         assertEquals(max, this.tyhjatSaannot.getTableHeight());
     }
@@ -116,7 +116,7 @@ public class SaannotTest {
     @Test
     public void kentanLeveydenOllessaSallittuVahimmaispituusLeveysOnSallittuVahimmaispituus() {
         int min = SizeLimits.getMinimumTableWidth();
-        this.tyhjatSaannot.asetaKentanKoko(min, min);
+        this.tyhjatSaannot.setTableSize(min, min);
         
         assertEquals(min, this.tyhjatSaannot.getTableWidth());
     }
@@ -124,7 +124,7 @@ public class SaannotTest {
     @Test
     public void kentanLeveydenOllessaSallittuEnimmaispituusLeveysOnSallittuEnimmaispituus() {
         int max = SizeLimits.getMaximumTableWidth();
-        this.tyhjatSaannot.asetaKentanKoko(max, max);
+        this.tyhjatSaannot.setTableSize(max, max);
         
         assertEquals(max, this.tyhjatSaannot.getTableWidth());
     }
@@ -132,7 +132,7 @@ public class SaannotTest {
     @Test
     public void kentanKorkeudenOllessaSallittuVahimmaispituusKorkeusOnSallittuVahimmaispituus() {
         int min = SizeLimits.getMinimumTableWidth();
-        this.tyhjatSaannot.asetaKentanKoko(min, min);
+        this.tyhjatSaannot.setTableSize(min, min);
         
         assertEquals(min, this.tyhjatSaannot.getTableHeight());
     }
@@ -140,7 +140,7 @@ public class SaannotTest {
     @Test
     public void kentanKorkeudenOllessaSallittuEnimmaispituusKorkeusOnSallittuEnimmaispituus() {
         int max = SizeLimits.getMaximumTableWidth();
-        this.tyhjatSaannot.asetaKentanKoko(max, max);
+        this.tyhjatSaannot.setTableSize(max, max);
         
         assertEquals(max, this.tyhjatSaannot.getTableHeight());
     }
@@ -154,7 +154,7 @@ public class SaannotTest {
     public void saantojenAlustyyppejaOnSamanVerranKuinParametrinaAnnettu() {
         List<ShipType> lisattavatAlustyypit = new ArrayList<>();
         Collections.addAll(lisattavatAlustyypit, alustyypit);
-        tyhjatSaannot.createShips(lisattavatAlustyypit);
+        tyhjatSaannot.setShipTypes(lisattavatAlustyypit);
         
         assertEquals(alustyypit.length, tyhjatSaannot.getShipTypes().size());
     }
@@ -165,7 +165,7 @@ public class SaannotTest {
         
         List<ShipType> lisattavatAlustyypit = new ArrayList<>();
         Collections.addAll(lisattavatAlustyypit, alustyypit);
-        tyhjatSaannot.createShips(lisattavatAlustyypit);
+        tyhjatSaannot.setShipTypes(lisattavatAlustyypit);
         
         for (int i = 0; i < tyhjatSaannot.getShipTypes().size(); i++) {
             if (!(tyhjatSaannot.getShipTypes().get(i).getShipClass() == alustyypit[i].getShipClass())) {
@@ -178,13 +178,13 @@ public class SaannotTest {
     
     @Test
     public void trueLiikkumisSaantoTallentuuOikeinAvaimellaALUKSET_LIIKKUVAT() {
-        this.tyhjatSaannot.setShipsMoveRule(true);
+        this.tyhjatSaannot.setShipsAreMovableRule(true);
         assertTrue(this.tyhjatSaannot.shipsAreMovable());
     }
     
     @Test
     public void falseLiikkumisSaantoTallentuuOikeinAvaimellaALUKSET_LIIKKUVAT() {
-        this.tyhjatSaannot.setShipsMoveRule(false);
+        this.tyhjatSaannot.setShipsAreMovableRule(false);
         assertFalse(this.tyhjatSaannot.shipsAreMovable());
     }
     
@@ -209,7 +209,7 @@ public class SaannotTest {
     public void saantojenPelaajatyyppejaOnSamanVerranKuinParametrinaAnnettu() {
         List<PlayerType> lisattavatPelaajatyypit = new ArrayList<>();
         Collections.addAll(lisattavatPelaajatyypit, pelaajatyypit);
-        tyhjatSaannot.createPlayers(lisattavatPelaajatyypit);
+        tyhjatSaannot.setPlayerTypes(lisattavatPelaajatyypit);
         
         assertEquals(pelaajatyypit.length, tyhjatSaannot.getPlayerTypes().size());
     }
@@ -220,7 +220,7 @@ public class SaannotTest {
         
         List<PlayerType> lisattavatPelaajatyypit = new ArrayList<>();
         Collections.addAll(lisattavatPelaajatyypit, pelaajatyypit);
-        tyhjatSaannot.createPlayers(lisattavatPelaajatyypit);
+        tyhjatSaannot.setPlayerTypes(lisattavatPelaajatyypit);
         
         for (int i = 0; i < tyhjatSaannot.getPlayerTypes().size(); i++) {
             if (!(tyhjatSaannot.getPlayerTypes().get(i).getPlayerClass() == pelaajatyypit[i].getPlayerClass())) {

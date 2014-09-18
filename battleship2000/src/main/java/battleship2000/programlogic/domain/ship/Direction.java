@@ -3,7 +3,7 @@ package battleship2000.programlogic.domain.ship;
 
 public enum Direction {
     NORTH(0.0, 0, -1),
-    NORTH_NORTH_EAST(22.5, 1, -2),
+    NORTH_NORTHEAST(22.5, 1, -2),
     NORTHEAST(45.0, 1, -1),
     EAST_NORTHEAST(67.5, 2, -1),
     EAST(90.0, 1, 0),

@@ -69,8 +69,6 @@ public class Computer extends Player {
             
             ship.setPosition(x, y);
         }
-        
-        super.printTable();
     }
 
     private int drawANumber(int luku) {

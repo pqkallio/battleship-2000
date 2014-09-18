@@ -9,102 +9,102 @@ import java.util.List;
 import java.util.Map;
 
 public class Rules {
-    private Map<Rule, Object> saannot;
+    private Map<Rule, Object> rules;
     
     public Rules() {
-        this.saannot = new HashMap<>();
+        this.rules = new HashMap<>();
     }
     
-    public void asetaKentanKoko(int leveys, int korkeus) {
-        Map<Rule, Integer> kentanKoko = new HashMap<>();
+    public void setTableSize(int width, int height) {
+        Map<Rule, Integer> tableSize = new HashMap<>();
         
-        kentanKoko.put(Rule.TABLE_WIDTH, tarkistettuKentanSivunPituus(leveys));
-        kentanKoko.put(Rule.TABLE_HEIGHT, tarkistettuKentanSivunPituus(korkeus));
+        tableSize.put(Rule.TABLE_WIDTH, validatedTableLength(width));
+        tableSize.put(Rule.TABLE_HEIGHT, validatedTableLength(height));
         
-        this.saannot.put(Rule.TABLE_SIZE, kentanKoko);
+        this.rules.put(Rule.TABLE_SIZE, tableSize);
     }
     
-    public Map<Rule, Integer> haeKentanKoko() {
-        return (HashMap<Rule, Integer>)this.saannot.get(Rule.TABLE_SIZE);
+    public Map<Rule, Integer> getTableSize() {
+        return (HashMap<Rule, Integer>)this.rules.get(Rule.TABLE_SIZE);
     }
     
-    public void createShips(List<ShipType> alukset) {
-        this.saannot.put(Rule.SHIPS, alukset);
+    public void setShipTypes(List<ShipType> shipTypes) {
+        this.rules.put(Rule.SHIPS, shipTypes);
     }
     
     public List<ShipType> getShipTypes() {
-        return (ArrayList<ShipType>)this.saannot.get(Rule.SHIPS);
+        return (ArrayList<ShipType>)this.rules.get(Rule.SHIPS);
     }
     
-    public void setShipsMoveRule(boolean liikkuvatko) {
-        this.saannot.put(Rule.SHIPS_ARE_MOVABLE, liikkuvatko);
+    public void setShipsAreMovableRule(boolean shipsAreMovable) {
+        this.rules.put(Rule.SHIPS_ARE_MOVABLE, shipsAreMovable);
     }
     
     public boolean shipsAreMovable() {
-        return (boolean)this.saannot.get(Rule.SHIPS_ARE_MOVABLE);
+        return (boolean)this.rules.get(Rule.SHIPS_ARE_MOVABLE);
     }
     
-    public void setASquareCanBeHitMultipleTimesRule(boolean voiPommittaaUseasti) {
-        this.saannot.put(Rule.A_SQUARE_CAN_BE_HIT_MULTIPLE_TIMES, voiPommittaaUseasti);
+    public void setASquareCanBeHitMultipleTimesRule(boolean aSquareCanBeHitMultipleTimes) {
+        this.rules.put(Rule.A_SQUARE_CAN_BE_HIT_MULTIPLE_TIMES, aSquareCanBeHitMultipleTimes);
     }
     
     public boolean aSquareCanBeHitMultipleTimes() {
-        return (boolean)this.saannot.get(Rule.A_SQUARE_CAN_BE_HIT_MULTIPLE_TIMES);
+        return (boolean)this.rules.get(Rule.A_SQUARE_CAN_BE_HIT_MULTIPLE_TIMES);
     }
     
-    public void setSpecializedShips(boolean ovatkoKaytossa) {
-        this.saannot.put(Rule.SHIPS_ARE_SPECIALIZED, ovatkoKaytossa);
+    public void setSpecializedShips(boolean shipsAreSpecialized) {
+        this.rules.put(Rule.SHIPS_ARE_SPECIALIZED, shipsAreSpecialized);
     }
     
     public boolean shipsAreSpecialized() {
-        return (boolean)this.saannot.get(Rule.SHIPS_ARE_SPECIALIZED);
+        return (boolean)this.rules.get(Rule.SHIPS_ARE_SPECIALIZED);
     }
     
-    public void createPlayers(List<PlayerType> pelaajat){
-        this.saannot.put(Rule.PLAYERS, pelaajat);
+    public void setPlayerTypes(List<PlayerType> playerTypes){
+        this.rules.put(Rule.PLAYERS, playerTypes);
     }
     
     public List<PlayerType> getPlayerTypes() {
-        return (ArrayList<PlayerType>)this.saannot.get(Rule.PLAYERS);
+        return (ArrayList<PlayerType>)this.rules.get(Rule.PLAYERS);
     }
 
-    public Map<Rule, Object> haeSaannot() {
-        return saannot;
+    public Map<Rule, Object> getRules() {
+        return rules;
     }
     
     public int getTableWidth() {
-        return haeKentanKoko().get(Rule.TABLE_WIDTH);
+        return getTableSize().get(Rule.TABLE_WIDTH);
     }
     
     public int getTableHeight() {
-        return haeKentanKoko().get(Rule.TABLE_HEIGHT);
+        return getTableSize().get(Rule.TABLE_HEIGHT);
     }
     // REFAKTOROI NÄMÄ!!!!
     // SizeLimits HashMap<EnumSaanto, HashMap<EnumMinMax, Integer>>
-    private Integer tarkistettuKentanSivunPituus(int sivunPituus) {
+    private Integer validatedTableLength(int tableSideLegth) {
         int min = SizeLimits.getMinimumTableWidth();
         int max = SizeLimits.getMaximumTableWidth();
         
-        if (sivunPituus < min) return min;
-        else if (sivunPituus > max) return max;
-        else return sivunPituus;
+        if (tableSideLegth < min) return min;
+        else if (tableSideLegth > max) return max;
+        else return tableSideLegth;
     }
     
-    private Integer tarkistettuPelaajienMaara(int maara) {
+    private Integer validatedAmountOfPlayers(int playerAmount) {
         int min = SizeLimits.getMinimumAmountOfPlayers();
         int max = SizeLimits.getMaximumAmountOfPlayers();
         
-        if (maara < min) return min;
-        else if (maara > max) return max;
-        else return maara;
+        if (playerAmount < min) return min;
+        else if (playerAmount > max) return max;
+        else return playerAmount;
     }
     
-    private Integer tarkistettuAlustenMaara(int maara) {
+    private Integer validatedAmountOfShips(int shipAmount) {
         int min = SizeLimits.getMinimumAmountOfShips();
         int max = SizeLimits.getMinimumAmountOfShips();
         
-        if (maara < min) return min;
-        else if (maara > max) return max;
-        else return maara;
+        if (shipAmount < min) return min;
+        else if (shipAmount > max) return max;
+        else return shipAmount;
     }
 }

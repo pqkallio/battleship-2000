@@ -4,11 +4,7 @@ package battleship2000.programlogic.domain.ship;
 public class Submarine extends Ship {
     
     public Submarine() {
-        super(3, 5);
+        super(3, 5, "Submarine");
     }
     
-    @Override
-    public String toString() {
-        return "Submarine";
-    }
 }
