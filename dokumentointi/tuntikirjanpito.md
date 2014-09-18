@@ -26,11 +26,11 @@
 |**14.9.2014**             |             |
 |Testien kirjoittamista, refaktorointi   | 2h  |
 |**15.9.2014**             |             |
-|Testien kirjoittamista, refaktorointi, ui:n suunnittelu   | 2h  |
+|Testien kirjoittamista, refaktorointi, ui:n suunnittelu   | 3h  |
 |**16.9.2014**             |             |
 |Ui:n suunnittelua ja toteuttamista                 | 2h  |
 |**17.9.2014**             |             |
 |Ui:n toteuttamista   | 2h  |
 |**18.9.2014**             |             |
 |Ui, luokkakaavion päivitys   | 2h  |
-|**YHTEENSÄ**            |**approx. 29.5 h**      |
+|**YHTEENSÄ**            |**approx. 40.5 h**      |
