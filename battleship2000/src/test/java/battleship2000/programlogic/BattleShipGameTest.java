@@ -1,6 +1,7 @@
 
 package battleship2000.programlogic;
 
+import battleship2000.programlogic.observers.LogicObserver;
 import battleship2000.programlogic.domain.player.Human;
 import battleship2000.programlogic.domain.player.Player;
 import battleship2000.programlogic.domain.player.Computer;

@@ -1,4 +1,6 @@
-
+/**
+ * A control class used to direct the users ship-placement iteration.
+ */
 package battleship2000.programlogic.control;
 
 import battleship2000.programlogic.domain.player.Human;
@@ -27,7 +29,7 @@ public class HumanPlaceShips implements Controller {
         
         if (playerStatus == PlayerStatus.READY) {
             for (Ship ship : this.player.getShips()) {
-                new SetShipsPosition(ship).placeShipOnTable();
+                new ShipPlacement(ship).placeShipOnTable();
             }
             return true;
         } else {

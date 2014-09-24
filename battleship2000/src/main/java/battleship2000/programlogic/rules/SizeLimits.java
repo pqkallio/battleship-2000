@@ -1,3 +1,7 @@
+/**
+ * A class consisting of static methods used to retrieve the possible minimum 
+ * and maximum sizes and amounts of different game domain objects.
+ */
 
 package battleship2000.programlogic.rules;
 

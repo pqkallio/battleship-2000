@@ -1,4 +1,11 @@
-
+/**
+ * The PlayerType enumerator is used to pass different player types from the
+ * abstract Rules class to the CreateGame control class used to create a new game.
+ * 
+ * Note! The ERRONEUS_PLAYER enumerator is solely used by the tests to track the 
+ * behavior of the game when an InstantiationException is thrown while creating
+ * new players for the game while the CreateGame class is executed.
+ */
 package battleship2000.programlogic.domain.player;
 
 public enum PlayerType {

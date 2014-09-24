@@ -1,6 +1,10 @@
+/**
+ * The class contains the rules and the players of the game.
+ */
 
 package battleship2000.programlogic;
 
+import battleship2000.programlogic.observers.LogicObserver;
 import battleship2000.programlogic.domain.player.Player;
 import battleship2000.programlogic.domain.table.Square;
 import battleship2000.programlogic.control.PlayTurn;

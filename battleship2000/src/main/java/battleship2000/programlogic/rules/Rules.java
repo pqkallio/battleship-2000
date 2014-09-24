@@ -1,3 +1,7 @@
+/**
+ * This class contains the rules used when creating a new instance of CreateGame
+ * control class.
+ */
 
 package battleship2000.programlogic.rules;
 

@@ -1,6 +1,11 @@
+/**
+ * GameTable class implements the Table interface and works as a storage to
+ * its squares and their placement on the game table.
+ */
 
 package battleship2000.programlogic.domain.table;
 
+import battleship2000.programlogic.domain.ship.Direction;
 import battleship2000.programlogic.domain.ship.ShipPart;
 import battleship2000.programlogic.domain.ship.Ship;
 import java.util.List;
@@ -17,6 +22,19 @@ public class GameTable implements Table {
         this.width = width;
         this.height = height;
         this.table = createGameTable(width, height);
+    }
+    
+    @Override
+    public boolean allSquaresAreHit() {
+        for (Map<Integer, Square> map : table.values()) {
+            for (Square square : map.values()) {
+                if (!square.isHit()) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
     }
             
     @Override
@@ -81,5 +99,19 @@ public class GameTable implements Table {
     @Override
     public void removePartsFromField(Ship ship) {
         removePartsFromTable(ship.getParts());
+    }
+
+    @Override
+    public Square getNextSquare(Square square, Direction direction) {
+        Square nextSquare = null;
+        
+        if (square.getTable() == this && square.getX() + direction.getDx() > 0
+            && square.getX() + direction.getDx() < this.width
+            && square.getY() + direction.getDy() > 0
+            && square.getY() + direction.getDy() < this.height) {
+            nextSquare = table.get(square.getY() + direction.getDy()).get(square.getX() + direction.getDx());
+        }
+        
+        return nextSquare;
     }
 }

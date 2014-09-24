@@ -1,4 +1,6 @@
-
+/**
+ * A control class used for placing a single ship on a game table.
+ */
 package battleship2000.programlogic.control;
 
 import battleship2000.programlogic.domain.position.Position;
@@ -7,11 +9,11 @@ import battleship2000.programlogic.domain.ship.Ship;
 import battleship2000.programlogic.domain.ship.ShipPart;
 import battleship2000.programlogic.domain.table.Table;
 
-public class SetShipsPosition {
+public class ShipPlacement {
     private Ship ship;
     private Position[] positions;
     
-    public SetShipsPosition(Ship ship) {
+    public ShipPlacement(Ship ship) {
         this.ship = ship;
     }
 

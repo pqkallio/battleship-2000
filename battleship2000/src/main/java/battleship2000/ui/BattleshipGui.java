@@ -1,10 +1,10 @@
+/**
+ * A Swing-based framework for creating an instance of a graphical user interface.
+ */
 
 package battleship2000.ui;
 
-import battleship2000.programlogic.BattleShipGame;
-import battleship2000.programlogic.control.CreateGame;
-import battleship2000.programlogic.control.GameCommands;
-import battleship2000.programlogic.rules.BasicRules;
+import battleship2000.ui.control.GameCommands;
 import battleship2000.ui.control.CreatePanes;
 import battleship2000.ui.panes.GamePane;
 import battleship2000.ui.panes.TitlePane;
@@ -23,7 +23,7 @@ public class BattleshipGui implements Runnable {
     public void run() {
         this.frame = new JFrame("Battleship 2000");
         this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.frame.setPreferredSize(new Dimension(300, 300));
+        this.frame.setPreferredSize(new Dimension(650, 350));
         
         CreatePanes createMenus = new CreatePanes(this.frame.getContentPane());
         createMenus.execute();
@@ -39,7 +39,7 @@ public class BattleshipGui implements Runnable {
         GridBagConstraints gbc = new GridBagConstraints();
         
         contentPane.setLayout(layout);
-        int[] layoutWidths = {50, 250, 50};
+        int[] layoutWidths = {50, 550, 50};
         int[] layoutHeights = {50, 300};
         
         layout.columnWidths = layoutWidths;

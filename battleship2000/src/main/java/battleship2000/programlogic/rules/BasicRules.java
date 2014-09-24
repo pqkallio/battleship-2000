@@ -1,3 +1,7 @@
+/**
+ * A set of pre-made basic rules for a standard five-ship two-player battleship 
+ * game played on a ten by ten game table.
+ */
 
 package battleship2000.programlogic.rules;
 

@@ -1,7 +1,10 @@
-
+/**
+ * A class that defines the size, name heading, capabilities and other attributes
+ * of the ships used in the game.
+ */
 package battleship2000.programlogic.domain.ship;
 
-import battleship2000.programlogic.control.SetShipsPosition;
+import battleship2000.programlogic.control.ShipPlacement;
 import battleship2000.programlogic.domain.table.Table;
 import battleship2000.programlogic.domain.table.Square;
 import battleship2000.programlogic.rules.SizeLimits;
@@ -50,6 +53,7 @@ public class Ship implements Movable, Turnable, Hittable {
 
     public void setIsOnTable(boolean isOnTable) {
         this.isOnTable = isOnTable;
+        table.removePartsFromField(this);
     }
     
     public void setTable(Table gameTable) {
@@ -124,33 +128,15 @@ public class Ship implements Movable, Turnable, Hittable {
     @Override
     public void turnClockwise() {
         this.direction = getNeighborDirection(1);
-        
-//        if (setPosition(parts[0].getX(), parts[0].getY())) {
-//            return true;
-//        } else {
-//            this.direction = getNeighborDirection(-1);
-//            return false;
-//        }
     }
 
     @Override
     public void turnCounterClockwise() {
         this.direction = getNeighborDirection(-1);
-        
-//        if (setPosition(parts[0].getX(), parts[0].getY())) {
-//            return true;
-//        } else {
-//            this.direction = getNeighborDirection(1);
-//            return false;
-//        }
     }
 
     private void addPossibleDirections() {
-        for (Direction directionEnum : Direction.values()) {
-            if (directionEnum.getAngle() % 90 == 0) {
-                this.possibleDirections.add(directionEnum);
-            }
-        }
+        this.possibleDirections = Direction.EAST.getMainDirections();
     }
 
     private int getFinalSize(int length) {
@@ -187,19 +173,6 @@ public class Ship implements Movable, Turnable, Hittable {
         return true;
     }
 
-//    private ShipPart[] sijoitaOsat(int osienLukumaara, Direction direction, 
-//            int x, int y) {
-////        ShipPart[] aluksenosat = new ShipPart[osienLukumaara];
-////        
-////        for (int i = 0; i < aluksenosat.length; i++) {
-////            aluksenosat[i] = new ShipPart(x, y);
-////        }
-//        
-//        maaritaOsienSijaintiPelikentalla(aluksenosat, x, y, direction);
-//        
-//        return aluksenosat;
-//    }
-
     public int getX() {
         return parts[0].getX();
     }
@@ -209,7 +182,7 @@ public class Ship implements Movable, Turnable, Hittable {
     }
     
     public boolean setPosition(int x, int y) {
-        SetShipsPosition setPosition = new SetShipsPosition(this);
+        ShipPlacement setPosition = new ShipPlacement(this);
         
         if (setPosition.setShipsPosition(x, y)) {
             setIsOnTable(true);
@@ -229,61 +202,9 @@ public class Ship implements Movable, Turnable, Hittable {
         return true;
     }
 
-//    private void checkPartPlacementOnTable(ShipPart[] shipParts) {
-//        int firstPartX = shipParts[0].getX();
-//        int firstPartY = shipParts[0].getY();
-//        int lastPartX = shipParts[shipParts.length - 1].getX();
-//        int lastPartY = shipParts[shipParts.length - 1].getY();
-//        int lastIndex = shipParts.length - 1;
-//        int lastTableX = this.table.getWidth() - 1;
-//        int lastTableY = this.table.getHeight() - 1;
-//        
-//        if (lastPartX > lastTableX) {
-//            setPosition(lastPartX - (lastPartX - lastTableX) - lastIndex, lastPartY);
-//        } else if (lastPartY > lastTableY) {
-//            setPosition(lastPartX, lastPartY - (lastPartY - lastTableY) - lastIndex);
-//        } else if (firstPartX < 0) {
-//            setPosition((-1 * firstPartX) + firstPartX, lastPartY);
-//        } else if (firstPartY < 0) {
-//            setPosition(0, (-1 * lastPartY) + lastPartY);
-//        } else {
-//            this.table.placeShipOnTable(this);
-//        }
-//        
-//        if (aluksenosat[aluksenosat.length - 1].getX() > this.table.getWidth() - 1) {
-//            move((aluksenosat[aluksenosat.length - 1].getX() - this.table.getWidth()), 0);
-//        } else if (aluksenosat[aluksenosat.length - 1].getY() > this.table.getHeight()) {
-//            move(0, (aluksenosat[aluksenosat.length - 1].getY() - this.table.getHeight()));
-//        } else if (aluksenosat[0].getX() < 0) {
-//            move(-1 * (aluksenosat[0].getX()), 0);
-//        } else if (aluksenosat[0].getY() < 0) {
-//            move(0, -1 * (aluksenosat[0].getY()));
-//        } else {
-//            this.table.placeShipOnTable(this);
-//        }
-//    }
-
     public List<Square> getSquaresToBomb(Square square) {
         List<Square> squaresToBomb = new ArrayList<>();
         squaresToBomb.add(square);
         return squaresToBomb;
     }
-
-//    private void checkPartCollisionOnTable(ShipPart[] shipParts) {
-//        List<ShipPart> collidingParts = new ArrayList<>();
-//        
-//        for (ShipPart shipPart : shipParts) {
-//            if (table.getTable().get(shipPart.getY()).get(shipPart.getX()).getShipPart() != null) {
-//                collidingParts.add(shipPart);
-//            }
-//        }
-//        
-//        if (!collidingParts.isEmpty()) {
-//            resolveCollisions(collidingParts);
-//        }
-//    }
-//
-//    private void resolveCollisions(List<ShipPart> collidingParts) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
 }

@@ -1,3 +1,7 @@
+/**
+ * A Square is a part of a Table. It contains information about its state and
+ * a reference to a maximum of one ship part.
+ */
 
 package battleship2000.programlogic.domain.table;
 
@@ -25,10 +29,6 @@ public class Square implements Comparable<Square> {
 
     public Table getTable() {
         return table;
-    }
-
-    public ShipPart getPart() {
-        return part;
     }
     
     public void setShipPart(ShipPart part) {
@@ -59,6 +59,7 @@ public class Square implements Comparable<Square> {
         this.hit = true;
         
         if (part != null) {
+            part.hit();
             if (part.getMotherShip().isDestroyed()) {
                 return Points.DESTROYED.getPoints();
             } else {

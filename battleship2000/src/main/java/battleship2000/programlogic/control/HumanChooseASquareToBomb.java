@@ -1,4 +1,6 @@
-
+/**
+ * A control class designed to direct the user's square-choosing iteration.
+ */
 package battleship2000.programlogic.control;
 
 import battleship2000.programlogic.domain.player.Human;

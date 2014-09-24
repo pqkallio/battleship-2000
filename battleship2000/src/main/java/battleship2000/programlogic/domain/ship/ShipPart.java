@@ -1,4 +1,10 @@
-
+/**
+ * The manifestation of a Ship in the game is a series of ShipParts that can
+ * be placed in Squares of a Table.
+ * 
+ * Note! The Ship's direction defines which ShipPart is the Front and which one
+ * is the Rear.
+ */
 package battleship2000.programlogic.domain.ship;
 
 import battleship2000.programlogic.domain.position.Position;

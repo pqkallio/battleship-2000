@@ -1,4 +1,6 @@
-
+/**
+ * A class used to create a new instance of BattleShipGame class.
+ */
 package battleship2000.programlogic.control;
 
 import battleship2000.programlogic.BattleShipGame;

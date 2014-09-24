@@ -105,12 +105,6 @@ public class PlayerTest {
     }
     
     @Test
-    public void afterSetShipsArePlacedMethodIsCalledShipsArePlacedMethodReturnsTrue() {
-        this.human.setShipsArePlaced();
-        assertTrue(this.human.shipsArePlaced());
-    }
-    
-    @Test
     public void whenAPlayerIsCreatedGetShotsFiredReturns0() {
         assertEquals(0, this.human.getShotsFired());
     }

@@ -1,4 +1,8 @@
-
+/**
+ * This class is an abstraction of the game's players.
+ * The class contains the player's game table, ships, points and all the other
+ * relevant data about the player during the game.
+ */
 package battleship2000.programlogic.domain.player;
 
 import battleship2000.programlogic.BattleShipGame;
@@ -14,7 +18,6 @@ public abstract class Player {
     private Table table;
     private BattleShipGame game;
     private int shotsFired;
-    private boolean shipsArePlaced;
     
     public abstract Square chooseASquare(Table table, 
             boolean aSquareCanBeHitMultipleTimes);
@@ -30,12 +33,12 @@ public abstract class Player {
         this.game = game;
     }
 
-    public void setShipsArePlaced() {
-        this.shipsArePlaced = true;
-    }
-
     public boolean shipsArePlaced() {
-        return shipsArePlaced;
+        for (Ship ship : ships) {
+            if (!ship.isOnTable()) return false;
+        }
+        
+        return true;
     }
 
     public int getShotsFired() {

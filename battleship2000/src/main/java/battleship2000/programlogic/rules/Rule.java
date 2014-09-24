@@ -1,3 +1,7 @@
+/**
+ * An enum type used as a key in storing and retrieving rules from an instance of
+ * Rules class.
+ */
 
 package battleship2000.programlogic.rules;
 

@@ -1,4 +1,8 @@
-
+/**
+ * A user-controlled player class that inherits the abstract Player class.
+ * Controlled by the user, this player class contains the player's choices
+ * in placing the ships and choosing
+ */
 package battleship2000.programlogic.domain.player;
 
 import battleship2000.programlogic.BattleShipGame;

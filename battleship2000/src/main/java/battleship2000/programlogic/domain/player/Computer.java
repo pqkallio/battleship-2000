@@ -1,4 +1,8 @@
-
+/**
+ * A computer player class that inherits the abstract Player class.
+ * This player is the users rival in the game and uses a series of calculations
+ * and randomness to place ships and choose user's game table's squares to bomb.
+ */
 package battleship2000.programlogic.domain.player;
 
 import battleship2000.programlogic.BattleShipGame;
@@ -20,6 +24,10 @@ public class Computer extends Player {
     
     @Override
     public Square chooseASquare(Table table, boolean aSquareCanBeHitMultipleTimes) {
+        if (table.allSquaresAreHit()) {
+            return null;
+        }
+        
         int x = 0;
         int y = 0;
         
@@ -52,9 +60,15 @@ public class Computer extends Player {
 
     private void placeAShipOnTable(Ship ship) {
         while (!ship.isOnTable()) {
-            int x = drawANumber(super.getTable().getWidth());
-            int y = drawANumber(super.getTable().getHeight());
-
+            boolean canBePlacedOnTable = false;
+            
+            while (!canBePlacedOnTable) {
+                int x = drawANumber(super.getTable().getWidth());
+                int y = drawANumber(super.getTable().getHeight());
+                
+                if (ship.setPosition(x, y)) canBePlacedOnTable = true;
+            }
+            
             double directionRaffle = new Random().nextDouble();
 
             if (directionRaffle < 0.25) {
@@ -66,8 +80,6 @@ public class Computer extends Player {
             } else {
                 ship.setDirection(ship.getPossibleDirections().get(3));
             }
-            
-            ship.setPosition(x, y);
         }
     }
 

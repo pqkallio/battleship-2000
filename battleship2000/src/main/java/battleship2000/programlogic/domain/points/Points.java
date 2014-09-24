@@ -1,4 +1,7 @@
-
+/**
+ * An enum type used to return the amount of points awarded from bombing an
+ * enemy square.
+ */
 package battleship2000.programlogic.domain.points;
 
 public enum Points {

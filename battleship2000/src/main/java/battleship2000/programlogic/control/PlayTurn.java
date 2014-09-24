@@ -1,3 +1,6 @@
+/**
+ * A control class used to direct a single turn iteration in the game.
+ */
 
 package battleship2000.programlogic.control;
 
