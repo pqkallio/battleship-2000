@@ -1,6 +1,3 @@
-/**
- * A class used to create a new instance of BattleShipGame class.
- */
 package battleship2000.programlogic.control;
 
 import battleship2000.programlogic.BattleShipGame;
@@ -14,13 +11,29 @@ import battleship2000.programlogic.rules.Rules;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class used to create a new instance of BattleShipGame class.
+ * 
+ * @author Petri Kallio
+ */
 public class CreateGame implements Controller {
     private Rules rules;
     
+    /**
+     * A constructor that creates a new instance of the class and sets the Rules
+     * object variable.
+     * 
+     * @param rules     the Rules-object to be set as an object variable
+     */
     public CreateGame(Rules rules) {
         this.rules = rules;
     }
     
+    /**
+     * Executes the necessary actions to create a new instance of the BattleShipGame class.
+     * 
+     * @return new BattleShipGame
+     */
     @Override
     public Object execute() {
         BattleShipGame game = new BattleShipGame();
@@ -37,7 +50,14 @@ public class CreateGame implements Controller {
         
         return game;
     }
-
+    
+    /**
+     * Creates new players for the game according to the PlayerTypes given in the Rules.
+     * 
+     * @return  a list of player objects inheriting the abstract class {@link battleship2000.programlogic.domain.player.Player}
+     * @throws  InstantiationException
+     * @throws  IllegalAccessException 
+     */
     private List<Player> createPlayers() throws InstantiationException, IllegalAccessException {
         List<Player> players = new ArrayList<>();
         

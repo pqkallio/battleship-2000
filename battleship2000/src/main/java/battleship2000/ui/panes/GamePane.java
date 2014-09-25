@@ -1,29 +1,24 @@
-
 package battleship2000.ui.panes;
 
-import battleship2000.ui.listeners.AllMofoingShipsAreMofoingSetListener;
+import battleship2000.ui.listeners.AllShipsAreSetListener;
 import battleship2000.ui.listeners.ShipChooserListener;
-import battleship2000.ui.listeners.SetShipListener;
-import battleship2000.programlogic.BattleShipGame;
-import battleship2000.programlogic.observers.LogicObserver;
-import battleship2000.ui.control.GameCommands;
-import battleship2000.programlogic.control.HumanPlaceShips;
-import battleship2000.programlogic.control.PlayerStatus;
-import battleship2000.programlogic.domain.player.Human;
+import battleship2000.programlogic.GameCommands;
 import battleship2000.programlogic.domain.player.Player;
-import battleship2000.programlogic.domain.table.Table;
-import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.LayoutManager;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+/**
+ * This pane contains the graphical game environment. It consists of both players'
+ * visual game tables and of all the necessary controllers to control the game.
+ *
+ * @author Petri Kallio
+ */
 public class GamePane extends JPanel {
     private GameCommands gameCommmands;
     private JButton allMofoingShipsMofoingSet;
@@ -31,10 +26,6 @@ public class GamePane extends JPanel {
     public GamePane(GameCommands gameCommands) {
         this.gameCommmands = gameCommands;
         createGameLayout();
-    }
-    
-    private void placeShips(HumanPlaceShips humanPlaceShips) {
-        humanPlaceShips.setPlayerStatus(PlayerStatus.READY);
     }
 
     private void createGameLayout() {
@@ -119,7 +110,7 @@ public class GamePane extends JPanel {
         
         allMofoingShipsMofoingSet = new JButton("Start");
         buttons.add(allMofoingShipsMofoingSet);
-        allMofoingShipsMofoingSet.addActionListener(new AllMofoingShipsAreMofoingSetListener(gameCommmands, playersSide.getPlayer(), playersSide, foesSide, buttons));
+        allMofoingShipsMofoingSet.addActionListener(new AllShipsAreSetListener(gameCommmands, playersSide.getPlayer(), playersSide, foesSide, buttons));
         allMofoingShipsMofoingSet.setEnabled(false);
         
         gbc.gridx = 2; gbc.gridy = 1;

@@ -1,14 +1,15 @@
-/**
- * A Square is a part of a Table. It contains information about its state and
- * a reference to a maximum of one ship part.
- */
-
 package battleship2000.programlogic.domain.table;
 
 import battleship2000.programlogic.domain.ship.ShipPart;
 import battleship2000.programlogic.domain.points.Points;
 import battleship2000.programlogic.domain.position.Position;
 
+/**
+ * A Square is a part of a Table. It contains information about its state and
+ * a reference to a maximum of one ship part.
+ *
+ * @author Petri Kallio
+ */
 public class Square implements Comparable<Square> {
     private Position position;
     private Table table;

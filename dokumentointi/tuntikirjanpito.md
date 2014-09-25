@@ -33,4 +33,16 @@
 |Ui:n toteuttamista   | 2h  |
 |**18.9.2014**             |             |
 |Ui, luokkakaavion päivitys   | 2h  |
-|**YHTEENSÄ**            |**approx. 40.5 h**      |
+|**19.9.2014**             |             |
+|Ui:n toteuttamista                 | 2h  |
+|**20.9.2014**             |             |
+|Refaktorointi   | 2h  |
+|**22.9.2014**             |             |
+|Ui:n toteuttamista, tekoälyn suunnittelua   | 3h  |
+|**23.9.2014**             |             |
+|Tekoälyn suunnittelua            | 1h  |
+|**24.9.2014**             |             |
+|Tekoälyn toteuttamista, javadoc   | 2h  |
+|**25.9.2014**             |             |
+|Tekoäly, luokkakaavion päivitys, javadoc   | 4h  |
+|**YHTEENSÄ**            |**approx. 54.5 h**      |

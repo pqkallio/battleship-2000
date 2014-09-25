@@ -1,9 +1,6 @@
-
 package battleship2000.ui.listeners;
 
-import battleship2000.programlogic.BattleShipGame;
-import battleship2000.ui.control.GameCommands;
-import battleship2000.programlogic.control.ShipPlacement;
+import battleship2000.programlogic.GameCommands;
 import battleship2000.programlogic.domain.player.Player;
 import battleship2000.programlogic.domain.ship.Ship;
 import battleship2000.programlogic.domain.ship.ShipType;
@@ -12,6 +9,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
+/**
+ * An action listener used to choose a ship for placing it on the game table.
+ *
+ * @author Petri Kallio
+ */
 public class ShipChooserListener implements ActionListener {
     private Player player;
     private VisualGameTable playersSide;

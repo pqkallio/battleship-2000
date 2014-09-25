@@ -1,4 +1,3 @@
-
 package battleship2000.ui.panes;
 
 import battleship2000.programlogic.domain.player.Human;
@@ -11,6 +10,11 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import javax.swing.JPanel;
 
+/**
+ * A visual representation of a single square that a game table consists of.
+ *
+ * @author Petri Kallio
+ */
 public class VisualSquare extends JPanel {
     private VisualGameTable partOf;
     private boolean reddened;

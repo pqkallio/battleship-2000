@@ -1,13 +1,14 @@
-/**
- * An enum type used to store and retrieve the degree when turned to a certain
- * direction and distances as x- and y-coordinates when moved to a certain direction.
- */
-
 package battleship2000.programlogic.domain.ship;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * An enum type used to store and retrieve the degree when turned to a certain
+ * direction and distances as x- and y-coordinates when moved to a certain direction.
+ *
+ * @author Petri Kallio
+ */
 public enum Direction {
     NORTH(0.0, 0, -1),
     NORTH_NORTHEAST(22.5, 1, -2),

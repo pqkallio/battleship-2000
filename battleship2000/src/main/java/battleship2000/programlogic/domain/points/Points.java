@@ -1,9 +1,11 @@
+package battleship2000.programlogic.domain.points;
+
 /**
  * An enum type used to return the amount of points awarded from bombing an
  * enemy square.
+ *
+ * @author Petri Kallio
  */
-package battleship2000.programlogic.domain.points;
-
 public enum Points {
     MISSED(0),
     HIT(5),

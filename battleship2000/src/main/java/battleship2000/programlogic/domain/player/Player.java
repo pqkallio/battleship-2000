@@ -1,17 +1,18 @@
-/**
- * This class is an abstraction of the game's players.
- * The class contains the player's game table, ships, points and all the other
- * relevant data about the player during the game.
- */
 package battleship2000.programlogic.domain.player;
 
 import battleship2000.programlogic.BattleShipGame;
 import battleship2000.programlogic.domain.ship.Ship;
 import battleship2000.programlogic.domain.table.Table;
-import battleship2000.programlogic.domain.table.GameTable;
 import battleship2000.programlogic.domain.table.Square;
 import java.util.List;
 
+/**
+ * This class is an abstraction of the game's players.
+ * The class contains the player's game table, ships, points and all the other
+ * relevant data about the player during the game.
+ * 
+ * @author Petri Kallio
+ */
 public abstract class Player {
     private List<Ship> ships;
     private int points;

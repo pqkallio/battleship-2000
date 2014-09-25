@@ -1,10 +1,6 @@
-/**
- * A Swing-based framework for creating an instance of a graphical user interface.
- */
-
 package battleship2000.ui;
 
-import battleship2000.ui.control.GameCommands;
+import battleship2000.programlogic.GameCommands;
 import battleship2000.ui.control.CreatePanes;
 import battleship2000.ui.panes.GamePane;
 import battleship2000.ui.panes.TitlePane;
@@ -16,6 +12,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+/**
+ * A Swing-based framework for creating an instance of a graphical user interface.
+ *
+ * @author Petri Kallio
+ */
 public class BattleshipGui implements Runnable {
     private JFrame frame;
     

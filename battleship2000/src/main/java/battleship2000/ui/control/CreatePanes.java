@@ -1,19 +1,17 @@
-
 package battleship2000.ui.control;
 
-import battleship2000.programlogic.BattleShipGame;
-import battleship2000.programlogic.control.CreateGame;
-import battleship2000.programlogic.rules.BasicRules;
-import battleship2000.ui.panes.GamePane;
 import battleship2000.ui.panes.TitlePane;
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.LayoutManager;
 import javax.swing.JPanel;
 
+/**
+ * A user interface control class for creating necessary panes for the user
+ * interface.
+ *
+ * @author Petri Kallio
+ */
 public class CreatePanes {
     private Container container;
     

@@ -1,6 +1,3 @@
-/**
- * A control class used for placing a single ship on a game table.
- */
 package battleship2000.programlogic.control;
 
 import battleship2000.programlogic.domain.position.Position;
@@ -9,10 +6,23 @@ import battleship2000.programlogic.domain.ship.Ship;
 import battleship2000.programlogic.domain.ship.ShipPart;
 import battleship2000.programlogic.domain.table.Table;
 
+/**
+ * A control class used for placing a single ship on a game table. 
+ * <p>
+ * This control class is created to be used for the positioning and placing a 
+ * single ship on a game table and is destroyed immediately after it.
+ * 
+ * @author Petri Kallio
+ */
 public class ShipPlacement {
     private Ship ship;
     private Position[] positions;
     
+    /**
+     * A constructor to create a new instance of the class.
+     * 
+     * @param ship  a ship to be set as an object variable
+     */
     public ShipPlacement(Ship ship) {
         this.ship = ship;
     }
@@ -29,6 +39,13 @@ public class ShipPlacement {
         return this.ship.getDirection();
     }
     
+    /**
+     * Checks if a ship can be placed on a position given as two integer parameters.
+     * 
+     * @param x     an x-coordinate on a game table
+     * @param y     a y-coordinate on a game table
+     * @return      true if the ship can be placed on the coordinates given.
+     */
     public boolean setShipsPosition(int x, int y) {
         positions = getPartPlacementBasedOnHeading(x, y);
         checkPartPlacementOnTable(positions);
@@ -97,6 +114,10 @@ public class ShipPlacement {
         }
     }
     
+    /**
+     * Places the ship on the table by removing its parts from their previous
+     * squares on the game table and setting them to the new squares.
+     */
     public void placeShipOnTable() {
         if (ship.isOnTable()) {
             getTable().removePartsFromTable(getParts());
@@ -125,6 +146,15 @@ public class ShipPlacement {
         return true;
     }
 
+    /**
+     * Returns the positions of the ship's parts.
+     * <p>
+     * Note! The positions returned are not the positions fixed on the game table's
+     * squares but the positions of the ship's parts before they are set on the 
+     * table.
+     * 
+     * @return  the positions of the ship's parts as an array
+     */
     public Position[] getPositions() {
         return positions;
     }

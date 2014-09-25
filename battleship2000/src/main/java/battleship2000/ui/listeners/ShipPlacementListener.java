@@ -1,4 +1,3 @@
-
 package battleship2000.ui.listeners;
 
 import battleship2000.programlogic.control.ShipPlacement;
@@ -8,6 +7,11 @@ import battleship2000.ui.panes.VisualSquare;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * A mouse listener used for placing and setting a ship on the table.
+ *
+ * @author Petri Kallio
+ */
 public class ShipPlacementListener implements MouseListener {
     private VisualSquare square;
     private Position[] shipInSquarePartsPositioning;

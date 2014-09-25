@@ -1,8 +1,3 @@
-/**
- * This class contains the rules used when creating a new instance of CreateGame
- * control class.
- */
-
 package battleship2000.programlogic.rules;
 
 import battleship2000.programlogic.domain.ship.ShipType;
@@ -12,6 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class contains the rules used when creating a new instance of CreateGame
+ * control class.
+ *
+ * @author Petri Kallio
+ */
 public class Rules {
     private Map<Rule, Object> rules;
     

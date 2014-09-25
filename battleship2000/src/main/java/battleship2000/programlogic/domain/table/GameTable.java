@@ -1,8 +1,3 @@
-/**
- * GameTable class implements the Table interface and works as a storage to
- * its squares and their placement on the game table.
- */
-
 package battleship2000.programlogic.domain.table;
 
 import battleship2000.programlogic.domain.ship.Direction;
@@ -12,6 +7,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * GameTable class implements the Table interface and works as a storage to
+ * its squares and their placement on the game table.
+ *
+ * @author Petri Kallio
+ */
 public class GameTable implements Table {
     private Map<Integer, Map<Integer, Square>> table;
     private List<Ship> ships;
@@ -105,9 +106,9 @@ public class GameTable implements Table {
     public Square getNextSquare(Square square, Direction direction) {
         Square nextSquare = null;
         
-        if (square.getTable() == this && square.getX() + direction.getDx() > 0
+        if (square.getTable() == this && square.getX() + direction.getDx() >= 0
             && square.getX() + direction.getDx() < this.width
-            && square.getY() + direction.getDy() > 0
+            && square.getY() + direction.getDy() >= 0
             && square.getY() + direction.getDy() < this.height) {
             nextSquare = table.get(square.getY() + direction.getDy()).get(square.getX() + direction.getDx());
         }

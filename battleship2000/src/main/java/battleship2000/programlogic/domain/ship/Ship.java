@@ -1,7 +1,3 @@
-/**
- * A class that defines the size, name heading, capabilities and other attributes
- * of the ships used in the game.
- */
 package battleship2000.programlogic.domain.ship;
 
 import battleship2000.programlogic.control.ShipPlacement;
@@ -11,6 +7,12 @@ import battleship2000.programlogic.rules.SizeLimits;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class that defines the size, name heading, capabilities and other attributes
+ * of the ships used in the game.
+ *
+ * @author Petri Kallio
+ */
 public class Ship implements Movable, Turnable, Hittable {
     protected Direction direction;
     protected ShipPart[] parts;

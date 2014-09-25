@@ -1,8 +1,10 @@
-/**
- * The Position class is used to store and retrieve the x- and y-coordinates of ship parts.
- */
 package battleship2000.programlogic.domain.position;
 
+/**
+ * The Position class is used to store and retrieve the x- and y-coordinates of ship parts.
+ *
+ * @author Petri Kallio
+ */
 public class Position implements Comparable<Position> {
     private int x;
     private int y;

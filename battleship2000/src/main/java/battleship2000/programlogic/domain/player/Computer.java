@@ -1,19 +1,23 @@
-/**
- * A computer player class that inherits the abstract Player class.
- * This player is the users rival in the game and uses a series of calculations
- * and randomness to place ships and choose user's game table's squares to bomb.
- */
 package battleship2000.programlogic.domain.player;
 
 import battleship2000.programlogic.BattleShipGame;
+import battleship2000.programlogic.domain.player.ai.ComputerGuessingPattern;
 import battleship2000.programlogic.domain.ship.Ship;
 import battleship2000.programlogic.domain.table.Table;
 import battleship2000.programlogic.domain.table.Square;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * A computer player class that inherits the abstract Player class.
+ * This player is the users rival in the game and uses a series of calculations
+ * and randomness to place ships and choose user's game table's squares to bomb.
+ * 
+ * @author Petri Kallio
+ */
 public class Computer extends Player {
-
+    private ComputerGuessingPattern cgp;
+    
     public Computer() {
         
     }
@@ -27,21 +31,31 @@ public class Computer extends Player {
         if (table.allSquaresAreHit()) {
             return null;
         }
+        System.out.println("Got here");
+        Square chosen = null;
         
-        int x = 0;
-        int y = 0;
-        
-        while (true) {
-            x = drawANumber(table.getWidth());
-            y = drawANumber(table.getHeight());
-            
-            if (aSquareCanBeHitMultipleTimes 
-                    || !table.getTable().get(y).get(x).isHit() ) {
-                break;
-            }
+        while (chosen == null) {
+            chosen = cgp.chooseASquare();
         }
         
-        return table.getTable().get(y).get(x);
+        return chosen;
+        
+        
+        
+//        int x = 0;
+//        int y = 0;
+//        
+//        while (true) {
+//            x = drawANumber(table.getWidth());
+//            y = drawANumber(table.getHeight());
+//            
+//            if (aSquareCanBeHitMultipleTimes 
+//                    || !table.getTable().get(y).get(x).isHit() ) {
+//                break;
+//            }
+//        }
+//        
+//        return table.getTable().get(y).get(x);
     }
     
     @Override
@@ -86,5 +100,11 @@ public class Computer extends Player {
     private int drawANumber(int luku) {
         int luckyNumber = new Random().nextInt(luku);
         return luckyNumber;
+    }
+    
+    @Override
+    public void setGame(BattleShipGame game) {
+        super.setGame(game);
+        this.cgp = new ComputerGuessingPattern(game.getHuman(), game.aSquareCanBeHitMultipleTimes());
     }
 }

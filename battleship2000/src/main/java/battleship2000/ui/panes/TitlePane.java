@@ -1,10 +1,14 @@
-
 package battleship2000.ui.panes;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JPanel;
 
+/**
+ * The game's graphical user interface's title pane. 
+ *
+ * @author Petri Kallio
+ */
 public class TitlePane extends Pane{
 
     public TitlePane() {

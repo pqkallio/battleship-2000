@@ -1,7 +1,6 @@
-
 package battleship2000.ui.panes;
 
-import battleship2000.ui.control.GameCommands;
+import battleship2000.programlogic.GameCommands;
 import battleship2000.programlogic.domain.player.Human;
 import battleship2000.programlogic.domain.player.Player;
 import battleship2000.programlogic.domain.ship.Ship;
@@ -13,6 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
 
+/**
+ * A visual representation of a player's game table and its contents.
+ *
+ * @author Petri Kallio
+ */
 public class VisualGameTable extends JPanel {
     private Player player;
     private List<VisualSquare> squares;

@@ -149,64 +149,6 @@ public class BattleShipGameTest {
         assertEquals(1, game.getTurn());
     }
     
-    @Test
-    public void ifTurnIsNotDivisibleByTwoTheFirstPlayersRoleIsThePlayer() {
-        setPlayers();
-        
-        game.addObserver(new DummyObserver1(game));
-        game.notifyObservers(true);
-        
-        if (game.getTurn() == 1) {
-            assertEquals(game.getPlayers().get(0), game.getTurnsPlayer(game.getTurn()));
-        } else {
-            throw new AssertionError("The game's turn wasn't incremented correctly", null);
-        }
-    }
-    
-    @Test
-    public void ifTurnIsDivisibleByTwoTheSecondPlayersRoleIsThePlayer() {
-        setPlayers();
-        
-        game.addObserver(new DummyObserver1(game));
-        game.notifyObservers(true);
-        game.notifyObservers(true);
-        
-        if (game.getTurn() == 2) {
-            assertEquals(game.getPlayers().get(1), game.getTurnsPlayer(game.getTurn()));
-        } else {
-            throw new AssertionError("The game's turn wasn't incremented correctly", null);
-        }
-    }
-    
-    @Test
-    public void ifTurnIsNotDivisibleByTwoTheSecondPlayersRoleIsTheFoe() {
-        setPlayers();
-        
-        game.addObserver(new DummyObserver1(game));
-        game.notifyObservers(true);
-        
-        if (game.getTurn() == 1) {
-            assertEquals(game.getPlayers().get(1), game.getTurnsFoe(game.getTurn()));
-        } else {
-            throw new AssertionError("The game's turn wasn't incremented correctly", null);
-        }
-    }
-    
-    @Test
-    public void ifTurnIsDivisibleByTwoTheFirstPlayersRoleIsTheFoe() {
-        setPlayers();
-        
-        game.addObserver(new DummyObserver1(game));
-        game.notifyObservers(true);
-        game.notifyObservers(true);
-        
-        if (game.getTurn() == 2) {
-            assertEquals(game.getPlayers().get(0), game.getTurnsFoe(game.getTurn()));
-        } else {
-            throw new AssertionError("The game's turn wasn't incremented correctly", null);
-        }
-    }
-    
     private void setPlayers() {
         List<Player> pelinPelaajat = new ArrayList<>();
         Collections.addAll(pelinPelaajat, players);

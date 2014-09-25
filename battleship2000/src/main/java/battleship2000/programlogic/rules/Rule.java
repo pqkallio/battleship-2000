@@ -1,10 +1,11 @@
+package battleship2000.programlogic.rules;
+
 /**
  * An enum type used as a key in storing and retrieving rules from an instance of
  * Rules class.
+ *
+ * @author Petri Kallio
  */
-
-package battleship2000.programlogic.rules;
-
 public enum Rule {
     TABLE_SIZE,
     TABLE_WIDTH,
