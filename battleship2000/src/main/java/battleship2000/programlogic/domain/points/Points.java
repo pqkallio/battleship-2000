@@ -9,7 +9,8 @@ package battleship2000.programlogic.domain.points;
 public enum Points {
     MISSED(0),
     HIT(5),
-    DESTROYED(10);
+    DESTROYED(10),
+    WIN(20);
     
     private int points;
     

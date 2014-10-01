@@ -18,7 +18,8 @@ public abstract class Player {
     private int points;
     private Table table;
     private BattleShipGame game;
-    private int shotsFired;
+    private int shotsMissed;
+    private int shotsHit;
     
     public abstract Square chooseASquare(Table table, 
             boolean aSquareCanBeHitMultipleTimes);
@@ -30,7 +31,8 @@ public abstract class Player {
     
     public Player(BattleShipGame game) {
         this.points = 0;
-        this.shotsFired = 0;
+        this.shotsMissed = 0;
+        this.shotsHit = 0;
         this.game = game;
     }
 
@@ -42,10 +44,14 @@ public abstract class Player {
         return true;
     }
 
-    public int getShotsFired() {
-        return shotsFired;
+    public int getShotsMissed() {
+        return shotsMissed;
     }
 
+    public int getShotsHit() {
+        return shotsHit;
+    }
+    
     public int getPoints() {
         return points;
     }
@@ -80,11 +86,17 @@ public abstract class Player {
         }
     }
     
-    public void addShotsFired(int shotsFired) {
-        if (shotsFired > 0) {
-            this.shotsFired += shotsFired;
+    public void addShotsMissed(int shotsMissed) {
+        if (shotsMissed > 0) {
+            this.shotsMissed += shotsMissed;
         }
     }   
+
+    public void addShotsHit(int shotsHit) {
+        if (shotsHit > 0) {
+            this.shotsHit += shotsHit;
+        }
+    }
     
     public boolean allShipsDestroyed() {
         for (Ship ship : ships) {
@@ -92,5 +104,13 @@ public abstract class Player {
         }
         
         return true;
+    }
+
+    public Double getAccuracy() {
+        if (this.shotsHit == 0 && this.shotsMissed == 0) {
+            return 0.0;
+        } else {
+            return Math.ceil(100.0 * this.shotsHit / (this.shotsHit + this.shotsMissed));
+        }
     }
 }

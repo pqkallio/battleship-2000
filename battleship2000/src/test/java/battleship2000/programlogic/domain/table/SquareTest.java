@@ -147,26 +147,26 @@ public class SquareTest {
         assertEquals(ship.getParts()[0], testSquare.getShipPart());
     }
     
-//    @Test
-//    public void ifASquareContainsTheLastIntactShipPartOfAShipAndItIsHitBombingTheSquareReturnsDESTROYEDPoints() {
-//        Ship ship = new Ship(2);
-//        System.out.println("Should be intact: ");
-//        for (ShipPart shipPart : ship.getParts()) {
-//            System.out.println(shipPart.isIntact());
-//        }
-//        System.out.println("Ship is destroyed = " + ship.isDestroyed());
-//        System.out.println("Ship is intact = " + ship.isIntact());
-//        Square testSquare = new Square(gameTable, 1, 1);
-//        
-//        ship.getParts()[1].hit();
-//        System.out.println("Second part should be hit: ");
-//        for (ShipPart shipPart : ship.getParts()) {
-//            System.out.println(shipPart.isIntact());
-//        }
-//        System.out.println("Ship is destroyed = " + ship.isDestroyed());
-//        System.out.println("Ship is intact = " + ship.isIntact());
-//        testSquare.setShipPart(ship.getParts()[0]);
-//        
-//        assertEquals(Points.DESTROYED.getPoints(), testSquare.bomb());
-//    }
+    @Test
+    public void ifASquareContainsTheLastIntactShipPartOfAShipAndItIsHitBombingTheSquareReturnsDESTROYEDPoints() {
+        Ship ship = new Ship(2);
+        System.out.println("Should be intact: ");
+        for (ShipPart shipPart : ship.getParts()) {
+            System.out.println(shipPart.isIntact());
+        }
+        System.out.println("Ship is destroyed = " + ship.isDestroyed());
+        System.out.println("Ship is intact = " + ship.isIntact());
+        Square testSquare = new Square(gameTable, 1, 1);
+        
+        ship.getParts()[1].hit();
+        System.out.println("Second part should be hit: ");
+        for (ShipPart shipPart : ship.getParts()) {
+            System.out.println(shipPart.isIntact());
+        }
+        System.out.println("Ship is destroyed = " + ship.isDestroyed());
+        System.out.println("Ship is intact = " + ship.isIntact());
+        testSquare.setShipPart(ship.getParts()[0]);
+        
+        assertEquals(Points.DESTROYED.getPoints(), testSquare.bomb());
+    }
 }

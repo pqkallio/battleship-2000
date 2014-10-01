@@ -77,7 +77,7 @@ public class ShipChooserListener implements ActionListener {
     private void whatIfShipIsAlreadyOnTable_Question_DealWithIt_Exclamation(Ship ship) {
         if (ship.isOnTable()) {
             ship.setIsOnTable(false);
-            player.getTable().removePartsFromField(ship);
+            player.getTable().removePartsFromTable(ship);
             playersSide.repaintAll();
         }
     }

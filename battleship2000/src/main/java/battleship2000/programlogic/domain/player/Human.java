@@ -26,7 +26,7 @@ public class Human extends Player {
     
     @Override
     public String toString() {
-        return "human";
+        return "HUMAN";
     }
 
     @Override

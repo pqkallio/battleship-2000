@@ -1,5 +1,7 @@
 package battleship2000.programlogic.observers;
 
+import battleship2000.programlogic.StateChange;
+
 /**
  * An observer interface used to pass data from the program logic to the user interface.
  * <p>
@@ -8,5 +10,6 @@ package battleship2000.programlogic.observers;
  * @author Petri Kallio
  */
 public interface LogicObserver {
-    void update(Object object);
+    void update(StateChange code, Object... object);
+    boolean isUpdated();
 }

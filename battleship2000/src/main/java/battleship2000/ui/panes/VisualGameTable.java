@@ -32,6 +32,10 @@ public class VisualGameTable extends JPanel {
         setElements();
     }
 
+    public int getSquareWidth() {
+        return gamePane.getSquareWidth();
+    }
+    
     public Ship getChosenShip() {
         return chosenShip;
     }
@@ -78,7 +82,8 @@ public class VisualGameTable extends JPanel {
                 gbc.gridx = j;
                 gbc.gridy = i;
                 
-                VisualSquare square = new VisualSquare(this, playersTable.getTable().get(i).get(j));
+                VisualSquare square = new VisualSquare(this, 
+                        playersTable.getTableAsMap().get(i).get(j), getSquareWidth());
                 
                 if (this.player.getClass() == Human.class) {
                     square.addMouseListener(new ShipPlacementListener(square));
@@ -99,6 +104,6 @@ public class VisualGameTable extends JPanel {
     }
     
     public void setOkToBeginGame(boolean isOk) {
-        this.gamePane.setAllMofoingShipsMofoingSetEnabled(isOk);
+        this.gamePane.setAllShipsSetEnabled(isOk);
     }
 }

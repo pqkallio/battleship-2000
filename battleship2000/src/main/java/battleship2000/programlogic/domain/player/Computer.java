@@ -31,7 +31,7 @@ public class Computer extends Player {
         if (table.allSquaresAreHit()) {
             return null;
         }
-        System.out.println("Got here");
+        
         Square chosen = null;
         
         while (chosen == null) {
@@ -40,27 +40,11 @@ public class Computer extends Player {
         
         return chosen;
         
-        
-        
-//        int x = 0;
-//        int y = 0;
-//        
-//        while (true) {
-//            x = drawANumber(table.getWidth());
-//            y = drawANumber(table.getHeight());
-//            
-//            if (aSquareCanBeHitMultipleTimes 
-//                    || !table.getTable().get(y).get(x).isHit() ) {
-//                break;
-//            }
-//        }
-//        
-//        return table.getTable().get(y).get(x);
     }
     
     @Override
     public String toString() {
-        return "computer";
+        return "COMPUTER";
     }
 
     @Override
@@ -84,7 +68,7 @@ public class Computer extends Player {
             }
             
             double directionRaffle = new Random().nextDouble();
-
+            
             if (directionRaffle < 0.25) {
                 ship.setDirection(ship.getPossibleDirections().get(0));
             } else if (directionRaffle < 0.5) {

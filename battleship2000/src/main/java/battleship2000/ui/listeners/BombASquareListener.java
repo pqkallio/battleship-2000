@@ -1,8 +1,10 @@
 package battleship2000.ui.listeners;
 
+import battleship2000.programlogic.GameCommands;
 import battleship2000.programlogic.domain.player.Computer;
 import battleship2000.programlogic.domain.player.Human;
 import battleship2000.programlogic.domain.table.Square;
+import battleship2000.ui.panes.GamePane;
 import battleship2000.ui.panes.VisualGameTable;
 import battleship2000.ui.panes.VisualSquare;
 import java.awt.event.MouseEvent;
@@ -16,11 +18,13 @@ import java.awt.event.MouseListener;
  */
 public class BombASquareListener implements MouseListener {
     private VisualSquare vs;
+    private GamePane gamePane;
     private VisualGameTable playersTable;
     private boolean isAlreadyHit;
     
-    public BombASquareListener(VisualSquare vs, VisualGameTable playersTable) {
+    public BombASquareListener(VisualSquare vs, GamePane gamePane, VisualGameTable playersTable) {
         this.vs = vs;
+        this.gamePane = gamePane;
         this.playersTable = playersTable;
         this.isAlreadyHit = false;
     }
@@ -58,20 +62,8 @@ public class BombASquareListener implements MouseListener {
 
     private void handleShit() {
         if (!vs.getSquare().isHit() && !this.isAlreadyHit) {
-            vs.getSquare().bomb();
-            this.isAlreadyHit = false;
-            vs.repaint();
-            if (vs.getPartOf().getPlayer().allShipsDestroyed()) {
-                System.out.println("HUMAN BEATS THE MACHINE!!!");
-                return;
-            }
-            
-            computerMakeYourMove();
-            
-            if (vs.getPartOf().getGameCommands().getGame().getPlayers().get(0).allShipsDestroyed()) {
-                System.out.println("MACHINE BEATS THE HUMAN!!!");
-            }
+            this.isAlreadyHit = true;
+            this.gamePane.getGameCommmands().playOneRound(vs.getSquare());
         }
     }
-    
 }

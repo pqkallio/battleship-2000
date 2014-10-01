@@ -8,6 +8,7 @@ import battleship2000.programlogic.domain.player.Computer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.swing.event.ChangeEvent;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -18,6 +19,8 @@ import static org.junit.Assert.*;
 public class BattleShipGameTest {
     private BattleShipGame game;
     private final Player[] players = {new Human(), new Computer()};
+    private final Player[] computerPlayer = {new Computer()};
+    private final Player[] humanPlayer = {new Human()};
     
     public BattleShipGameTest() {
     }
@@ -41,14 +44,14 @@ public class BattleShipGameTest {
     
     @Test
     public void sizeOfTheListOfPlayersIsTheSameAsTheAmountOfPlayersSetInTheGame() {
-        setPlayers();
+        setPlayers(this.players);
         
         assertEquals(this.game.getPlayers().size(), players.length);
     }
     
     @Test
     public void getPlayersMethodReturnsTheSamePlayersThatWereSetInTheGame() {
-        setPlayers();
+        setPlayers(this.players);
         boolean identical = true;
         
         for (int i = 0; i < this.game.getPlayers().size(); i++) {
@@ -58,6 +61,21 @@ public class BattleShipGameTest {
         }
         
         assertTrue(identical);
+    }
+    
+    @Test
+    public void whenPlayersAreSetTheGameIsSetToThePlayer() {
+        setPlayers(this.players);
+        
+        boolean allIsOk = true;
+        
+        for (Player player : game.getPlayers()) {
+            if (player.getGame() != game) {
+                allIsOk = false;
+            }
+        }
+        
+        assertTrue(allIsOk);
     }
     
     @Test
@@ -107,6 +125,12 @@ public class BattleShipGameTest {
     }
     
     @Test
+    public void whenIncrementTurnMethodIsCalledGetTurnMethodReturnsOne() {
+        game.incrementTurn();
+        assertEquals(1, game.getTurn());
+    }
+    
+    @Test
     public void whenNewGameIsCreatedGetChosenSquareEqualsNull() {
         assertNull(game.getChosenSquare());
     }
@@ -118,76 +142,111 @@ public class BattleShipGameTest {
     
     @Test
     public void whenOneObserverIsAddedGetObserversSizeEqualsOne() {
-        game.addObserver(new DummyObserver1(game));
+        game.addObserver(new DummyObserver1());
         
         assertEquals(1, game.getObservers().size());
     }
     
     @Test
     public void whenTwoObserversAreAddedGetObserversSizeEqualsTwo() {
-        game.addObserver(new DummyObserver1(game));
-        game.addObserver(new DummyObserver2(game));
+        game.addObserver(new DummyObserver1());
+        game.addObserver(new DummyObserver2());
         
         assertEquals(2, game.getObservers().size());
     }
     
     @Test
     public void whenTwoObserversAreNotifiedWithAnObjectTheyBothReactToTheyBothChangeTheGamesState() {
-        game.addObserver(new DummyObserver1(game));
-        game.addObserver(new DummyObserver2(game));
-        game.notifyObservers(true);
+        game.addObserver(new DummyObserver1());
+        game.addObserver(new DummyObserver2());
+        game.notifyObservers(StateChange.START_GAME);
         
-        assertEquals(2, game.getTurn());
+        assertTrue(game.getObservers().get(0).isUpdated() & game.getObservers().get(1).isUpdated());
     }
     
     @Test
     public void whenTwoObserversAreNotifiedWithAnObjectOnlyOneOfThemReactsToOnlyOneChangesTheGamesState() {
-        game.addObserver(new DummyObserver1(game));
-        game.addObserver(new DummyObserver2(game));
-        game.notifyObservers(false);
+        game.addObserver(new DummyObserver1());
+        game.addObserver(new DummyObserver2());
+        game.notifyObservers(StateChange.UPDATE_TABLE);
         
-        assertEquals(1, game.getTurn());
+        assertTrue(game.getObservers().get(0).isUpdated() & !game.getObservers().get(1).isUpdated());
     }
     
-    private void setPlayers() {
+    @Test
+    public void whenAGameContainsBothHumanAndComputerPlayersGetComputerMethodReturnsComputer() {
+        setPlayers(players);
+        
+        assertEquals(players[1], game.getComputer());
+    }
+    
+    @Test
+    public void whenAGameContainsBothHumanAndComputerPlayersGetHumanMethodReturnsHuman() {
+        setPlayers(players);
+        
+        assertEquals(players[0], game.getHuman());
+    }
+    
+    @Test
+    public void whenAGameContainsOnlyAHumanPlayerGetComputerMethodReturnsNull() {
+        setPlayers(humanPlayer);
+        
+        assertNull(game.getComputer());
+    }
+    
+    @Test(expected = NullPointerException.class)
+    public void whenAGameContainsOnlyAComputerPlayerANullPointerExceptionIsExpected() {
+        setPlayers(computerPlayer);
+    }
+
+    
+    
+// classes and methods to help testing
+    
+    private void setPlayers(Player[] playerArray) {
         List<Player> pelinPelaajat = new ArrayList<>();
-        Collections.addAll(pelinPelaajat, players);
+        Collections.addAll(pelinPelaajat, playerArray);
         this.game.setPlayers(pelinPelaajat);
     }
 }
 
+
 class DummyObserver1 implements LogicObserver {
-    private BattleShipGame game;
+    private boolean updated;
     
-    DummyObserver1(BattleShipGame game) {
-        this.game = game;
+    DummyObserver1() {
+        this.updated = false;
     }
     
     @Override
-    public void update(Object object) {
-        if (object.getClass() == Boolean.class) {
-            if ((boolean)object == true) {
-                this.game.incrementTurn();
-            } else if ((boolean)object == false) {
-                this.game.incrementTurn();
-            }
+    public void update(StateChange stateChange, Object... object) {
+        if (stateChange == StateChange.START_GAME || stateChange == StateChange.UPDATE_TABLE) {
+            updated = true;
         }
+    }
+
+    @Override
+    public boolean isUpdated() {
+        return updated;
     }
 }
 
 class DummyObserver2 implements LogicObserver {
-    private BattleShipGame game;
+    private boolean updated;
     
-    DummyObserver2(BattleShipGame game) {
-        this.game = game;
+    DummyObserver2() {
+        this.updated = false;
     }
     
     @Override
-    public void update(Object object) {
-        if (object.getClass() == Boolean.class) {
-            if ((boolean)object == true) {
-                this.game.incrementTurn();
-            }
+    public void update(StateChange stateChange, Object... object) {
+        if (stateChange == StateChange.START_GAME) {
+            updated = true;
         }
+    }
+    
+    @Override
+    public boolean isUpdated() {
+        return updated;
     }
 }

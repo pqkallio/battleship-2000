@@ -2,6 +2,7 @@ package battleship2000.programlogic.domain.player.ai;
 
 import battleship2000.programlogic.domain.player.Player;
 import battleship2000.programlogic.domain.ship.Direction;
+import battleship2000.programlogic.domain.ship.InLine;
 import battleship2000.programlogic.domain.ship.Ship;
 import battleship2000.programlogic.domain.table.Square;
 import battleship2000.programlogic.domain.table.Table;
@@ -103,37 +104,61 @@ public class Focus {
         int sDy = squareOfOrigin.getY();
         int seaToExplore = 0;
         boolean prospectable = true;
-        Map<Integer, Map<Integer, Square>> foesTable = foe.getTable().getTable();
+        Map<Integer, Map<Integer, Square>> foesTable = foe.getTable().getTableAsMap();
+        if (direction.getVerticalOrHorizontal() == InLine.HORIZONTAL) {
+            if (sDy >= 0 && sDy < foe.getTable().getHeight() && sDx + (dDx * 2) >= 0 
+                    && sDx + (dDx * 2) < foe.getTable().getWidth() 
+                    && foesTable.get(sDy).get(sDx + (dDx * 2)).getShipPart() != null) {
+                if (foesTable.get(sDy).get(sDx + (dDx * 2)).getShipPart().getMotherShip().isDestroyed()) {
+                    deadEnds.add(direction);
+                    System.out.println("Ship too close horizontally, dead end: " + direction);
+                    return 0;
+                }
+            }
+        } else if (direction.getVerticalOrHorizontal() == InLine.VERTICAL) {
+            if (sDy + (dDy * 2) >= 0 && sDy + (dDy * 2) < foe.getTable().getHeight() 
+                    && sDx >= 0 && sDx < foe.getTable().getWidth() 
+                    && foesTable.get(sDy + (dDy * 2)).get(sDx).getShipPart() != null) {
+                if (foesTable.get(sDy + (dDy * 2)).get(sDx).getShipPart().getMotherShip().isDestroyed()) {
+                    deadEnds.add(direction);
+                    System.out.println("Ship too close vertically, dead end: " + direction);
+                    return 0;
+                }
+            }
+        }
         
-        for (int i = 0; i < shortestEnemyShipSize; i++) {
+        for (int i = 1; i < shortestEnemyShipSize; i++) {
             int x = 0;
             int y = 0;
             
             if (dDx != 0) {
-                x = sDx + dDx + i;
+                x = sDx + (dDx * i);
             } else {
                 x = sDx;
             }
             
             if (dDy != 0) {
-                y = sDy + dDy + i;
+                y = sDy + (dDy * i);
             } else {
                 y = sDy;
             }
             
             if (x < 0 || x >= foe.getTable().getWidth() 
                     || y < 0 || y >= foe.getTable().getHeight() 
-                    || foesTable.get(y).get(x).isHit() || !prospectable) {
+                    || foesTable.get(y).get(x).isHit()
+                    || !prospectable) {
                 prospectable = false;
             } else {
                 seaToExplore++;
             }
             
-            if (i == 0 && !prospectable) {
+            if (seaToExplore == 0 && !prospectable) {
                 deadEnds.add(direction);
+                System.out.println("Added deadend " + direction);
             }
         }
         
+        System.out.println(direction + " seaToExplore: " + seaToExplore);
         return seaToExplore;
     }
 
@@ -158,7 +183,7 @@ public class Focus {
         Square lastSquareBombed = directionsBombingHistory.get(directionsBombingHistory.size() - 1);
         Table foesTable = foe.getTable();
         
-        Square nextSquare = foesTable.getNextSquare(lastSquareBombed, thisWayBoys);
+        Square nextSquare = foesTable.getNextSquareBasedOnDirection(lastSquareBombed, thisWayBoys);
         
         if (nextSquare != null && !nextSquare.isHit()) {
             if (nextSquare.getShipPart() == null) {

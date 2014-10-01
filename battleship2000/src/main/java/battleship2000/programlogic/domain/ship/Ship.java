@@ -55,7 +55,7 @@ public class Ship implements Movable, Turnable, Hittable {
 
     public void setIsOnTable(boolean isOnTable) {
         this.isOnTable = isOnTable;
-        table.removePartsFromField(this);
+        table.removePartsFromTable(this);
     }
     
     public void setTable(Table gameTable) {

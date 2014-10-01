@@ -39,6 +39,6 @@ public class AllShipsAreSetListener implements ActionListener {
             }
         }
         
-        gameCommands.startTheMofoingGame(playersSide, foesSide, buttons);
+        gameCommands.playerReadyToStart();
     }
 }

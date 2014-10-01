@@ -1,10 +1,15 @@
 package battleship2000.programlogic.domain.player.ai;
 
 import battleship2000.programlogic.domain.player.Player;
+import battleship2000.programlogic.domain.ship.Direction;
+import battleship2000.programlogic.domain.ship.InLine;
+import battleship2000.programlogic.domain.ship.Ship;
 import battleship2000.programlogic.domain.table.Square;
 import battleship2000.programlogic.domain.table.Table;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -25,6 +30,17 @@ public class ComputerGuessingPattern {
         this.aSquareCanBeHitMultipleTimes = aSquareCanBeHitMultipleTimes;
     }
     
+    /**
+     * Chooses a new {@link  battleship2000.programlogic.domain.table.Square} from the foe's table.
+     * <p>
+     * The method first checks whether an active focus is found and chooses the 
+     * new square based on it's definitions. Otherwise it picks a new random square 
+     * and checks if it can contain a {@link battleship2000.programlogic.domain.ship.ShipPart} 
+     * before choosing it.
+     * 
+     * @see     battleship2000.programlogic.domain.player.ai.Focus
+     * @return  the chosen square
+     */
     public Square chooseASquare() {
         Square chosen = null;
         
@@ -41,6 +57,13 @@ public class ComputerGuessingPattern {
         return chosen;
     }
     
+    /**
+     * Adds a new {@link battleship2000.programlogic.domain.player.ai.Focus} when a
+     * {@link battleship2000.programlogic.domain.table.Square} with a 
+     * {@link battleship2000.programlogic.domain.ship.ShipPart} is hit.
+     * 
+     * @param square    the square to be added as a new focus
+     */
     public void addANewFocus(Square square) {
         this.hitList.add(new Focus(this, square, foe));
     }
@@ -68,18 +91,90 @@ public class ComputerGuessingPattern {
             y = new Random().nextInt(foesTable.getHeight());
             x = new Random().nextInt(foesTable.getHeight());
 
-            Square squareToHit = foesTable.getTable().get(y).get(x);
+            Square squareToHit = foesTable.getTableAsMap().get(y).get(x);
 
             if (!squareToHit.isHit() || aSquareCanBeHitMultipleTimes) {
-                squareToHit.bomb();
-                if (squareToHit.getShipPart() != null) {
-                    addANewFocus(squareToHit);
-                }
+                if (squareCanContainAShipPart(squareToHit) && enoughSpaceForAShip(squareToHit)) {
+                    squareToHit.bomb();
+                    
+                    if (squareToHit.getShipPart() != null) {
+                        addANewFocus(squareToHit);
+                    }
 
-                squareChosen = true;
+                    squareChosen = true;
+                }
             }
         }
 
-        return foesTable.getTable().get(y).get(x);
+        return foesTable.getTableAsMap().get(y).get(x);
+    }
+
+    private boolean squareCanContainAShipPart(Square squareToHit) {
+        if (!checkSurroundingsAreClear(squareToHit)) {
+            return false;
+        }
+        
+        return true;
+    }
+
+    private boolean checkSurroundingsAreClear(Square squareToHit) {
+        List<Square> neighborSquares = foesTable.getNeighborSquares(squareToHit);
+        
+        for (Square square : neighborSquares) {
+            if (square.getShipPart() != null) {
+                if (square.getShipPart().getMotherShip().isDestroyed()) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
+
+    private boolean enoughSpaceForAShip(Square square) {
+        boolean horizontalSpace = true;
+        boolean verticalSpace = true;
+        int minShipSize = Integer.MAX_VALUE;
+        
+        for (Ship ship : foe.getShips()) {
+            if (!ship.isDestroyed()) {
+                if (ship.getShipLength() < minShipSize) {
+                    minShipSize = ship.getShipLength();
+                }
+            }
+        }
+        
+        Map<Direction, List<Square>> squaresBasedOnDirection = new HashMap<>();
+        
+        for (Direction direction : Direction.EAST.getMainDirections()) {
+                squaresBasedOnDirection.put(direction, foesTable.getSquaresBasedOnDirection(square, direction, minShipSize));
+        }
+        
+        int horizontalClear = 0;
+        int verticalClear = 0;
+        
+        for (Direction direction : squaresBasedOnDirection.keySet()) {
+            int clearOnDirection = 0;
+            boolean stillClear = true;
+            
+            for (Square squareOnList : squaresBasedOnDirection.get(direction)) {
+                if (!squareOnList.isHit() && stillClear) {
+                    clearOnDirection++;
+                } else {
+                    stillClear = false;
+                }
+            }
+            
+            if (direction.getVerticalOrHorizontal() == InLine.HORIZONTAL) {
+                horizontalClear += clearOnDirection;
+            } else if (direction.getVerticalOrHorizontal() == InLine.VERTICAL) {
+                verticalClear += clearOnDirection;
+            }
+        }
+        
+        if (!(horizontalClear >= minShipSize - 1)) horizontalSpace = false;
+        if (!(verticalClear >= minShipSize - 1)) verticalSpace = false;
+        
+        return horizontalSpace|verticalSpace;
     }
 }

@@ -70,7 +70,7 @@ public class BattleShipGame {
     /**
      * Returns the list of observers added to the BattleShipGame object.
      * 
-     * @return  a list of the 
+     * @return  a list of the observers
      */
     public List<LogicObserver> getObservers() {
         return observers;
@@ -79,11 +79,12 @@ public class BattleShipGame {
     /**
      * Notifies the observers to update
      * 
-     * @param object    an object passed for an observer to use
+     * @param stateChange   the ChangeState enum to address right observers
+     * @param object        an object passed for an observer to use
      */
-    public void notifyObservers(Object object) {
+    public void notifyObservers(StateChange stateChange, Object... object) {
         for (LogicObserver observer : this.observers) {
-            observer.update(object);
+            observer.update(stateChange, object);
         }
     }
     

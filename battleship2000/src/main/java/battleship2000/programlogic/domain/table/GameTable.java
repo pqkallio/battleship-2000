@@ -3,6 +3,7 @@ package battleship2000.programlogic.domain.table;
 import battleship2000.programlogic.domain.ship.Direction;
 import battleship2000.programlogic.domain.ship.ShipPart;
 import battleship2000.programlogic.domain.ship.Ship;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -39,7 +40,7 @@ public class GameTable implements Table {
     }
             
     @Override
-    public Map<Integer, Map<Integer, Square>> getTable() {
+    public Map<Integer, Map<Integer, Square>> getTableAsMap() {
         return this.table;
     }
 
@@ -98,12 +99,12 @@ public class GameTable implements Table {
     }
 
     @Override
-    public void removePartsFromField(Ship ship) {
+    public void removePartsFromTable(Ship ship) {
         removePartsFromTable(ship.getParts());
     }
 
     @Override
-    public Square getNextSquare(Square square, Direction direction) {
+    public Square getNextSquareBasedOnDirection(Square square, Direction direction) {
         Square nextSquare = null;
         
         if (square.getTable() == this && square.getX() + direction.getDx() >= 0
@@ -114,5 +115,73 @@ public class GameTable implements Table {
         }
         
         return nextSquare;
+    }
+
+    @Override
+    public List<Square> getNeighborSquares(Square square) {
+        List<Direction> directionsWithNeighborSquares 
+                = Direction.EAST.getMainAndBetweenMainDirections();
+        List<Square> neighborSquares = new ArrayList<>();
+        int x = square.getX();
+        int y = square.getY();
+        
+        for (Direction direction : directionsWithNeighborSquares) {
+            int dx = direction.getDx();
+            int dy = direction.getDy();
+            
+            if (checkCoordinatesAreOnTheTable(x + dx, y + dy)) {
+                neighborSquares.add(table.get(y + dy).get(x + dx));
+            }
+        }
+        
+        return neighborSquares;
+    }
+    
+    private boolean checkCoordinatesAreOnTheTable(int x, int y) {
+        if (x > -1 && x < width && y > -1 && y < height) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    @Override
+    public List<Square> getSquaresBasedOnDirection(Square square, Direction direction, int amount) {
+        List<Square> squaresBasedOnDirection = null;
+        
+        squaresBasedOnDirection = getNSquaresToTheDirection(square, direction, amount);
+        
+        return squaresBasedOnDirection;
+    }
+
+    private List<Square> getNSquaresToTheDirection(Square square, Direction direction, int amount) {
+        List<Square> squares = new ArrayList<>();
+        int sx = square.getX();
+        int sy = square.getY();
+        int dDx = direction.getDx();
+        int dDy = direction.getDy();
+        
+        for (int i = 1; i <= amount; i++) {
+            int x = 0;
+            int y = 0;
+            
+            if (dDx != 0) {
+                x = sx + (dDx * i);
+            } else {
+                x = sx;
+            }
+            
+            if (dDy != 0) {
+                y = sy + (dDy * i);
+            } else {
+                y = sy;
+            }
+            
+            if (checkCoordinatesAreOnTheTable(x, y)) {
+                squares.add(table.get(y).get(x));
+            }
+        }
+        
+        return squares;
     }
 }

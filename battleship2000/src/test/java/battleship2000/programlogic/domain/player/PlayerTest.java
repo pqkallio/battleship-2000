@@ -105,8 +105,8 @@ public class PlayerTest {
     }
     
     @Test
-    public void whenAPlayerIsCreatedGetShotsFiredReturns0() {
-        assertEquals(0, this.human.getShotsFired());
+    public void whenAPlayerIsCreatedGetShotsMissedReturns0() {
+        assertEquals(0, this.human.getShotsMissed());
     }
     
     @Test
@@ -125,21 +125,21 @@ public class PlayerTest {
     }
     
     @Test
-    public void ifAddShotsFiredMethodIsGivenAParameterOf1GetShotsFiredIsIncrementedBy1() {
-        human.addShotsFired(1);
-        assertEquals(1, human.getShotsFired());
+    public void ifAddShotsMissedMethodIsGivenAParameterOf1GetShotsFiredIsIncrementedBy1() {
+        human.addShotsMissed(1);
+        assertEquals(1, human.getShotsMissed());
     }
     
     @Test
-    public void ifAddShotsFiredMethodIsGivenAParameterOfMinus1GetShotsFiredIsNotIncremented() {
-        human.addShotsFired(-1);
-        assertEquals(0, human.getShotsFired());
+    public void ifAddShotsMissedMethodIsGivenAParameterOfMinus1GetShotsFiredIsNotIncremented() {
+        human.addShotsMissed(-1);
+        assertEquals(0, human.getShotsMissed());
     }
     
     @Test
-    public void ifAddShotsFiredMethodIsGivenAParameterOf0GetShotsFiredIsNotIncremented() {
-        human.addShotsFired(0);
-        assertEquals(0, human.getShotsFired());
+    public void ifAddShotsMissedMethodIsGivenAParameterOf0GetShotsFiredIsNotIncremented() {
+        human.addShotsMissed(0);
+        assertEquals(0, human.getShotsMissed());
     }
     
     @Test

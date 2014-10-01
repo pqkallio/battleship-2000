@@ -4,7 +4,10 @@ import battleship2000.programlogic.domain.position.Position;
 import battleship2000.programlogic.domain.ship.Direction;
 import battleship2000.programlogic.domain.ship.Ship;
 import battleship2000.programlogic.domain.ship.ShipPart;
+import battleship2000.programlogic.domain.table.Square;
 import battleship2000.programlogic.domain.table.Table;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A control class used for placing a single ship on a game table. 
@@ -133,12 +136,17 @@ public class ShipPlacement {
 
     private boolean checkPartCollisionsOnTable(Position[] positions) {
         for (Position position : positions) {
-            if (position.getX() > -1 && position.getX() < getTable().getWidth()
-                    && position.getY() > -1 && position.getY() < getTable().getHeight()) {
-                if (getTable().getTable().get(position.getY()).get(position.getX()).getShipPart() != null) {
-                    if (getTable().getTable().get(position.getY()).get(position.getX()).getShipPart().getMotherShip() != ship) {
+            int x = position.getX();
+            int y = position.getY();
+            Map<Integer, Map<Integer, Square>> table = getTable().getTableAsMap();
+            
+            if (checkCoordinatesAreOnTheTable(x, y)) {
+                if (table.get(y).get(x).getShipPart() != null) {
+                    if (table.get(y).get(x).getShipPart().getMotherShip() != ship) {
                         return false;
                     }
+                } else if (!checkNeighboringSquares(table, x, y)) {
+                    return false;
                 }
             }
         }
@@ -157,5 +165,36 @@ public class ShipPlacement {
      */
     public Position[] getPositions() {
         return positions;
+    }
+
+    private boolean checkNeighboringSquares(Map<Integer, Map<Integer, Square>> table, int x, int y) {
+        List<Direction> directionsWithNeighborSquares 
+                    = Direction.EAST.getMainAndBetweenMainDirections();
+        
+        for (Direction direction : directionsWithNeighborSquares) {
+            int dx = direction.getDx();
+            int dy = direction.getDy();
+            
+            if (checkCoordinatesAreOnTheTable(x + dx, y + dy)) {
+                if (table.get(y + dy).get(x + dx).getShipPart() != null) {
+                    if (table.get(y + dy).get(x + dx).getShipPart().getMotherShip() != ship) {
+                        return false;
+                    }
+                }
+            }
+        }
+        
+        return true;
+    }
+
+    private boolean checkCoordinatesAreOnTheTable(int x, int y) {
+        int tableWidth = getTable().getWidth();
+        int tableHeight = getTable().getHeight();
+        
+        if (x > -1 && x < tableWidth && y > -1 && y < tableHeight) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -61,10 +61,12 @@ public class Square implements Comparable<Square> {
         
         if (part != null) {
             part.hit();
-            if (part.getMotherShip().isDestroyed()) {
-                return Points.DESTROYED.getPoints();
-            } else {
-                return Points.HIT.getPoints();
+            if (part.getMotherShip() != null) {
+                if (part.getMotherShip().isDestroyed()) {
+                    return Points.DESTROYED.getPoints();
+                } else {
+                    return Points.HIT.getPoints();
+                }
             }
         }
         

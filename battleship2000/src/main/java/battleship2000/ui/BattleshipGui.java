@@ -24,7 +24,7 @@ public class BattleshipGui implements Runnable {
     public void run() {
         this.frame = new JFrame("Battleship 2000");
         this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.frame.setPreferredSize(new Dimension(650, 350));
+        this.frame.setPreferredSize(new Dimension(650, 500));
         
         CreatePanes createMenus = new CreatePanes(this.frame.getContentPane());
         createMenus.execute();
@@ -41,7 +41,7 @@ public class BattleshipGui implements Runnable {
         
         contentPane.setLayout(layout);
         int[] layoutWidths = {50, 550, 50};
-        int[] layoutHeights = {50, 300};
+        int[] layoutHeights = {50, 400, 50};
         
         layout.columnWidths = layoutWidths;
         layout.rowHeights = layoutHeights;
@@ -49,7 +49,7 @@ public class BattleshipGui implements Runnable {
         JPanel titlePane = new TitlePane().getTitlePage();
         GameCommands gameCommands = new GameCommands();
         gameCommands.createANewGame();
-        JPanel gamePane = new GamePane(gameCommands);
+        JPanel gamePane = new GamePane(gameCommands, 25);
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.BOTH;

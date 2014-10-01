@@ -1,5 +1,6 @@
 package battleship2000.ui.panes;
 
+import battleship2000.programlogic.StateChange;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JPanel;
@@ -9,7 +10,7 @@ import javax.swing.JPanel;
  *
  * @author Petri Kallio
  */
-public class TitlePane extends Pane{
+public class TitlePane extends Pane {
 
     public TitlePane() {
     }
@@ -25,8 +26,12 @@ public class TitlePane extends Pane{
     }
 
     @Override
-    public void update(Object object) {
+    public void update(StateChange stateChange, Object... object) {
         
     }
-    
+
+    @Override
+    public boolean isUpdated() {
+        return true;
+    }
 }

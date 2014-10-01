@@ -23,7 +23,7 @@ public class VisualSquare extends JPanel {
     private boolean highlighted;
     private boolean destroyed;
     
-    public VisualSquare(VisualGameTable partOf, Square square) {
+    public VisualSquare(VisualGameTable partOf, Square square, int squareWidth) {
         this.partOf = partOf;
         this.square = square;
         this.highlighted = false;
@@ -31,6 +31,10 @@ public class VisualSquare extends JPanel {
         this.destroyed = false;
     }
 
+    public int getSquareWidth() {
+        return partOf.getSquareWidth();
+    }
+    
     public VisualGameTable getPartOf() {
         return partOf;
     }
@@ -42,23 +46,23 @@ public class VisualSquare extends JPanel {
         super.paintComponent(g2d);
         
         g2d.setColor(Color.black);
-        g2d.drawRect(0, 0, 24, 24);
+        g2d.drawRect(0, 0, getSquareWidth() - 1, getSquareWidth() - 1);
         
         if (partOf.getPlayer().getClass() == Human.class
                 || square.isHit()) {
             if (reddened) {
                 g2d.setColor(Color.red);
-                g2d.fillRect(0, 0, 25, 25);
+                g2d.fillRect(0, 0, getSquareWidth() - 1, getSquareWidth() - 1);
             } else if (gray) {
                 g2d.setColor(Color.gray);
-                g2d.fillRect(0, 0, 25, 25);
+                g2d.fillRect(0, 0, getSquareWidth() - 1, getSquareWidth() - 1);
             } 
 
             if (square.getShipPart() != null) {
-                g2d.fillRect(0, 0, 25, 25);
+                g2d.fillRect(0, 0, getSquareWidth() - 1, getSquareWidth() - 1);
                 if (destroyed) {
                     g2d.setColor(Color.red);
-                    g2d.fillRect(0, 0, 25, 25);
+                    g2d.fillRect(0, 0, getSquareWidth() - 1, getSquareWidth() - 1);
                 } else if (square.isHit()) {
                     if (square.getShipPart().getMotherShip().isDestroyed()) {
                         Ship destroyedShip = partOf.getPlayer().getShips().get(partOf.getPlayer().getShips().indexOf(square.getShipPart().getMotherShip()));
@@ -79,8 +83,8 @@ public class VisualSquare extends JPanel {
                 }
             } else {
                 if (square.isHit()) {
-                    g2d.drawLine(0, 0, 24, 24);
-                    g2d.drawLine(0, 24, 24, 0);
+                    g2d.drawLine(0, 0, getSquareWidth() - 1, getSquareWidth() - 1);
+                    g2d.drawLine(0, getSquareWidth() - 1, getSquareWidth() - 1, 0);
                 }
             }
         }
