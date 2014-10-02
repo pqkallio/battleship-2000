@@ -24,7 +24,8 @@ public class BattleshipGui implements Runnable {
     public void run() {
         this.frame = new JFrame("Battleship 2000");
         this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.frame.setPreferredSize(new Dimension(650, 500));
+        this.frame.setPreferredSize(new Dimension(650, 550));
+        this.frame.setResizable(false);
         
         CreatePanes createMenus = new CreatePanes(this.frame.getContentPane());
         createMenus.execute();

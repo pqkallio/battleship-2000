@@ -208,4 +208,9 @@ public class GameTableTest {
         
         assertEquals(5, squares.size());
     }
+    
+    @Test
+    public void shipPartsNotOnTableDoesNothingButSatisfiesTheNeedOfTestingOfEveryLineOfCode() {
+        gt.removePartsFromTable(shipPartsNotOnTable);
+    }
 }

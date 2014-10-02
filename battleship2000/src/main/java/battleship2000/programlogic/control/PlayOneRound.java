@@ -9,15 +9,34 @@ import battleship2000.programlogic.domain.player.Player;
 import battleship2000.programlogic.domain.points.Points;
 import battleship2000.programlogic.domain.table.Square;
 
+/**
+ * This controller class is responsible for the actions of a single round,
+ * where every player bombs an enemy square and is rewarded points for it.
+ * 
+ * @author Petri
+ */
 public class PlayOneRound implements Controller {
     private BattleShipGame game;
     private Square usersChoice;
     
+    /**
+     * In the constructor the user's choice of square to bomb is given as a 
+     * parameter. Thus the user's choice must be already made before a new
+     * PlayOneRound object can be instantiated.
+     * 
+     * @param game          the {@link battleship2000.programlogic.BattleShipGame}
+     * @param usersChoice   the pre-made choice of which square to bomb
+     */
     public PlayOneRound(BattleShipGame game, Square usersChoice) {
         this.game = game;
         this.usersChoice = usersChoice;
     }
 
+    /**
+     * Starts the round.
+     * 
+     * @return 
+     */
     @Override
     public Object execute() {
         Human human = (Human)game.getHuman();
@@ -37,7 +56,7 @@ public class PlayOneRound implements Controller {
 
         computerMakeYourMove();
 
-        if (game.getComputer().allShipsDestroyed()) {
+        if (game.getHuman().allShipsDestroyed()) {
             endGame(game.getComputer());
         }
         

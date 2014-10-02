@@ -45,4 +45,16 @@
 |Tekoälyn toteuttamista, javadoc   | 2h  |
 |**25.9.2014**             |             |
 |Tekoäly, luokkakaavion päivitys, javadoc   | 4h  |
-|**YHTEENSÄ**            |**approx. 54.5 h**      |
+|**26.9.2014**             |             |
+|Refaktorointi   | 2h  |
+|**27.9.2014**             |             |
+|Ui:n toteuttamista, tekoälyn parantelua   | 3h  |
+|**28.9.2014**             |             |
+|Ui:n parantelua, musiikin säveltäminen (ei koodausta, tiedän...)    | 2h  |
+|**30.9.2014**             |             |
+|Refaktorointi, ui   | 2h  |
+|**1.10.2014**             |             |
+|Ui:n parantelua, refaktorointi   | 3h  |
+|**2.10.2014**             |             |
+|Grafiikan aloittaminen, sekvenssikaaviot   | 3h  |
+|**YHTEENSÄ**            |**approx. 69.5 h**      |
