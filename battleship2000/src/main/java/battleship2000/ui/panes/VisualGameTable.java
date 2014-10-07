@@ -3,13 +3,26 @@ package battleship2000.ui.panes;
 import battleship2000.programlogic.GameCommands;
 import battleship2000.programlogic.domain.player.Human;
 import battleship2000.programlogic.domain.player.Player;
+import battleship2000.programlogic.domain.position.Position;
+import battleship2000.programlogic.domain.ship.Direction;
 import battleship2000.programlogic.domain.ship.Ship;
 import battleship2000.programlogic.domain.table.Table;
+import battleship2000.ui.domain.VisualShipPartPack;
 import battleship2000.ui.listeners.ShipPlacementListener;
+import java.awt.Cursor;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /**
@@ -23,15 +36,25 @@ public class VisualGameTable extends JPanel {
     private GameCommands gameCommands;
     private Ship chosenShip;
     private GamePane gamePane;
+    private Cursor grayCrosshair;
 
     VisualGameTable(Player player, GameCommands gameCommands, GamePane gamePane) {
         this.player = player;
         this.squares = new ArrayList<>();
         this.gameCommands = gameCommands;
         this.gamePane = gamePane;
+        this.grayCrosshair = createGrayCrosshair();
         setElements();
     }
 
+    public Cursor getGrayCrosshair() {
+        return grayCrosshair;
+    }
+    
+    public GamePane getGamePane() {
+        return gamePane;
+    }
+    
     public int getSquareWidth() {
         return gamePane.getSquareWidth();
     }
@@ -103,7 +126,43 @@ public class VisualGameTable extends JPanel {
         }
     }
     
+    public void repaintSquares(List<Position> squarePositions) {
+        List<VisualSquare> squaresToRepaint = new ArrayList<>();
+        
+        for (Position position : squarePositions) {
+            for (VisualSquare visualSquare : this.squares) {
+                if (position.equals(visualSquare.getPosition())) {
+                    squaresToRepaint.add(visualSquare);
+                }
+            }
+        }
+        
+        for (VisualSquare visualSquare : squaresToRepaint) {
+            visualSquare.repaint();
+        }
+    }
+    
     public void setOkToBeginGame(boolean isOk) {
         this.gamePane.setAllShipsSetEnabled(isOk);
+    }
+    
+    public Map<Direction, VisualShipPartPack> getVisualShipParts() {
+        return gamePane.getVisualShipParts();
+    }
+
+    private Cursor createGrayCrosshair() {
+        Image crosshair = null;
+        
+        try {
+            crosshair = ImageIO.read(new File("src/main/java/battleship2000/media/graphics/crosshair_gray_25.png"));
+        } catch (IOException ex) {}
+        
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        
+        Point focus = new Point(crosshair.getWidth(null) / 2, crosshair.getHeight(null) / 2);
+        
+        Cursor cursor = toolkit.createCustomCursor(crosshair, focus, "Gray Crosshair");
+        
+        return cursor;
     }
 }

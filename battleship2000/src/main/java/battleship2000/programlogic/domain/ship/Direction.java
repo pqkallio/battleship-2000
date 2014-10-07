@@ -32,6 +32,22 @@ public enum Direction {
     private int dy;
     private InLine verticalOrHorizontal;
     
+    /**
+     * Four parameters are defined in the constructor:
+     * <ol>
+     *  <li>the degrees of the direction clockwise from north</li>
+     *  <li>the change of x-coordinate when moving to the direction</li>
+     *  <li>the change of y-coordinate when moving to the direction</li>
+     *  <li>the {@link battleship2000.programlogic.domain.ship.InLine} value
+     *      of the direction that defines if the direction is vertical, 
+     *      horizontal or neither</li>
+     * </ol>
+     * 
+     * @param degreesClockwiseFromNorth     the direction's degrees clockwise from north
+     * @param dx                            the change in x-coordinate when moving to the direction
+     * @param dy                            the change in y-coordinate when moving to the direction
+     * @param verticalOrHorizontal          the Direction's vertical/horizontal alignment
+     */
     private Direction(double degreesClockwiseFromNorth, int dx, int dy, InLine verticalOrHorizontal) {
         this.degreesClockwiseFromNorth = degreesClockwiseFromNorth;
         this.dx = dx;
@@ -55,6 +71,14 @@ public enum Direction {
         return verticalOrHorizontal;
     }
     
+    /**
+     * Returns the opposite direction based on the direction's degreesClockwiseFromNorth value.
+     * <p>
+     * The Direction's opposite is the one that's degreesClockwiseFromNorth value
+     * is this.degreesClockwiseFromNorth + 180.0
+     * 
+     * @return  the Direction opposed to this
+     */
     public Direction getOppositeDirection() {
         Direction oppositeDirection = null;
         if (this.degreesClockwiseFromNorth < 180.0) {

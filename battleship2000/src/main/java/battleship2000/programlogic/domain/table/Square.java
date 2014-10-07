@@ -13,7 +13,8 @@ import battleship2000.programlogic.domain.position.Position;
 public class Square implements Comparable<Square> {
     private Position position;
     private Table table;
-    private ShipPart part;
+    private ShipPart setPart;
+    private ShipPart floatingPiece;
     private boolean hit;
     
     public Square(Table table, int x, int y) {
@@ -33,15 +34,15 @@ public class Square implements Comparable<Square> {
     }
     
     public void setShipPart(ShipPart part) {
-        this.part = part;
+        this.setPart = part;
     }
 
-    public ShipPart getShipPart() {
-        return part;
+    public ShipPart getSetShipPart() {
+        return setPart;
     }
     
     public void removeShipPart() {
-        this.part = null;
+        this.setPart = null;
     }
 
     public int getX() {
@@ -59,10 +60,10 @@ public class Square implements Comparable<Square> {
     public int bomb() {
         this.hit = true;
         
-        if (part != null) {
-            part.hit();
-            if (part.getMotherShip() != null) {
-                if (part.getMotherShip().isDestroyed()) {
+        if (setPart != null) {
+            setPart.hit();
+            if (setPart.getMotherShip() != null) {
+                if (setPart.getMotherShip().isDestroyed()) {
                     return Points.DESTROYED.getPoints();
                 } else {
                     return Points.HIT.getPoints();
@@ -82,5 +83,17 @@ public class Square implements Comparable<Square> {
             else if (this.getX() > comparedTo.getX()) return 1;
             else return 0;
         }
+    }
+    
+    public void floatAPiece(ShipPart part) {
+        floatingPiece = part;
+    }
+    
+    public void removeFloatingPiece() {
+        floatingPiece = null;
+    }
+    
+    public ShipPart getFloatingPiece() {
+        return floatingPiece;
     }
 }

@@ -28,9 +28,8 @@ public class Human extends Player {
     public String toString() {
         return "HUMAN";
     }
-
+    
     @Override
     public void placeShipsOnTable() {
     }
-
 }

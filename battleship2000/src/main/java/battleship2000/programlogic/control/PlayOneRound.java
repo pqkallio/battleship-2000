@@ -33,9 +33,24 @@ public class PlayOneRound implements Controller {
     }
 
     /**
-     * Starts the round.
+     * Starts the round and performs needed actions.
+     * <p>
+     * One round consists of the following actions done for each of the game's players:
+     * <ol>
+     *      <li>The users choice of square is bombed, points added to the player</li>
+     *      <li>The users hit or miss count is incremented according to the result of bombing the square</li>
+     *      <li>The game's {@link battleship2000.programlogic.observers.LogicObserver}s are notified</li>
+     *      <li>Check if the player won the game</li>
+     *      <ul>
+     *          <li>If the player won, the game ends</li>
+     *          <li>Otherwise the game continues</li>
+     *      </ul>
+     * </ol>
+     * <p>
+     * <strong>Note!</strong> If one of the players wins the game, the game ends immediately and all
+     * the remaining players' turns are not played.
      * 
-     * @return 
+     * @return      0 (irrelevant)
      */
     @Override
     public Object execute() {
@@ -53,7 +68,7 @@ public class PlayOneRound implements Controller {
             endGame(human);
             return 0;
         }
-
+        
         computerMakeYourMove();
 
         if (game.getHuman().allShipsDestroyed()) {
@@ -72,13 +87,12 @@ public class PlayOneRound implements Controller {
         computer.addPoints(points);
         
         addHitOrMiss(computer, squareToHit);
-        
         game.notifyObservers(StateChange.UPDATE_TABLE, game.getHuman());
         game.notifyObservers(StateChange.UPDATE_POINTS, 0);
     }
 
     private void addHitOrMiss(Player player, Square square) {
-        if (square.getShipPart() != null) {
+        if (square.getSetShipPart() != null) {
             player.addShotsHit(1);
         } else {
             player.addShotsMissed(1);

@@ -1,9 +1,5 @@
 package battleship2000.ui.listeners;
 
-import battleship2000.programlogic.GameCommands;
-import battleship2000.programlogic.domain.player.Computer;
-import battleship2000.programlogic.domain.player.Human;
-import battleship2000.programlogic.domain.table.Square;
 import battleship2000.ui.panes.GamePane;
 import battleship2000.ui.panes.VisualGameTable;
 import battleship2000.ui.panes.VisualSquare;
@@ -43,21 +39,16 @@ public class BombASquareListener implements MouseListener {
     public void mouseReleased(MouseEvent e) {}
 
     @Override
-    public void mouseEntered(MouseEvent e) {}
+    public void mouseEntered(MouseEvent e) {
+        vs.highlight();
+        if (vs.getSquare().isHit()) {
+            vs.setCursor(vs.getPartOf().getGrayCrosshair());
+        }
+    }
 
     @Override
-    public void mouseExited(MouseEvent e) {}
-
-    private void computerMakeYourMove() {
-        Human human = (Human) vs.getPartOf().getGameCommands().getGame().getPlayers().get(0);
-        Computer computer = (Computer) vs.getPartOf().getPlayer();
-        Square squareToHit = computer.chooseASquare(human.getTable(), vs.getPartOf().getGameCommands().getGame().aSquareCanBeHitMultipleTimes());
-        for (VisualSquare square : playersTable.getSquares()) {
-            if (square.getSquare() == squareToHit) {
-                squareToHit.bomb();
-                square.repaint();
-            }
-        }
+    public void mouseExited(MouseEvent e) {
+        vs.removeHighlight();
     }
 
     private void handleShit() {

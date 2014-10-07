@@ -43,15 +43,25 @@ public class Focus {
     public boolean isActive() {
         return active;
     }
-
+    
+    /**
+     * Decides the next {@link battleship2000.programlogic.domain.table.Square}
+     * to bomb based on either:
+     * <ol>
+     *  <li>guessing the next square if the Focus has no previous hits other than the square given as
+     *      a constructor parameter, or</li>
+     *  <li>deciding the next possible square based on previous hits</li>
+     * </ol>
+     * 
+     * @return  the chosen {@link battleship2000.programlogic.domain.table.Square}
+     */
     public Square prospect() {
-        if (squareOfOrigin.getShipPart().getMotherShip().isDestroyed()) {
+        if (squareOfOrigin.getSetShipPart().getMotherShip().isDestroyed()) {
             wereDoneHere();
             return null;
         }
         
         if (prospected.isEmpty()) {
-            System.out.println("prospected was empty");
             for (Direction direction : possibleDirections) {
                 prospected.put(direction, new ArrayList<Square>());
                 prospected.get(direction).add(squareOfOrigin);
@@ -68,7 +78,6 @@ public class Focus {
     }
 
     private void lookForDeadEnds() {
-        System.out.println("Looking for deadends");
         int shortestEnemyShipSize = Integer.MAX_VALUE;
         
         for (Ship ship : foe.getShips()) {
@@ -83,9 +92,7 @@ public class Focus {
             
             if (!enoughSeaToExplore(direction, shortestEnemyShipSize)) {
                 this.deadEnds.add(direction);
-                System.out.println("Added deadend " + direction);
                 this.deadEnds.add(direction.getOppositeDirection());
-                System.out.println("Added deadend " + direction.getOppositeDirection());
             }
         }
     }
@@ -108,20 +115,18 @@ public class Focus {
         if (direction.getVerticalOrHorizontal() == InLine.HORIZONTAL) {
             if (sDy >= 0 && sDy < foe.getTable().getHeight() && sDx + (dDx * 2) >= 0 
                     && sDx + (dDx * 2) < foe.getTable().getWidth() 
-                    && foesTable.get(sDy).get(sDx + (dDx * 2)).getShipPart() != null) {
-                if (foesTable.get(sDy).get(sDx + (dDx * 2)).getShipPart().getMotherShip().isDestroyed()) {
+                    && foesTable.get(sDy).get(sDx + (dDx * 2)).getSetShipPart() != null) {
+                if (foesTable.get(sDy).get(sDx + (dDx * 2)).getSetShipPart().getMotherShip().isDestroyed()) {
                     deadEnds.add(direction);
-                    System.out.println("Ship too close horizontally, dead end: " + direction);
                     return 0;
                 }
             }
         } else if (direction.getVerticalOrHorizontal() == InLine.VERTICAL) {
             if (sDy + (dDy * 2) >= 0 && sDy + (dDy * 2) < foe.getTable().getHeight() 
                     && sDx >= 0 && sDx < foe.getTable().getWidth() 
-                    && foesTable.get(sDy + (dDy * 2)).get(sDx).getShipPart() != null) {
-                if (foesTable.get(sDy + (dDy * 2)).get(sDx).getShipPart().getMotherShip().isDestroyed()) {
+                    && foesTable.get(sDy + (dDy * 2)).get(sDx).getSetShipPart() != null) {
+                if (foesTable.get(sDy + (dDy * 2)).get(sDx).getSetShipPart().getMotherShip().isDestroyed()) {
                     deadEnds.add(direction);
-                    System.out.println("Ship too close vertically, dead end: " + direction);
                     return 0;
                 }
             }
@@ -154,11 +159,9 @@ public class Focus {
             
             if (seaToExplore == 0 && !prospectable) {
                 deadEnds.add(direction);
-                System.out.println("Added deadend " + direction);
             }
         }
         
-        System.out.println(direction + " seaToExplore: " + seaToExplore);
         return seaToExplore;
     }
 
@@ -167,7 +170,6 @@ public class Focus {
         
         while (true) {
             int pickADirection = new Random().nextInt(possibleDirections.size());
-            System.out.println("chooseARandomDirection()");
             if (!deadEnds.contains(possibleDirections.get(pickADirection))) {
                 chosenDirection = possibleDirections.get(pickADirection);
                 break;
@@ -179,27 +181,31 @@ public class Focus {
 
     private Square bombTheNearestSquareToThePointedDirection() {
         List<Square> directionsBombingHistory = prospected.get(thisWayBoys);
-        System.out.println(thisWayBoys);
         Square lastSquareBombed = directionsBombingHistory.get(directionsBombingHistory.size() - 1);
         Table foesTable = foe.getTable();
         
         Square nextSquare = foesTable.getNextSquareBasedOnDirection(lastSquareBombed, thisWayBoys);
         
+        if (nextSquare == null || nextSquare.isHit()) {
+            deadEnds.add(thisWayBoys);
+            thisWayBoys = null;
+            nextSquare = null;
+        }
+        
         if (nextSquare != null && !nextSquare.isHit()) {
-            if (nextSquare.getShipPart() == null) {
+            if (nextSquare.getSetShipPart() == null) {
                 deadEnds.add(thisWayBoys);
                 
-                if (!deadEnds.contains(thisWayBoys.getOppositeDirection())) {
-                    thisWayBoys = thisWayBoys.getOppositeDirection();
+                if (prospected.get(thisWayBoys).size() != 1) {
+                    if (!deadEnds.contains(thisWayBoys.getOppositeDirection())) {
+                        thisWayBoys = thisWayBoys.getOppositeDirection();
+                    }
                 } else {
                     thisWayBoys = null;
                 }
             } else {
                 prospected.get(thisWayBoys).add(nextSquare);
             }
-        } else {
-            deadEnds.add(thisWayBoys);
-            thisWayBoys = null;
         }
         
         return nextSquare;
@@ -210,8 +216,8 @@ public class Focus {
         
         for (List<Square> list : prospected.values()) {
             for (Square square : list) {
-                if (square.getShipPart().getMotherShip() 
-                        != squareOfOrigin.getShipPart().getMotherShip()) {
+                if (square.getSetShipPart().getMotherShip() 
+                        != squareOfOrigin.getSetShipPart().getMotherShip()) {
                     brandNewFoci.add(square);
                 }
             }

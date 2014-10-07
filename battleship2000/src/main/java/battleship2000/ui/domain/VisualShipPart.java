@@ -1,5 +1,5 @@
 
-package battleship2000.ui.panes;
+package battleship2000.ui.domain;
 
 import battleship2000.programlogic.domain.ship.Direction;
 import battleship2000.programlogic.domain.ship.ShipPart;

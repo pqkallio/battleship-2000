@@ -2,11 +2,16 @@ package battleship2000.ui.listeners;
 
 import battleship2000.programlogic.GameCommands;
 import battleship2000.programlogic.domain.player.Player;
+import battleship2000.programlogic.domain.position.Position;
 import battleship2000.programlogic.domain.ship.Ship;
+import battleship2000.programlogic.domain.ship.ShipPart;
 import battleship2000.programlogic.domain.ship.ShipType;
+import battleship2000.programlogic.domain.table.Square;
 import battleship2000.ui.panes.VisualGameTable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JButton;
 
 /**

@@ -23,6 +23,15 @@ public class ComputerGuessingPattern {
     private List<Focus> hitList;
     private boolean aSquareCanBeHitMultipleTimes;
     
+    /**
+     * Constructs a new instance of the class.
+     * <p>
+     * The player's foe and the possibility of hitting a square multiple times 
+     * are given as parameters to be saved as object variables.
+     * 
+     * @param foe
+     * @param aSquareCanBeHitMultipleTimes 
+     */
     public ComputerGuessingPattern(Player foe, boolean aSquareCanBeHitMultipleTimes) {
         this.hitList = new ArrayList<>();
         this.foe = foe;
@@ -97,7 +106,7 @@ public class ComputerGuessingPattern {
                 if (squareCanContainAShipPart(squareToHit) && enoughSpaceForAShip(squareToHit)) {
                     squareToHit.bomb();
                     
-                    if (squareToHit.getShipPart() != null) {
+                    if (squareToHit.getSetShipPart() != null) {
                         addANewFocus(squareToHit);
                     }
 
@@ -121,8 +130,8 @@ public class ComputerGuessingPattern {
         List<Square> neighborSquares = foesTable.getNeighborSquares(squareToHit);
         
         for (Square square : neighborSquares) {
-            if (square.getShipPart() != null) {
-                if (square.getShipPart().getMotherShip().isDestroyed()) {
+            if (square.getSetShipPart() != null) {
+                if (square.getSetShipPart().getMotherShip().isDestroyed()) {
                     return false;
                 }
             }

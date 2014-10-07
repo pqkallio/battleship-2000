@@ -18,9 +18,7 @@ import java.util.Random;
 public class Computer extends Player {
     private ComputerGuessingPattern cgp;
     
-    public Computer() {
-        
-    }
+    public Computer() {}
     
     public Computer(BattleShipGame game) {
         super(game);
@@ -39,7 +37,6 @@ public class Computer extends Player {
         }
         
         return chosen;
-        
     }
     
     @Override

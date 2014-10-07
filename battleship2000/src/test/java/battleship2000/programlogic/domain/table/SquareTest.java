@@ -144,7 +144,7 @@ public class SquareTest {
         
         testSquare.setShipPart(ship.getParts()[0]);
         
-        assertEquals(ship.getParts()[0], testSquare.getShipPart());
+        assertEquals(ship.getParts()[0], testSquare.getSetShipPart());
     }
     
     @Test

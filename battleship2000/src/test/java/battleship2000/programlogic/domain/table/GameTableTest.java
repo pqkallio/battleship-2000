@@ -89,7 +89,7 @@ public class GameTableTest {
         boolean allIsOk = true;
         
         for (ShipPart shipPart : shipPartsOnTable) {
-            if (gt.getTableAsMap().get(shipPart.getY()).get(shipPart.getX()).getShipPart() != null) {
+            if (gt.getTableAsMap().get(shipPart.getY()).get(shipPart.getX()).getSetShipPart() != null) {
                 allIsOk = false;
             }
         }
@@ -111,7 +111,7 @@ public class GameTableTest {
         boolean allIsOk = true;
         
         for (ShipPart shipPart : testShip.getParts()) {
-            if (gt.getTableAsMap().get(shipPart.getY()).get(shipPart.getX()).getShipPart() != null) {
+            if (gt.getTableAsMap().get(shipPart.getY()).get(shipPart.getX()).getSetShipPart() != null) {
                 allIsOk = false;
             }
         }

@@ -106,8 +106,13 @@ public class ShipPlacement {
         
         return partPositions;
     }
-
-    private void addFrontAndRear() {
+    
+    /**
+     * Sets the {@link battleship2000.programlogic.domain.ship.Ship}'s front and 
+     * rear {@link battleship2000.programlogic.domain.ship.ShipPart}s based on 
+     * the Ship's {@link battleship2000.programlogic.domain.ship.Direction}.
+     */
+    public void addFrontAndRear() {
         if (getDirection() == Direction.WEST || getDirection() == Direction.NORTH) {
             getParts()[0].setShipsFront();
             getParts()[getParts().length - 1].setShipsRear();
@@ -141,8 +146,8 @@ public class ShipPlacement {
             Map<Integer, Map<Integer, Square>> table = getTable().getTableAsMap();
             
             if (checkCoordinatesAreOnTheTable(x, y)) {
-                if (table.get(y).get(x).getShipPart() != null) {
-                    if (table.get(y).get(x).getShipPart().getMotherShip() != ship) {
+                if (table.get(y).get(x).getSetShipPart() != null) {
+                    if (table.get(y).get(x).getSetShipPart().getMotherShip() != ship) {
                         return false;
                     }
                 } else if (!checkNeighboringSquares(table, x, y)) {
@@ -176,8 +181,8 @@ public class ShipPlacement {
             int dy = direction.getDy();
             
             if (checkCoordinatesAreOnTheTable(x + dx, y + dy)) {
-                if (table.get(y + dy).get(x + dx).getShipPart() != null) {
-                    if (table.get(y + dy).get(x + dx).getShipPart().getMotherShip() != ship) {
+                if (table.get(y + dy).get(x + dx).getSetShipPart() != null) {
+                    if (table.get(y + dy).get(x + dx).getSetShipPart().getMotherShip() != ship) {
                         return false;
                     }
                 }

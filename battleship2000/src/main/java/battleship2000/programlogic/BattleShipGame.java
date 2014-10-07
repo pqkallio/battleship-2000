@@ -68,6 +68,15 @@ public class BattleShipGame {
     }
 
     /**
+     * Removes a LogicObserver from the appointed list.
+     * 
+     * @param observer  the LogicObserver to be removed
+     */
+    public void removeObserver(LogicObserver observer) {
+        this.observers.remove(observer);
+    }
+
+    /**
      * Returns the list of observers added to the BattleShipGame object.
      * 
      * @return  a list of the observers

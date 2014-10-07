@@ -13,13 +13,24 @@ import java.util.Map;
  * @author Petri Kallio
  */
 public interface Table {
+    
+    /**
+     * Returns the Table's squares as Map and can be used for example to pinpoint 
+     * the square in a specified position on the table.
+     * 
+     * @return  a map of all the table's squares
+     */
     public Map<Integer, Map<Integer, Square>> getTableAsMap();
-    public void placeShipOnTable(Ship alus);
-    public void placeShipOnTable(ShipPart[] alus);
+    
+    /**
+     * Place a ship on the table 
+     * @param ship 
+     */
+    public void placeShipOnTable(Ship ship);
     public int getHeight();
     public int getWidth();
-    public void removePartsFromTable(ShipPart[] aluksenosat);
-    public void removePartsFromTable(Ship alus);
+    public void removePartsFromTable(ShipPart[] shipParts);
+    public void removePartsFromTable(Ship ship);
     public boolean allSquaresAreHit();
     public Square getNextSquareBasedOnDirection(Square square, Direction direction);
     public List<Square> getNeighborSquares(Square square);

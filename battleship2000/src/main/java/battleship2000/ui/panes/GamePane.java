@@ -8,16 +8,27 @@ import battleship2000.programlogic.StateChange;
 import battleship2000.programlogic.domain.player.Computer;
 import battleship2000.programlogic.domain.player.Human;
 import battleship2000.programlogic.domain.player.Player;
+import battleship2000.programlogic.domain.ship.Direction;
 import battleship2000.programlogic.observers.LogicObserver;
+import battleship2000.ui.domain.VisualShipPartPack;
 import battleship2000.ui.listeners.BombASquareListener;
+import java.awt.Cursor;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -44,7 +55,10 @@ public class GamePane extends JPanel implements LogicObserver  {
     private JPanel shipChooserArea;
     private final String POINTS = "Points: ";
     private final String ACCURACY = "Accuracy: ";
+    private final String CROSSHAIR_PATH = "src/main/java/battleship2000/media/graphics/crosshair_25.png";
     private boolean updated;
+    private Cursor crosshairCursor;
+    private Map<Direction, VisualShipPartPack> visualShipParts;
     
     public GamePane(GameCommands gameCommands, int squareWidth) {
         this.gc = gameCommands;
@@ -52,6 +66,10 @@ public class GamePane extends JPanel implements LogicObserver  {
         createGameLayout();
         this.gc.getGame().addObserver(this);
         this.updated = false;
+        this.visualShipParts = new HashMap<>();
+        this.crosshairCursor = loadCrosshair();
+        
+        loadVisualShipParts();
     }
 
     public int getSquareWidth() {
@@ -173,6 +191,8 @@ public class GamePane extends JPanel implements LogicObserver  {
         for (VisualSquare vs : computersSide.getSquares()) {
             vs.addMouseListener(new BombASquareListener(vs, this, playersSide));
         }
+        
+        computersSide.setCursor(crosshairCursor);
         
         this.revalidate();
     }
@@ -407,5 +427,38 @@ public class GamePane extends JPanel implements LogicObserver  {
         gameOver.add(exit);
         
         return gameOver;
+    }
+
+    private void loadVisualShipParts() {
+        for (Direction direction : Direction.EAST.getMainDirections()) {
+            visualShipParts.put(direction, new VisualShipPartPack(direction, squareWidth));
+        }
+    }
+
+    public Map<Direction, VisualShipPartPack> getVisualShipParts() {
+        return visualShipParts;
+    }
+    
+    
+
+    private Cursor loadCrosshair() {
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Image crosshair = null;
+        
+        try {
+            crosshair = ImageIO.read(new File(CROSSHAIR_PATH));
+        } catch (IOException ex) {
+            System.out.println("Couldn't load cursor");
+        }
+        
+        Point hotSpot = new Point(crosshair.getWidth(null) / 2, crosshair.getHeight(null)/ 2);
+        
+        Cursor cursor = toolkit.createCustomCursor(crosshair, hotSpot, "Crosshair");
+        
+        return cursor;
+    }
+    
+    public Cursor getCrosshairCursor() {
+        return this.crosshairCursor;
     }
 }

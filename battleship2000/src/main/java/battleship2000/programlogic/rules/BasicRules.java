@@ -22,7 +22,7 @@ public class BasicRules extends Rules {
     public BasicRules(boolean againstTheComputer) {
         setShips();
         setPlayers(againstTheComputer);
-        super.setTableSize(10, 10);
+        super.setTableSize(20, 20);
         super.setShipsAreMovableRule(false);
         super.setSpecializedShips(false);
         super.setASquareCanBeHitMultipleTimesRule(false);

@@ -75,8 +75,7 @@ public class GameTable implements Table {
         placeShipOnTable(ship.getParts());
     }
 
-    @Override
-    public void placeShipOnTable(ShipPart[] parts) {
+    private void placeShipOnTable(ShipPart[] parts) {
         for (ShipPart part : parts) {
             if (part.getMotherShip().isOnTable()) {
                 this.table.get(part.getY()).get(part.getX()).setShipPart(part);
@@ -90,7 +89,7 @@ public class GameTable implements Table {
             if (part.getPosition() != null) {
                 if (part.getX() > -1 && part.getX() < getWidth()
                         && part.getY() > -1 && part.getY() < getHeight()) {
-                    if (part == this.table.get(part.getY()).get(part.getX()).getShipPart()) {
+                    if (part == this.table.get(part.getY()).get(part.getX()).getSetShipPart()) {
                         this.table.get(part.getY()).get(part.getX()).removeShipPart();
                     }
                 }

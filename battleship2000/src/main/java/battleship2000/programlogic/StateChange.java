@@ -9,6 +9,7 @@ package battleship2000.programlogic;
 public enum StateChange {
     UPDATE_TABLE,
     UPDATE_POINTS,
+    COMPUTERS_TURN,
     PLACE_SHIPS,
     START_GAME,
     END_GAME;

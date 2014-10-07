@@ -74,10 +74,20 @@ public class Ship implements Movable, Turnable, Hittable {
         return direction;
     }
 
+    /**
+     * Sets a new {@link battleship2000.programlogic.domain.ship.Direction} for the
+     * ship if it doesn't make the collide with another ship.
+     * 
+     * @param direction     the ship's new direction
+     */
     public void setDirection(Direction direction) {
         if (possibleDirections.contains(direction)) {
+            Direction previousDirection = this.direction;
             this.direction = direction;
-            setPosition(parts[0].getX(), parts[0].getY());
+            
+            if (!setPosition(parts[0].getX(), parts[0].getY())) {
+                this.direction = previousDirection;
+            }
         }
     }
 
@@ -183,6 +193,14 @@ public class Ship implements Movable, Turnable, Hittable {
         return parts[0].getY();
     }
     
+    /**
+     * Sets the ship's position on the table if the all the requirements are met.
+     * 
+     * @see         battleship2000.programlogic.control.ShipPlacement#setShipsPosition(int x, int y)
+     * @param x     the ship's new x-coordinate on the table
+     * @param y     the ship's new y-coordinate on the table
+     * @return      true if the ship was set on the desired position, false otherwise
+     */
     public boolean setPosition(int x, int y) {
         ShipPlacement setPosition = new ShipPlacement(this);
         
@@ -203,7 +221,17 @@ public class Ship implements Movable, Turnable, Hittable {
         
         return true;
     }
-
+    
+    /**
+     * Returns the squares that the particular ship bombs.
+     * <p>
+     * Note! For now, this method returns the same square it has been given as a 
+     * parameter. Its use will be meaningless until the game has been expanded and
+     * the ship's can be specialized.
+     * 
+     * @param square    the square chosen to be bombed
+     * @return          a list of squares to be bombed based on the square given as a parameter
+     */
     public List<Square> getSquaresToBomb(Square square) {
         List<Square> squaresToBomb = new ArrayList<>();
         squaresToBomb.add(square);

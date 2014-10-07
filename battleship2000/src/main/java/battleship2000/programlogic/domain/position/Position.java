@@ -9,6 +9,12 @@ public class Position implements Comparable<Position> {
     private int x;
     private int y;
     
+    /**
+     * The Positions x- and y-coordinates are given as constructor parameters.
+     * 
+     * @param x     the x-coordinate
+     * @param y     the y-coordinate
+     */
     public Position(int x, int y) {
         this.x = x;
         this.y = y;
@@ -22,6 +28,18 @@ public class Position implements Comparable<Position> {
         return y;
     }
 
+    /**
+     * By default, when two Positions are compared, 
+     * <ol>
+     *  <li>the one that has the smaller y-coordinate value is prior to the other.</li>
+     *  <li>If both compared Positions have the same y-coordinate value, the one with
+     *      the smaller x-coordinate value is prior to the other.</li>
+     *  <li>Otherwise, both of the compared values are equal.</li>
+     * </ol>
+     * 
+     * @param anotherPosition   the Position that this is compared to
+     * @return                  -1 = prior, 0 = equal, 1 = posterior
+     */
     @Override
     public int compareTo(Position anotherPosition) {
         if (this.y < anotherPosition.getY()) {
