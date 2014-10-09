@@ -4,7 +4,9 @@ import battleship2000.programlogic.GameCommands;
 import battleship2000.ui.playback.Audible;
 import battleship2000.ui.playback.AudioClip;
 import battleship2000.ui.control.CreatePanes;
+import battleship2000.ui.panes.CardNames;
 import battleship2000.ui.panes.GamePane;
+import battleship2000.ui.panes.LoadingPane;
 import battleship2000.ui.panes.TitlePane;
 import battleship2000.ui.playback.AudioContent;
 import java.awt.CardLayout;
@@ -29,6 +31,7 @@ public class BattleshipGui implements Runnable {
     private AudioContent audioContent;
     private final int FRAME_WIDTH = 650;
     private final int FRAME_HEIGHT = 550;
+    private final int SQUARE_WIDTH = 25;
     
     public BattleshipGui() {
         this.audioContent = new AudioContent(this);
@@ -71,20 +74,18 @@ public class BattleshipGui implements Runnable {
     private void createContentAlt(Container contentPane) {
         CardLayout cardLayout = new CardLayout();
         
-        contentPane.setLayout(cardLayout);
-        
         GameCommands gameCommands = new GameCommands();
         gameCommands.createANewGame();
         
-        
         cards = new JPanel(cardLayout);
         
-        JPanel gamePane = new GamePane(gameCommands, 25, this);
         JPanel titlePane = new TitlePane(this, gameCommands, cards).getTitlePage();
+        JPanel loadPane = new LoadingPane(this).getPane();
         
-        cards.add(titlePane, "TITLE");
-        cards.add(gamePane, "GAME");
+        cards.add(titlePane, CardNames.TITLE.toString());
+        cards.add(loadPane, CardNames.LOAD.toString());
         
+        cardLayout.show(cards, CardNames.TITLE.toString());
         contentPane.add(cards);
     }
     
@@ -103,7 +104,7 @@ public class BattleshipGui implements Runnable {
         
         GameCommands gameCommands = new GameCommands();
         gameCommands.createANewGame();
-        JPanel gamePane = new GamePane(gameCommands, 25, this);
+        JPanel gamePane = new GamePane(gameCommands, SQUARE_WIDTH, this);
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.BOTH;
@@ -128,5 +129,13 @@ public class BattleshipGui implements Runnable {
 
     public JPanel getCards() {
         return cards;
+    }
+
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    public int getSQUARE_WIDTH() {
+        return SQUARE_WIDTH;
     }
 }

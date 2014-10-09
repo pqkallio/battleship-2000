@@ -60,7 +60,7 @@ public class TitlePane extends JPanel {
         titlePanel.add(title);
         
         JButton start = new JButton("Start");
-        start.addActionListener(new StartNewGameListener(this.cards));
+        start.addActionListener(new StartNewGameListener(this.cards, gc, gui));
         
         gbc.gridx = 2;
         gbc.gridy = 3;

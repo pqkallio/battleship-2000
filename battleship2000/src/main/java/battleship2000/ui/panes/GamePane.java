@@ -14,6 +14,7 @@ import battleship2000.programlogic.observers.LogicObserver;
 import battleship2000.ui.BattleshipGui;
 import battleship2000.ui.domain.VisualShipPartPack;
 import battleship2000.ui.listeners.BombASquareListener;
+import battleship2000.ui.listeners.StartNewGameListener;
 import java.awt.Cursor;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -200,7 +201,7 @@ public class GamePane extends JPanel implements LogicObserver, Pane {
         
         computersSide.setCursor(crosshairCursor);
         
-        this.revalidate();
+        this.repaint();
     }
 
     @Override
@@ -399,9 +400,9 @@ public class GamePane extends JPanel implements LogicObserver, Pane {
         JButton playAgain = new JButton("Play again");
         JButton exit = new JButton("Exit");
         
-        ActionListener endOfGameListener = new EndOfGameListener(gc, playAgain, exit, gui.getCards());
+        ActionListener endOfGameListener = new EndOfGameListener(gui.getCards());
         
-        playAgain.addActionListener(endOfGameListener);
+        playAgain.addActionListener(new StartNewGameListener(gui.getCards(), gc, gui));
         exit.addActionListener(endOfGameListener);
         
         int fullWidth = this.gui.getFRAME_WIDTH();
@@ -439,7 +440,7 @@ public class GamePane extends JPanel implements LogicObserver, Pane {
     }
 
     private void loadVisualShipParts() {
-        for (Direction direction : Direction.EAST.getMainDirections()) {
+        for (Direction direction : Direction.EAST.getCardinalDirections()) {
             visualShipParts.put(direction, new VisualShipPartPack(direction, squareWidth));
         }
     }

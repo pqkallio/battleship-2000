@@ -148,7 +148,7 @@ public class ComputerGuessingPattern {
         
         Map<Direction, List<Square>> squaresBasedOnDirection = new HashMap<>();
         
-        for (Direction direction : Direction.EAST.getMainDirections()) {
+        for (Direction direction : Direction.EAST.getCardinalDirections()) {
             squaresBasedOnDirection.put(direction, foesTable.getSquaresBasedOnDirection(square, direction, minShipSize));
         }
         

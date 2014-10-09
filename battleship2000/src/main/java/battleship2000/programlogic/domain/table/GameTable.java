@@ -119,7 +119,7 @@ public class GameTable implements Table {
     @Override
     public List<Square> getNeighborSquares(Square square) {
         List<Direction> directionsWithNeighborSquares 
-                = Direction.EAST.getMainAndBetweenMainDirections();
+                = Direction.EAST.getCardinalAndIntercardinalDirections();
         List<Square> neighborSquares = new ArrayList<>();
         int x = square.getX();
         int y = square.getY();

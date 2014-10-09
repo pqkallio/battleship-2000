@@ -33,5 +33,4 @@ public class ComputerGuessingPatternTest {
     @After
     public void tearDown() {
     }
-    
 }

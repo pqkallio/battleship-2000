@@ -5,6 +5,7 @@ import battleship2000.programlogic.domain.ship.ShipPart;
 import battleship2000.programlogic.domain.ship.Direction;
 import battleship2000.programlogic.domain.ship.Ship;
 import battleship2000.programlogic.domain.table.GameTable;
+import battleship2000.programlogic.domain.table.Square;
 import battleship2000.programlogic.rules.SizeLimits;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -572,6 +573,29 @@ public class ShipTest {
         parametritonKonstruktoriAlus.setTable(table);
         assertEquals(3, parametritonKonstruktoriAlus.getParts().length);
     }
+    
+    @Test
+    public void getNameMethodReturnsShipsName() {
+        assertEquals("Ship", ship.getName());
+    }
+    
+    @Test
+    public void setIsOnTableMethodRemovesPartsFromTheTable() {
+        ship.setPosition(0, 0);
+        ship.setIsOnTable(false);
+        boolean allIsOk = true;
+        
+        for (int y : table.getTableAsMap().keySet()) {
+            for (int x : table.getTableAsMap().get(y).keySet()) {
+                if (table.getTableAsMap().get(y).get(x).getSetShipPart() != null) {
+                    allIsOk = false;
+                }
+            }
+        }
+        
+        assertTrue(allIsOk);
+    }
+    
     
     // TÄSTÄ ETEENPÄIN TESTIEN APUMETODIT
     

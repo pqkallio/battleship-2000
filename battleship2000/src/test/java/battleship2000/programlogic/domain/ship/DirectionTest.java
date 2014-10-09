@@ -304,4 +304,69 @@ public class DirectionTest {
     public void getOppositeDirectionReturnsRightDirectionForNORTH_NORTHWEST() {
         assertEquals(SOUTH_SOUTHEAST, NORTH_NORTHWEST.getOppositeDirection());
     }
+    
+    @Test
+    public void getVerticalOrHorizontalReturnsRightInLineForNorth() {
+        assertEquals(InLine.VERTICAL, NORTH.getVerticalOrHorizontal());
+    }
+    @Test
+    public void getVerticalOrHorizontalReturnsRightInLineForNorthNorthEast() {
+        assertEquals(InLine.NEITHER, NORTH_NORTHEAST.getVerticalOrHorizontal());
+    }
+    @Test
+    public void getVerticalOrHorizontalReturnsRightInLineForNorthEast() {
+        assertEquals(InLine.NEITHER, NORTHEAST.getVerticalOrHorizontal());
+    }
+    @Test
+    public void getVerticalOrHorizontalReturnsRightInLineForEastNorthEast() {
+        assertEquals(InLine.NEITHER, EAST_NORTHEAST.getVerticalOrHorizontal());
+    }
+    @Test
+    public void getVerticalOrHorizontalReturnsRightInLineForEast() {
+        assertEquals(InLine.HORIZONTAL, EAST.getVerticalOrHorizontal());
+    }
+    @Test
+    public void getVerticalOrHorizontalReturnsRightInLineForEastSouthEast() {
+        assertEquals(InLine.NEITHER, EAST_SOUTHEAST.getVerticalOrHorizontal());
+    }
+    @Test
+    public void getVerticalOrHorizontalReturnsRightInLineForSouthEast() {
+        assertEquals(InLine.NEITHER, SOUTHEAST.getVerticalOrHorizontal());
+    }
+    @Test
+    public void getVerticalOrHorizontalReturnsRightInLineForSouthSouthEast() {
+        assertEquals(InLine.NEITHER, SOUTH_SOUTHEAST.getVerticalOrHorizontal());
+    }
+    @Test
+    public void getVerticalOrHorizontalReturnsRightInLineForSouth() {
+        assertEquals(InLine.VERTICAL, SOUTH.getVerticalOrHorizontal());
+    }
+    @Test
+    public void getVerticalOrHorizontalReturnsRightInLineForSOUTH_SOUTHWEST() {
+        assertEquals(InLine.NEITHER, SOUTH_SOUTHWEST.getVerticalOrHorizontal());
+    }
+    @Test
+    public void getVerticalOrHorizontalReturnsRightInLineForSOUTHWEST() {
+        assertEquals(InLine.NEITHER, SOUTHWEST.getVerticalOrHorizontal());
+    }
+    @Test
+    public void getVerticalOrHorizontalReturnsRightInLineForWEST_SOUTHWEST() {
+        assertEquals(InLine.NEITHER, WEST_SOUTHWEST.getVerticalOrHorizontal());
+    }
+    @Test
+    public void getVerticalOrHorizontalReturnsRightInLineForWEST() {
+        assertEquals(InLine.HORIZONTAL, WEST.getVerticalOrHorizontal());
+    }
+    @Test
+    public void getVerticalOrHorizontalReturnsRightInLineForWEST_NORTHWEST() {
+        assertEquals(InLine.NEITHER, WEST_NORTHWEST.getVerticalOrHorizontal());
+    }
+    @Test
+    public void getVerticalOrHorizontalReturnsRightInLineForNORTHWEST() {
+        assertEquals(InLine.NEITHER, NORTHWEST.getVerticalOrHorizontal());
+    }
+    @Test
+    public void getVerticalOrHorizontalReturnsRightInLineForNORTH_NORTHWEST() {
+        assertEquals(InLine.NEITHER, NORTH_NORTHWEST.getVerticalOrHorizontal());
+    }
 }

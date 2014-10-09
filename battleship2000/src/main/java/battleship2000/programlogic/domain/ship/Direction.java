@@ -98,11 +98,11 @@ public enum Direction {
         return oppositeDirection;
     }
     
-    public List<Direction> getMainDirections() {
+    public List<Direction> getCardinalDirections() {
         return chooseDirectionsByAngle(90);
     }
     
-    public List<Direction> getMainAndBetweenMainDirections() {
+    public List<Direction> getCardinalAndIntercardinalDirections() {
         return chooseDirectionsByAngle(45);
     }
 

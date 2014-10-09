@@ -1,0 +1,225 @@
+<html>
+<head>
+  
+    <style type='text/css'>
+   
+   .tests{ 
+     width : 50%;
+     float : left;
+   }
+   
+   .mutees{
+     float : right;
+     width : 50%;
+   }
+   
+   .unit {
+     padding-top : 20px;
+     clear : both;
+   }
+   
+   .coverage_bar {
+    display : inline-block;
+    height : 1.1em;
+    width: 130px;
+    background: #FAA;
+    margin: 0 5px;
+    vertical-align: middle;
+    border: 1px solid #AAA;
+    position : relative;
+   }
+   
+   .coverage_complete {
+    display : inline-block;
+    height : 100%;
+    background: #DFD;
+    float: left;
+   }
+   
+   .coverage_ledgend {
+        position : absolute;
+        height : 100%;
+        width : 100%;
+        left : 0;
+        top : 0;
+        text-align : center;
+   }
+   
+   .line, .mut {
+        vertical-align : middle;
+   }
+   
+   .coveragePercentage {
+    display: inline-block;
+    width: 3em;
+    text-align: right;
+   }
+  </style>
+  
+</head>
+<body>
+
+<h1>Pit Test Coverage Report</h1>
+
+<h3>Project Summary</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Number of Classes</th>
+            <th>Line Coverage</th>
+            <th>Mutation Coverage</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>45</td>
+            <td>34% <div class="coverage_bar"><div class="coverage_complete" style="width:34%"></div><div class="coverage_ledgend">576/1717</div></div></td>
+            <td>39% <div class="coverage_bar"><div class="coverage_complete" style="width:39%"></div><div class="coverage_ledgend">407/1057</div></div></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h3>Breakdown by Package</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Number of Classes</th>
+            <th>Line Coverage</th>
+            <th>Mutation Coverage</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td><a href="./battleship2000/index.html">battleship2000</a></td>
+            <td>1</td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/4</div></div></td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/1</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./battleship2000.programlogic/index.html">battleship2000.programlogic</a></td>
+            <td>2</td>
+            <td><div class="coveragePercentage">94% </div><div class="coverage_bar"><div class="coverage_complete" style="width:94%"></div><div class="coverage_ledgend">61/65</div></div></td>
+            <td><div class="coveragePercentage">100% </div><div class="coverage_bar"><div class="coverage_complete" style="width:100%"></div><div class="coverage_ledgend">31/31</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./battleship2000.programlogic.control/index.html">battleship2000.programlogic.control</a></td>
+            <td>3</td>
+            <td><div class="coveragePercentage">71% </div><div class="coverage_bar"><div class="coverage_complete" style="width:71%"></div><div class="coverage_ledgend">105/148</div></div></td>
+            <td><div class="coveragePercentage">67% </div><div class="coverage_bar"><div class="coverage_complete" style="width:67%"></div><div class="coverage_ledgend">94/140</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./battleship2000.programlogic.domain.player/index.html">battleship2000.programlogic.domain.player</a></td>
+            <td>4</td>
+            <td><div class="coveragePercentage">87% </div><div class="coverage_bar"><div class="coverage_complete" style="width:87%"></div><div class="coverage_ledgend">79/91</div></div></td>
+            <td><div class="coveragePercentage">71% </div><div class="coverage_bar"><div class="coverage_complete" style="width:71%"></div><div class="coverage_ledgend">39/55</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./battleship2000.programlogic.domain.player.ai/index.html">battleship2000.programlogic.domain.player.ai</a></td>
+            <td>2</td>
+            <td><div class="coveragePercentage">3% </div><div class="coverage_bar"><div class="coverage_complete" style="width:3%"></div><div class="coverage_ledgend">6/182</div></div></td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/111</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./battleship2000.programlogic.domain.points/index.html">battleship2000.programlogic.domain.points</a></td>
+            <td>1</td>
+            <td><div class="coveragePercentage">100% </div><div class="coverage_bar"><div class="coverage_complete" style="width:100%"></div><div class="coverage_ledgend">9/9</div></div></td>
+            <td><div class="coveragePercentage">100% </div><div class="coverage_bar"><div class="coverage_complete" style="width:100%"></div><div class="coverage_ledgend">1/1</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./battleship2000.programlogic.domain.position/index.html">battleship2000.programlogic.domain.position</a></td>
+            <td>1</td>
+            <td><div class="coveragePercentage">100% </div><div class="coverage_bar"><div class="coverage_complete" style="width:100%"></div><div class="coverage_ledgend">15/15</div></div></td>
+            <td><div class="coveragePercentage">100% </div><div class="coverage_bar"><div class="coverage_complete" style="width:100%"></div><div class="coverage_ledgend">15/15</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./battleship2000.programlogic.domain.ship/index.html">battleship2000.programlogic.domain.ship</a></td>
+            <td>4</td>
+            <td><div class="coveragePercentage">97% </div><div class="coverage_bar"><div class="coverage_complete" style="width:97%"></div><div class="coverage_ledgend">158/163</div></div></td>
+            <td><div class="coveragePercentage">84% </div><div class="coverage_bar"><div class="coverage_complete" style="width:84%"></div><div class="coverage_ledgend">103/123</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./battleship2000.programlogic.domain.table/index.html">battleship2000.programlogic.domain.table</a></td>
+            <td>2</td>
+            <td><div class="coveragePercentage">77% </div><div class="coverage_bar"><div class="coverage_complete" style="width:77%"></div><div class="coverage_ledgend">83/108</div></div></td>
+            <td><div class="coveragePercentage">79% </div><div class="coverage_bar"><div class="coverage_complete" style="width:79%"></div><div class="coverage_ledgend">93/117</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./battleship2000.programlogic.rules/index.html">battleship2000.programlogic.rules</a></td>
+            <td>3</td>
+            <td><div class="coveragePercentage">85% </div><div class="coverage_bar"><div class="coverage_complete" style="width:85%"></div><div class="coverage_ledgend">60/71</div></div></td>
+            <td><div class="coveragePercentage">66% </div><div class="coverage_bar"><div class="coverage_complete" style="width:66%"></div><div class="coverage_ledgend">31/47</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./battleship2000.ui/index.html">battleship2000.ui</a></td>
+            <td>1</td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/56</div></div></td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/22</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./battleship2000.ui.control/index.html">battleship2000.ui.control</a></td>
+            <td>2</td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/29</div></div></td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/9</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./battleship2000.ui.domain/index.html">battleship2000.ui.domain</a></td>
+            <td>3</td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/95</div></div></td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/36</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./battleship2000.ui.listeners/index.html">battleship2000.ui.listeners</a></td>
+            <td>6</td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/166</div></div></td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/96</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./battleship2000.ui.panes/index.html">battleship2000.ui.panes</a></td>
+            <td>7</td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/486</div></div></td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/242</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./battleship2000.ui.playback/index.html">battleship2000.ui.playback</a></td>
+            <td>2</td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/23</div></div></td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/9</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./battleship2000.util/index.html">battleship2000.util</a></td>
+            <td>1</td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/6</div></div></td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/2</div></div></td>
+        </tr>
+
+     </tbody>
+</table>
+<br/>
+
+
+
+<hr/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 0.30
+
+</body>
+</html>

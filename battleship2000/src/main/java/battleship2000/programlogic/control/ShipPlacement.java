@@ -174,7 +174,7 @@ public class ShipPlacement {
 
     private boolean checkNeighboringSquares(Map<Integer, Map<Integer, Square>> table, int x, int y) {
         List<Direction> directionsWithNeighborSquares 
-                    = Direction.EAST.getMainAndBetweenMainDirections();
+                    = Direction.EAST.getCardinalAndIntercardinalDirections();
         
         for (Direction direction : directionsWithNeighborSquares) {
             int dx = direction.getDx();

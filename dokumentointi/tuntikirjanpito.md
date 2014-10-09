@@ -57,4 +57,16 @@
 |Ui:n parantelua, refaktorointi   | 3h  |
 |**2.10.2014**             |             |
 |Grafiikan aloittaminen, sekvenssikaaviot   | 3h  |
-|**YHTEENSÄ**            |**approx. 69.5 h**      |
+|**3.10.2014**             |             |
+|Ui, grafiikka, refaktorointi   | 2h  |
+|**4.10.2014**             |             |
+|Refaktorointi, testit   | 2h  |
+|**6.10.2014**             |             |
+|Tekoälyn parantelua, ui   | 2h  |
+|**7.10.2014**             |             |
+|Grafiikkaa, ui, testausta   | 2h  |
+|**8.10.2014**             |             |
+|Ensimmäinen ääni, refaktorointi   | 4h  |
+|**9.10.2014**             |             |
+|Otsikkopaneeli erikseen, sekvenssikaavio, luokkakaavio   | 6h  |
+|**YHTEENSÄ**            |**approx. 87.5 h**      |

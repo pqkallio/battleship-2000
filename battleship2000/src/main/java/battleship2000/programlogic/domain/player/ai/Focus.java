@@ -36,7 +36,7 @@ public class Focus {
         this.foe = foe;
         this.deadEnds = new HashSet<>();
         this.prospected = new HashMap<>();
-        this.possibleDirections = Direction.EAST.getMainDirections();
+        this.possibleDirections = Direction.EAST.getCardinalDirections();
     }
 
     public boolean isActive() {

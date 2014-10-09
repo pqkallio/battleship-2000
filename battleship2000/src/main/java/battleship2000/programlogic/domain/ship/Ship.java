@@ -148,7 +148,7 @@ public class Ship implements Movable, Turnable, Hittable {
     }
 
     private void addPossibleDirections() {
-        this.possibleDirections = Direction.EAST.getMainDirections();
+        this.possibleDirections = Direction.EAST.getCardinalDirections();
     }
 
     private int getFinalSize(int length) {

@@ -178,6 +178,88 @@ public class PlayerTest {
         assertTrue(human.allShipsDestroyed());
     }
     
+    @Test
+    public void getShotsHitReturnsZeroWhenANewPlayerIsCreated() {
+        assertEquals(0, human.getShotsHit());
+    }
     
+    @Test
+    public void getShotsMissedReturnsZeroWhenANewPlayerIsCreated() {
+        assertEquals(0, human.getShotsMissed());
+    }
+    
+    @Test
+    public void getShotsHitReturnsOneWhenOneIsAdded() {
+        human.addShotsHit(1);
+        assertEquals(1, human.getShotsHit());
+    }
+    
+    @Test
+    public void getShotsMissedReturnsOneWhenOneIsAdded() {
+        human.addShotsMissed(1);
+        assertEquals(1, human.getShotsMissed());
+    }
+    
+    @Test
+    public void getShotsHitReturnsZeroWhenZeroIsAdded() {
+        human.addShotsHit(0);
+        assertEquals(0, human.getShotsHit());
+    }
+    
+    @Test
+    public void getShotsMissedReturnsZeroWhenZeroIsAdded() {
+        human.addShotsMissed(0);
+        assertEquals(0, human.getShotsMissed());
+    }
+    
+    @Test
+    public void getShotsHitReturnsZeroWhenMinusOneIsAdded() {
+        human.addShotsHit(-1);
+        assertEquals(0, human.getShotsHit());
+    }
+    
+    @Test
+    public void getShotsMissedReturnsZeroWhenMinusOneIsAdded() {
+        human.addShotsMissed(-1);
+        assertEquals(0, human.getShotsMissed());
+    }
+    
+    @Test
+    public void getAccuracyReturns100WhenOneShotIsHitAndZeroMissed() {
+        human.addShotsHit(1);
+        assertEquals(100.0, human.getAccuracy(), 1);
+    }
+    
+    @Test
+    public void getAccuracyReturns100WhenTwoShotsAreHitAndZeroMissed() {
+        human.addShotsHit(2);
+        assertEquals(100.0, human.getAccuracy(), 1);
+    }
+    
+    @Test
+    public void getAccuracyReturns50WhenOneShotIsHitAndOneMissed() {
+        human.addShotsHit(1);
+        human.addShotsMissed(1);
+        assertEquals(50.0, human.getAccuracy(), 1);
+    }
+    
+    @Test
+    public void getAccuracyReturns33WhenOneShotIsHitAndTwoMissed() {
+        human.addShotsMissed(2);
+        human.addShotsHit(1);
+        assertEquals(33.0, human.getAccuracy(), 1);
+    }
+    
+    @Test
+    public void getAccuracyReturns0WhenOneShotIsMissedAndZeroHit() {
+        human.addShotsMissed(1);
+        assertEquals(0.0, human.getAccuracy(), 1);
+    }
+    
+    @Test
+    public void getAccuracyReturns0WhenTwoShotIsMissedAndZeroHit() {
+        human.addShotsMissed(2);
+        assertEquals(0.0, human.getAccuracy(), 1);
+    }
     
 }
