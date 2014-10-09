@@ -8,6 +8,8 @@ import battleship2000.programlogic.domain.player.Human;
 import battleship2000.programlogic.domain.player.Player;
 import battleship2000.programlogic.domain.points.Points;
 import battleship2000.programlogic.domain.table.Square;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This controller class is responsible for the actions of a single round,

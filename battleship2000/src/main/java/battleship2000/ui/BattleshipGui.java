@@ -6,6 +6,8 @@ import battleship2000.ui.playback.AudioClip;
 import battleship2000.ui.control.CreatePanes;
 import battleship2000.ui.panes.GamePane;
 import battleship2000.ui.panes.TitlePane;
+import battleship2000.ui.playback.AudioContent;
+import java.awt.CardLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -22,19 +24,43 @@ import javax.swing.WindowConstants;
  */
 public class BattleshipGui implements Runnable {
     private JFrame frame;
+    private JPanel cards; 
     private Audible explosion;
+    private AudioContent audioContent;
+    private final int FRAME_WIDTH = 650;
+    private final int FRAME_HEIGHT = 550;
+    
+    public BattleshipGui() {
+        this.audioContent = new AudioContent(this);
+    }
+
+    public AudioContent getAudioContent() {
+        return audioContent;
+    }
+
+    public int getFRAME_HEIGHT() {
+        return FRAME_HEIGHT;
+    }
+
+    public int getFRAME_WIDTH() {
+        return FRAME_WIDTH;
+    }
+
+    public void setFrame(JFrame frame) {
+        this.frame = frame;
+    }
     
     @Override
     public void run() {
         this.frame = new JFrame("Battleship 2000");
         this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.frame.setPreferredSize(new Dimension(650, 550));
+        this.frame.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 //        this.frame.setResizable(false);
         
-        CreatePanes createMenus = new CreatePanes(this.frame.getContentPane());
-        createMenus.execute();
+//        CreatePanes createMenus = new CreatePanes(this.frame.getContentPane());
+//        createMenus.execute();
         
-        createContent(frame.getContentPane());
+        createContentAlt(frame.getContentPane());
         
         this.frame.pack();
         this.frame.setVisible(true);
@@ -42,7 +68,29 @@ public class BattleshipGui implements Runnable {
         loadAudio();
     }
 
+    private void createContentAlt(Container contentPane) {
+        CardLayout cardLayout = new CardLayout();
+        
+        contentPane.setLayout(cardLayout);
+        
+        GameCommands gameCommands = new GameCommands();
+        gameCommands.createANewGame();
+        
+        
+        cards = new JPanel(cardLayout);
+        
+        JPanel gamePane = new GamePane(gameCommands, 25, this);
+        JPanel titlePane = new TitlePane(this, gameCommands, cards).getTitlePage();
+        
+        cards.add(titlePane, "TITLE");
+        cards.add(gamePane, "GAME");
+        
+        contentPane.add(cards);
+    }
+    
     private void createContent(Container contentPane) {
+        CardLayout cardLayout = new CardLayout();
+        
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints gbc = new GridBagConstraints();
         
@@ -75,6 +123,10 @@ public class BattleshipGui implements Runnable {
     }
 
     public Audible getExplosion() {
-        return explosion;
+        return audioContent.getExplosion();
+    }
+
+    public JPanel getCards() {
+        return cards;
     }
 }

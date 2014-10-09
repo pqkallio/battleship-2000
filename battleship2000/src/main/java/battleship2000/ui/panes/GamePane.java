@@ -5,6 +5,7 @@ import battleship2000.ui.listeners.AllShipsAreSetListener;
 import battleship2000.ui.listeners.ShipChooserListener;
 import battleship2000.programlogic.GameCommands;
 import battleship2000.programlogic.StateChange;
+import battleship2000.programlogic.control.PlayOneRound;
 import battleship2000.programlogic.domain.player.Computer;
 import battleship2000.programlogic.domain.player.Human;
 import battleship2000.programlogic.domain.player.Player;
@@ -29,6 +30,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -223,13 +226,13 @@ public class GamePane extends JPanel implements LogicObserver, Pane {
     }
 
     private void updateTable(Object[] object) {
-        for (int i = 0; i < object.length; i++) {
-            if (object[i].getClass() == Human.class) {
+        
+            if (object[0] == gc.getGame().getHuman()) {
                 playersSide.repaintAll();
-            } else if (object[i].getClass() == Computer.class) {
+            } else if (object[0] == gc.getGame().getComputer()) {
                 computersSide.repaintAll();
             }
-        }
+        
     }
 
     private JPanel createHeader() {
@@ -396,12 +399,13 @@ public class GamePane extends JPanel implements LogicObserver, Pane {
         JButton playAgain = new JButton("Play again");
         JButton exit = new JButton("Exit");
         
-        ActionListener endOfGameListener = new EndOfGameListener(gc, playAgain, exit);
+        ActionListener endOfGameListener = new EndOfGameListener(gc, playAgain, exit, gui.getCards());
         
         playAgain.addActionListener(endOfGameListener);
         exit.addActionListener(endOfGameListener);
         
-        int fullWidth = gc.getGame().getHuman().getTable().getWidth() * squareWidth + 50 + gc.getGame().getComputer().getTable().getWidth() * squareWidth;
+        int fullWidth = this.gui.getFRAME_WIDTH();
+//        int fullWidth = gc.getGame().getHuman().getTable().getWidth() * squareWidth + 50 + gc.getGame().getComputer().getTable().getWidth() * squareWidth;
         
         int[] layoutWidths = {fullWidth / 2, fullWidth / 2};
         int[] layoutHeights = {25, 25};
