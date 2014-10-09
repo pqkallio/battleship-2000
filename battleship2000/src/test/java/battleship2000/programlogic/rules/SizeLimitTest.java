@@ -40,8 +40,8 @@ public class SizeLimitTest {
     }
     
     @Test
-    public void getMinimumTableWidthMethodReturnsEight() {
-        assertEquals(8, SizeLimits.getMinimumTableWidth());
+    public void getMinimumTableWidthMethodReturnsTen() {
+        assertEquals(10, SizeLimits.getMinimumTableWidth());
     }
     
     @Test

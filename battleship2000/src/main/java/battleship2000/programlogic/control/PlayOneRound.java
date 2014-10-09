@@ -64,6 +64,10 @@ public class PlayOneRound implements Controller {
         game.notifyObservers(StateChange.UPDATE_TABLE, game.getComputer());
         game.notifyObservers(StateChange.UPDATE_POINTS, 0);
         
+        if (usersChoice.getSetShipPart() != null) {
+            game.notifyObservers(StateChange.SHIP_HIT, 0);
+        }
+        
         if (game.getComputer().allShipsDestroyed()) {
             endGame(human);
             return 0;
@@ -85,10 +89,14 @@ public class PlayOneRound implements Controller {
         
         int points = squareToHit.bomb();
         computer.addPoints(points);
-        
         addHitOrMiss(computer, squareToHit);
+        
         game.notifyObservers(StateChange.UPDATE_TABLE, game.getHuman());
         game.notifyObservers(StateChange.UPDATE_POINTS, 0);
+        
+        if (squareToHit.getSetShipPart() != null) {
+            game.notifyObservers(StateChange.SHIP_HIT, 0);
+        }
     }
 
     private void addHitOrMiss(Player player, Square square) {

@@ -1,6 +1,8 @@
 package battleship2000.ui;
 
 import battleship2000.programlogic.GameCommands;
+import battleship2000.ui.playback.Audible;
+import battleship2000.ui.playback.AudioClip;
 import battleship2000.ui.control.CreatePanes;
 import battleship2000.ui.panes.GamePane;
 import battleship2000.ui.panes.TitlePane;
@@ -9,6 +11,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
@@ -19,6 +22,7 @@ import javax.swing.WindowConstants;
  */
 public class BattleshipGui implements Runnable {
     private JFrame frame;
+    private Audible explosion;
     
     @Override
     public void run() {
@@ -34,6 +38,8 @@ public class BattleshipGui implements Runnable {
         
         this.frame.pack();
         this.frame.setVisible(true);
+        
+        loadAudio();
     }
 
     private void createContent(Container contentPane) {
@@ -47,15 +53,28 @@ public class BattleshipGui implements Runnable {
         layout.columnWidths = layoutWidths;
         layout.rowHeights = layoutHeights;
         
-        JPanel titlePane = new TitlePane().getTitlePage();
         GameCommands gameCommands = new GameCommands();
         gameCommands.createANewGame();
-        JPanel gamePane = new GamePane(gameCommands, 25);
+        JPanel gamePane = new GamePane(gameCommands, 25, this);
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.BOTH;
         
         layout.setConstraints(gamePane, gbc);
         contentPane.add(gamePane);
+    }
+
+    public void alertException(String message, Exception ex) {
+        JOptionPane.showMessageDialog(null, message + "\n" + ex.toString(), ex.getClass().getName(), 
+                JOptionPane.ERROR_MESSAGE);
+        frame.dispose();
+    }
+
+    private void loadAudio() {
+        this.explosion = new AudioClip("src/main/java/battleship2000/media/audio/explosion.wav", this);
+    }
+
+    public Audible getExplosion() {
+        return explosion;
     }
 }

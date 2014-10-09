@@ -229,14 +229,14 @@ public class RulesTest {
     
     @Test
     public void ifValidatedTableLengthMethodIsGivenTheMinimumWidthItReturnsTheMinimumWidth() {
-        emptyRules.setTableSize(8, 8);
-        assertEquals(8, emptyRules.getTableWidth());
+        emptyRules.setTableSize(10, 10);
+        assertEquals(10, emptyRules.getTableWidth());
     }
     
     @Test
     public void ifValidatedTableLengthMethodIsGivenLessThanMinimumWidthItReturnsTheMinimumWidth() {
-        emptyRules.setTableSize(7, 7);
-        assertEquals(8, emptyRules.getTableWidth());
+        emptyRules.setTableSize(9, 9);
+        assertEquals(10, emptyRules.getTableWidth());
     }
     
     @Test

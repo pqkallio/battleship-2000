@@ -30,7 +30,6 @@ public class CreatePanes {
         layout.columnWidths = layoutWidths;
         layout.rowHeights = layoutHeights;
         
-        JPanel titlePane = new TitlePane().getTitlePage();
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.BOTH;

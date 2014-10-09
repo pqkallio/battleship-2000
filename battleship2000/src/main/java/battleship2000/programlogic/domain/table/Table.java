@@ -35,4 +35,5 @@ public interface Table {
     public Square getNextSquareBasedOnDirection(Square square, Direction direction);
     public List<Square> getNeighborSquares(Square square);
     public List<Square> getSquaresBasedOnDirection(Square square, Direction direction, int amount);
+    public boolean checkCoordinatesAreOnTheTable(int x, int y);
 }

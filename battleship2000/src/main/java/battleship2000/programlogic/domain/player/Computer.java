@@ -60,7 +60,6 @@ public class Computer extends Player {
             while (!canBePlacedOnTable) {
                 int x = drawANumber(super.getTable().getWidth());
                 int y = drawANumber(super.getTable().getHeight());
-                
                 if (ship.setPosition(x, y)) canBePlacedOnTable = true;
             }
             

@@ -10,6 +10,7 @@ import battleship2000.programlogic.domain.player.Human;
 import battleship2000.programlogic.domain.player.Player;
 import battleship2000.programlogic.domain.ship.Direction;
 import battleship2000.programlogic.observers.LogicObserver;
+import battleship2000.ui.BattleshipGui;
 import battleship2000.ui.domain.VisualShipPartPack;
 import battleship2000.ui.listeners.BombASquareListener;
 import java.awt.Cursor;
@@ -39,7 +40,7 @@ import javax.swing.JPanel;
  *
  * @author Petri Kallio
  */
-public class GamePane extends JPanel implements LogicObserver  {
+public class GamePane extends JPanel implements LogicObserver, Pane {
     private GameCommands gc;
     private int squareWidth;
     private GridBagLayout mainLayout;
@@ -59,8 +60,9 @@ public class GamePane extends JPanel implements LogicObserver  {
     private boolean updated;
     private Cursor crosshairCursor;
     private Map<Direction, VisualShipPartPack> visualShipParts;
+    private BattleshipGui gui;
     
-    public GamePane(GameCommands gameCommands, int squareWidth) {
+    public GamePane(GameCommands gameCommands, int squareWidth, BattleshipGui gui) {
         this.gc = gameCommands;
         this.squareWidth = squareWidth;
         createGameLayout();
@@ -68,6 +70,7 @@ public class GamePane extends JPanel implements LogicObserver  {
         this.updated = false;
         this.visualShipParts = new HashMap<>();
         this.crosshairCursor = loadCrosshair();
+        this.gui = gui;
         
         loadVisualShipParts();
     }
@@ -209,6 +212,8 @@ public class GamePane extends JPanel implements LogicObserver  {
             updatePoints();
         } else if (stateChange.equals(StateChange.END_GAME)) {
             endGame(object);
+        } else if (stateChange.equals(StateChange.SHIP_HIT)) {
+            playExplosion();
         }
     }
     
@@ -460,5 +465,14 @@ public class GamePane extends JPanel implements LogicObserver  {
     
     public Cursor getCrosshairCursor() {
         return this.crosshairCursor;
+    }
+
+    private void playExplosion() {
+        this.gui.getExplosion().play();
+    }
+
+    @Override
+    public void alertException(String message, Exception ex) {
+        gui.alertException(message, ex);
     }
 }

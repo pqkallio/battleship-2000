@@ -165,4 +165,8 @@ public class VisualGameTable extends JPanel {
         
         return cursor;
     }
+
+    public void alertException(String message, Exception ex) {
+        gamePane.alertException(message, ex);
+    }
 }

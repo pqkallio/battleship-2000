@@ -17,18 +17,12 @@ import javax.swing.JButton;
 public class AllShipsAreSetListener implements ActionListener {
     private GameCommands gameCommands;
     private Player player;
-    private VisualGameTable playersSide;
-    private VisualGameTable foesSide;
-    private List<JButton> buttons;
     
     public AllShipsAreSetListener(GameCommands gameCommands, 
             Player player, VisualGameTable playersSide, VisualGameTable foesSide,
             List<JButton> buttons) {
         this.gameCommands = gameCommands;
         this.player = player;
-        this.playersSide = playersSide;
-        this.foesSide = foesSide;
-        this.buttons = buttons;
     }
 
     @Override

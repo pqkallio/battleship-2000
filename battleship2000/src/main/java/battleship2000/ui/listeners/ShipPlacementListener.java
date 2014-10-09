@@ -28,13 +28,13 @@ public class ShipPlacementListener implements MouseListener {
     public void mouseClicked(MouseEvent me) {
         
         if (me.getButton() == MouseEvent.BUTTON1) {
-            if (square.getPartOf().getChosenShip() == null) {
+            if (square.getVisualGameTable().getChosenShip() == null) {
                 if (square.getSquare().getSetShipPart() == null) {
                     return;
                 } else {
                     rechoosePlacedShip();
                 }
-            } else if (square.getPartOf().getGameCommands().setShipOnTable(this.square.getPartOf().getChosenShip(), square.getSquare().getX(), square.getSquare().getY())) {
+            } else if (square.getVisualGameTable().getGameCommands().setShipOnTable(this.square.getVisualGameTable().getChosenShip(), square.getSquare().getX(), square.getSquare().getY())) {
                 placeShipOnTable();
             }
         } else if (me.getButton() == MouseEvent.BUTTON3) {
@@ -50,11 +50,11 @@ public class ShipPlacementListener implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        if (square.getPartOf().getChosenShip() == null) {
+        if (square.getVisualGameTable().getChosenShip() == null) {
             return;
         }
         
-        Ship ship = this.square.getPartOf().getChosenShip();
+        Ship ship = this.square.getVisualGameTable().getChosenShip();
         if (!ship.isOnTable()) {
             highlight(ship);
         }
@@ -62,7 +62,7 @@ public class ShipPlacementListener implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
-        if (square.getPartOf().getChosenShip() == null) {
+        if (square.getVisualGameTable().getChosenShip() == null) {
             return;
         }
         
@@ -71,7 +71,7 @@ public class ShipPlacementListener implements MouseListener {
     
     private void removeHighlight() {
         if (shipInSquarePartsPositioning != null) {
-            for (VisualSquare tableSquare : square.getPartOf().getSquares()) {
+            for (VisualSquare tableSquare : square.getVisualGameTable().getSquares()) {
                 for (Position position : shipInSquarePartsPositioning) {
                     if (tableSquare.getSquare().getX() == position.getX() 
                             && tableSquare.getSquare().getY() == position.getY()) {
@@ -86,36 +86,25 @@ public class ShipPlacementListener implements MouseListener {
 
     private void highlight(Ship ship) {
         ShipPlacement positioning = new ShipPlacement(ship);
-        if (positioning.setShipsPosition(square.getSquare().getX(), square.getSquare().getY())) {
-            positioning.addFrontAndRear();
-            ShipPart[] parts = ship.getParts();
-            shipInSquarePartsPositioning = positioning.getPositions();
-            int i = 0;
-            
-            for (VisualSquare tableSquare : square.getPartOf().getSquares()) {
-                for (Position position : shipInSquarePartsPositioning) {
-                    if (tableSquare.getSquare().getX() == position.getX() 
-                            && tableSquare.getSquare().getY() == position.getY()) {
-                        tableSquare.getSquare().floatAPiece(parts[i]);
-                        tableSquare.makeGray();
-                        i++;
-                    }
-                }
-            }
-        } else {
-            positioning.addFrontAndRear();
-            ShipPart[] parts = ship.getParts();
-            shipInSquarePartsPositioning = positioning.getPositions();
-            int i = 0;
-            
-            for (VisualSquare tableSquare : square.getPartOf().getSquares()) {
-                for (Position position : shipInSquarePartsPositioning) {
-                    if (tableSquare.getSquare().getX() == position.getX() 
-                            && tableSquare.getSquare().getY() == position.getY()) {
-                        tableSquare.getSquare().floatAPiece(parts[i]);
-                        tableSquare.redden();
-                        i++;
-                    }
+        boolean redden = false;
+        
+        if (!positioning.setShipsPosition(square.getSquare().getX(), square.getSquare().getY())) {
+            redden = true;
+        }
+        
+        positioning.addFrontAndRear();
+        ShipPart[] parts = ship.getParts();
+        shipInSquarePartsPositioning = positioning.getPositions();
+        int i = 0;
+
+        for (VisualSquare tableSquare : square.getVisualGameTable().getSquares()) {
+            for (Position position : shipInSquarePartsPositioning) {
+                if (tableSquare.getSquare().getX() == position.getX() 
+                        && tableSquare.getSquare().getY() == position.getY()) {
+                    tableSquare.getSquare().floatAPiece(parts[i]);
+                    if (redden) tableSquare.redden();
+                    else tableSquare.makeGray();
+                    i++;
                 }
             }
         }
@@ -124,33 +113,33 @@ public class ShipPlacementListener implements MouseListener {
     private void rechoosePlacedShip() {
         Ship ship = square.getSquare().getSetShipPart().getMotherShip();
         ship.setIsOnTable(false);
-        square.getPartOf().setChosenShip(ship);
-        square.getPartOf().setOkToBeginGame(false);
+        square.getVisualGameTable().setChosenShip(ship);
+        square.getVisualGameTable().setOkToBeginGame(false);
         highlight(ship);
         
-        square.getPartOf().repaintAll();
+        square.getVisualGameTable().repaintAll();
     }
 
     private void placeShipOnTable() {
         removeHighlight();
         
-        for (VisualSquare tableSquare : square.getPartOf().getSquares()) {
+        for (VisualSquare tableSquare : square.getVisualGameTable().getSquares()) {
             tableSquare.repaint();
         }
         
-        square.getPartOf().setChosenShip(null);
+        square.getVisualGameTable().setChosenShip(null);
 
         checkIfAllShipsArePlaced();
     }
 
     private void checkIfAllShipsArePlaced() {
-        if (square.getPartOf().getPlayer().shipsArePlaced()) {
-            square.getPartOf().setOkToBeginGame(true);
+        if (square.getVisualGameTable().getPlayer().shipsArePlaced()) {
+            square.getVisualGameTable().setOkToBeginGame(true);
         }
     }
 
     private void turnTheShip() {
-        Ship ship = this.square.getPartOf().getChosenShip();
+        Ship ship = this.square.getVisualGameTable().getChosenShip();
             removeHighlight();
             ship.turnClockwise();
             highlight(ship);

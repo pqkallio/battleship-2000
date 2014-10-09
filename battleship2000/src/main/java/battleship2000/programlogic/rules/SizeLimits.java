@@ -17,7 +17,7 @@ public class SizeLimits {
     }
     
     public static int getMinimumTableWidth() {
-        return 8;
+        return 10;
     }
     
     public static int getMaximumTableWidth() {

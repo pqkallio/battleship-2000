@@ -2,7 +2,6 @@ package battleship2000.programlogic.domain.player.ai;
 
 import battleship2000.programlogic.domain.player.Player;
 import battleship2000.programlogic.domain.ship.Direction;
-import battleship2000.programlogic.domain.ship.InLine;
 import battleship2000.programlogic.domain.ship.Ship;
 import battleship2000.programlogic.domain.table.Square;
 import battleship2000.programlogic.domain.table.Table;
@@ -70,6 +69,8 @@ public class Focus {
             lookForDeadEnds();
         }
         
+        // Must refactor to find the "most" possible direction first
+        // Must take in consideration the case of longest possible ship on focus
         if (thisWayBoys == null) {
             thisWayBoys = chooseARandomDirection();
         }
@@ -99,7 +100,8 @@ public class Focus {
 
     private boolean enoughSeaToExplore(Direction direction, int shortestEnemyShipSize) {
         boolean yesThereIs = (letsLookFromHere(direction, shortestEnemyShipSize)
-                + letsLookFromHere(direction.getOppositeDirection(), shortestEnemyShipSize) >= shortestEnemyShipSize - 1);
+                + letsLookFromHere(direction.getOppositeDirection(), 
+                shortestEnemyShipSize) >= shortestEnemyShipSize - 1);
         
         return yesThereIs;
     }
@@ -112,44 +114,18 @@ public class Focus {
         int seaToExplore = 0;
         boolean prospectable = true;
         Map<Integer, Map<Integer, Square>> foesTable = foe.getTable().getTableAsMap();
-        if (direction.getVerticalOrHorizontal() == InLine.HORIZONTAL) {
-            if (sDy >= 0 && sDy < foe.getTable().getHeight() && sDx + (dDx * 2) >= 0 
-                    && sDx + (dDx * 2) < foe.getTable().getWidth() 
-                    && foesTable.get(sDy).get(sDx + (dDx * 2)).getSetShipPart() != null) {
-                if (foesTable.get(sDy).get(sDx + (dDx * 2)).getSetShipPart().getMotherShip().isDestroyed()) {
-                    deadEnds.add(direction);
-                    return 0;
-                }
-            }
-        } else if (direction.getVerticalOrHorizontal() == InLine.VERTICAL) {
-            if (sDy + (dDy * 2) >= 0 && sDy + (dDy * 2) < foe.getTable().getHeight() 
-                    && sDx >= 0 && sDx < foe.getTable().getWidth() 
-                    && foesTable.get(sDy + (dDy * 2)).get(sDx).getSetShipPart() != null) {
-                if (foesTable.get(sDy + (dDy * 2)).get(sDx).getSetShipPart().getMotherShip().isDestroyed()) {
-                    deadEnds.add(direction);
-                    return 0;
-                }
-            }
+        
+        if (checkIfDeadEnd(sDx + (dDx * 2), sDy + (dDy * 2))) {
+            deadEnds.add(direction);
+            return 0;
         }
         
+        
         for (int i = 1; i < shortestEnemyShipSize; i++) {
-            int x = 0;
-            int y = 0;
+            int x = sDx + (dDx * i);
+            int y = sDy + (dDy * i);
             
-            if (dDx != 0) {
-                x = sDx + (dDx * i);
-            } else {
-                x = sDx;
-            }
-            
-            if (dDy != 0) {
-                y = sDy + (dDy * i);
-            } else {
-                y = sDy;
-            }
-            
-            if (x < 0 || x >= foe.getTable().getWidth() 
-                    || y < 0 || y >= foe.getTable().getHeight() 
+            if (!foe.getTable().checkCoordinatesAreOnTheTable(x, y)
                     || foesTable.get(y).get(x).isHit()
                     || !prospectable) {
                 prospectable = false;
@@ -190,9 +166,7 @@ public class Focus {
             deadEnds.add(thisWayBoys);
             thisWayBoys = null;
             nextSquare = null;
-        }
-        
-        if (nextSquare != null && !nextSquare.isHit()) {
+        } else {
             if (nextSquare.getSetShipPart() == null) {
                 deadEnds.add(thisWayBoys);
                 
@@ -228,5 +202,18 @@ public class Focus {
         }
         
         active = false;
+    }
+    
+    private boolean checkIfDeadEnd(int x, int y) {
+        Map<Integer, Map<Integer, Square>> foesTable = foe.getTable().getTableAsMap();
+        
+        if (foe.getTable().checkCoordinatesAreOnTheTable(x, y)
+                && foesTable.get(y).get(x).getSetShipPart() != null) {
+            if (foesTable.get(y).get(x).getSetShipPart().getMotherShip().isDestroyed()) {
+                return true;
+            }
+        }
+        
+        return false;
     }
 }

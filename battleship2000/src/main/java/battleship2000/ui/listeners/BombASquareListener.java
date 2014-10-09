@@ -15,20 +15,18 @@ import java.awt.event.MouseListener;
 public class BombASquareListener implements MouseListener {
     private VisualSquare vs;
     private GamePane gamePane;
-    private VisualGameTable playersTable;
     private boolean isAlreadyHit;
     
     public BombASquareListener(VisualSquare vs, GamePane gamePane, VisualGameTable playersTable) {
         this.vs = vs;
         this.gamePane = gamePane;
-        this.playersTable = playersTable;
         this.isAlreadyHit = false;
     }
 
     @Override
     public void mouseClicked(MouseEvent me) {
         if (me.getButton() == MouseEvent.BUTTON1) {
-            handleShit();
+            chooseSquare();
         }
     }
 
@@ -42,7 +40,7 @@ public class BombASquareListener implements MouseListener {
     public void mouseEntered(MouseEvent e) {
         vs.highlight();
         if (vs.getSquare().isHit()) {
-            vs.setCursor(vs.getPartOf().getGrayCrosshair());
+            vs.setCursor(vs.getVisualGameTable().getGrayCrosshair());
         }
     }
 
@@ -51,7 +49,7 @@ public class BombASquareListener implements MouseListener {
         vs.removeHighlight();
     }
 
-    private void handleShit() {
+    private void chooseSquare() {
         if (!vs.getSquare().isHit() && !this.isAlreadyHit) {
             this.isAlreadyHit = true;
             this.gamePane.getGameCommmands().playOneRound(vs.getSquare());

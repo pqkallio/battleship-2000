@@ -22,37 +22,36 @@ import javax.swing.JPanel;
  * @author Petri Kallio
  */
 public class VisualSquare extends JPanel {
-    private VisualGameTable partOf;
+    private VisualGameTable gameTable;
     private boolean reddened;
     private boolean gray;
     private Square square;
     private boolean highlighted;
     private boolean destroyed;
-    private boolean aimedAt;
     private Image sea;
-    private Image crosshair; 
+    private int squareWidth;
     
-    public VisualSquare(VisualGameTable partOf, Square square, int squareWidth) {
-        this.partOf = partOf;
+    public VisualSquare(VisualGameTable gameTable, Square square, int squareWidth) {
+        this.gameTable = gameTable;
         this.square = square;
         this.highlighted = false;
         this.reddened = false;
         this.destroyed = false;
-        this.aimedAt = false;
+        this.squareWidth = squareWidth;
         
         try { 
            this.sea = ImageIO.read(new File("src/main/java/battleship2000/media/graphics/sea_25.png"));
-        } catch (IOException ex) {
-            System.out.println(ex.toString());
+        } catch (NullPointerException|IOException ex) {
+            gameTable.alertException("Unable to load graphic content", ex);
         }
     }
 
     public int getSquareWidth() {
-        return partOf.getSquareWidth();
+        return gameTable.getSquareWidth();
     }
     
-    public VisualGameTable getPartOf() {
-        return partOf;
+    public VisualGameTable getVisualGameTable() {
+        return gameTable;
     }
     public Position getPosition() {
         return new Position(square.getX(), square.getY());
@@ -64,24 +63,23 @@ public class VisualSquare extends JPanel {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         super.paintComponent(g2d);
         
-        g2d.setColor(Color.DARK_GRAY);
-        g2d.drawImage(this.sea, 0, 0, null);
-        
-        if (partOf.getPlayer().getClass() == Human.class
+        drawBackground(g2d);
+//        drawContent(g2d);
+        if (gameTable.getPlayer().getClass() == Human.class
                 || square.isHit()) {
             
             if (square.getSetShipPart() != null) {
-                if (partOf.getPlayer() == partOf.getGameCommands().getGame().getHuman()) {
-                    g2d.drawImage(partOf.getVisualShipParts().get(square.getSetShipPart().getMotherShip().getDirection()).getSetPiece(square.getSetShipPart()), 0, 0, null);
+                if (gameTable.getPlayer() == gameTable.getGameCommands().getGame().getHuman()) {
+                    g2d.drawImage(gameTable.getVisualShipParts().get(square.getSetShipPart().getMotherShip().getDirection()).getSetPiece(square.getSetShipPart()), 0, 0, null);
                 }
                 
                 if (destroyed) {
-                    g2d.drawImage(partOf.getVisualShipParts().get(square.getSetShipPart().getMotherShip().getDirection()).getRedPiece(square.getSetShipPart()), 0, 0, null);
+                    g2d.drawImage(gameTable.getVisualShipParts().get(square.getSetShipPart().getMotherShip().getDirection()).getRedPiece(square.getSetShipPart()), 0, 0, null);
                 } else if (square.isHit()) {
                     if (square.getSetShipPart().getMotherShip().isDestroyed()) {
-                        Ship destroyedShip = partOf.getPlayer().getShips().get(partOf.getPlayer().getShips().indexOf(square.getSetShipPart().getMotherShip()));
+                        Ship destroyedShip = gameTable.getPlayer().getShips().get(gameTable.getPlayer().getShips().indexOf(square.getSetShipPart().getMotherShip()));
                         for (ShipPart sp : destroyedShip.getParts()) {
-                            for (VisualSquare vs : partOf.getSquares()) {
+                            for (VisualSquare vs : gameTable.getSquares()) {
                                 if (vs.getSquare().getSetShipPart() == sp) {
                                     vs.setDestruction(true);
                                     vs.repaint();
@@ -104,15 +102,15 @@ public class VisualSquare extends JPanel {
             
             if (reddened) {
                 g2d.setComposite(AlphaComposite.SrcOver.derive(0.7f));
-                g2d.drawImage(partOf.getVisualShipParts().get(square.getFloatingPiece().getMotherShip().getDirection()).getRedPiece(square.getFloatingPiece()), 0, 0, null);
+                g2d.drawImage(gameTable.getVisualShipParts().get(square.getFloatingPiece().getMotherShip().getDirection()).getRedPiece(square.getFloatingPiece()), 0, 0, null);
             } else if (gray) {
                 g2d.setComposite(AlphaComposite.SrcOver.derive(0.7f));
-                g2d.drawImage(partOf.getVisualShipParts().get(square.getFloatingPiece().getMotherShip().getDirection()).getGrayPiece(square.getFloatingPiece()), 0, 0, null);
+                g2d.drawImage(gameTable.getVisualShipParts().get(square.getFloatingPiece().getMotherShip().getDirection()).getGrayPiece(square.getFloatingPiece()), 0, 0, null);
             }
         }
         
         if (highlighted) {
-            if (!square.isHit() || partOf.getGameCommands().getGame().aSquareCanBeHitMultipleTimes()) {
+            if (!square.isHit() || gameTable.getGameCommands().getGame().aSquareCanBeHitMultipleTimes()) {
                 g2d.setColor(Color.YELLOW);
                 g2d.setComposite(AlphaComposite.SrcOver.derive(0.6f));
                 g2d.fillRect(0, 0, 24, 24);
@@ -122,6 +120,8 @@ public class VisualSquare extends JPanel {
                 g2d.fillRect(0, 0, 24, 24);
             }
         }
+        
+        drawFrame(g2d);
     }
 
     public void highlight() {
@@ -169,4 +169,34 @@ public class VisualSquare extends JPanel {
         destroyed = destruction;
     }
 
+    private void drawFrame(Graphics g) {
+        g.setColor(new Color(0.0f, 0.0f, 0.0f, 1.0f));
+        
+        if (this.square.getX() == 0) {
+            g.fillRect(0, 0, 2, this.squareWidth);
+        }
+        
+        if (this.square.getY() == 0) {
+            g.fillRect(0, 0, this.squareWidth, 2);
+        }
+        
+        if (this.square.getX() == gameTable.getPlayer().getTable().getWidth() - 1) {
+            g.fillRect(this.squareWidth - 2, 0, 2, this.squareWidth);
+        }
+        
+        if (this.square.getY() == gameTable.getPlayer().getTable().getHeight() - 1) {
+            g.fillRect(0, this.squareWidth - 2, this.squareWidth, 2);
+        }
+    }
+
+    private void drawBackground(Graphics g) {
+        g.drawImage(this.sea, 0, 0, null);
+        
+        g.setColor(new Color(0.2f, 0.2f, 0.2f, 0.35f));
+        g.drawRect(0, 0, squareWidth - 1, squareWidth - 1);
+    }
+
+    private void drawContent(Graphics2D g2d) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

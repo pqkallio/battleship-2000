@@ -12,5 +12,6 @@ public enum StateChange {
     COMPUTERS_TURN,
     PLACE_SHIPS,
     START_GAME,
+    SHIP_HIT,
     END_GAME;
 }

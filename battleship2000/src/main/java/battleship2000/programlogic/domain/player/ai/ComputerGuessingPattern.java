@@ -6,6 +6,7 @@ import battleship2000.programlogic.domain.ship.InLine;
 import battleship2000.programlogic.domain.ship.Ship;
 import battleship2000.programlogic.domain.table.Square;
 import battleship2000.programlogic.domain.table.Table;
+import battleship2000.programlogic.rules.SizeLimits;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -94,27 +95,27 @@ public class ComputerGuessingPattern {
     private Square getRandomSquare() {
         int y = 0;
         int x = 0;
-        boolean squareChosen = false;
+        Square squareToHit = null;
+        Random raffle = new Random();
         
-        while (!squareChosen) {
-            y = new Random().nextInt(foesTable.getHeight());
-            x = new Random().nextInt(foesTable.getHeight());
-
-            Square squareToHit = foesTable.getTableAsMap().get(y).get(x);
-
-            if (!squareToHit.isHit() || aSquareCanBeHitMultipleTimes) {
-                if (squareCanContainAShipPart(squareToHit) && enoughSpaceForAShip(squareToHit)) {
-                    squareToHit.bomb();
-                    
-                    if (squareToHit.getSetShipPart() != null) {
-                        addANewFocus(squareToHit);
-                    }
-
-                    squareChosen = true;
-                }
+        while (squareToHit == null) {
+            Double willChoose = 1.0;
+            y = raffle.nextInt(foesTable.getHeight());
+            x = raffle.nextInt(foesTable.getHeight());
+            
+            if (foesTable.getNeighborSquares(foesTable.getTableAsMap().get(y).get(x)) != null) {
+                willChoose = raffle.nextDouble();
+            }
+            
+            if (willChoose >= 0.7) {
+                squareToHit = checkIfTheChosenSquareIsWorthBombing(x, y);
             }
         }
-
+        
+        if (squareToHit.getSetShipPart() != null) {
+            addANewFocus(squareToHit);
+        }
+        
         return foesTable.getTableAsMap().get(y).get(x);
     }
 
@@ -143,7 +144,62 @@ public class ComputerGuessingPattern {
     private boolean enoughSpaceForAShip(Square square) {
         boolean horizontalSpace = true;
         boolean verticalSpace = true;
-        int minShipSize = Integer.MAX_VALUE;
+        int minShipSize = getMinShipSize();
+        
+        Map<Direction, List<Square>> squaresBasedOnDirection = new HashMap<>();
+        
+        for (Direction direction : Direction.EAST.getMainDirections()) {
+            squaresBasedOnDirection.put(direction, foesTable.getSquaresBasedOnDirection(square, direction, minShipSize));
+        }
+        
+        int horizontalClear = 0;
+        int verticalClear = 0;
+        
+        for (Direction direction : squaresBasedOnDirection.keySet()) {
+            int clearSquaresOnDirection = clearSquaresOnDirection(direction, squaresBasedOnDirection);
+            
+            if (direction.getVerticalOrHorizontal() == InLine.HORIZONTAL) {
+                horizontalClear += clearSquaresOnDirection;
+            } else if (direction.getVerticalOrHorizontal() == InLine.VERTICAL) {
+                verticalClear += clearSquaresOnDirection;
+            }
+        }
+        
+        if (!(horizontalClear >= minShipSize - 1)) horizontalSpace = false;
+        if (!(verticalClear >= minShipSize - 1)) verticalSpace = false;
+        
+        return horizontalSpace|verticalSpace;
+    }
+
+    private Square checkIfTheChosenSquareIsWorthBombing(int x, int y) {
+        Square square = foesTable.getTableAsMap().get(y).get(x);
+        
+        if (!square.isHit() || aSquareCanBeHitMultipleTimes) {
+            if (squareCanContainAShipPart(square) && enoughSpaceForAShip(square)) {
+                return square;
+            }
+        }
+        
+        return null;
+    }
+
+    private int clearSquaresOnDirection(Direction direction, Map <Direction, List<Square>> squaresBasedOnDirection) {
+        int clearOnDirection = 0;
+        boolean stillClear = true;
+
+        for (Square squareOnList : squaresBasedOnDirection.get(direction)) {
+            if (!squareOnList.isHit() && stillClear) {
+                clearOnDirection++;
+            } else {
+                stillClear = false;
+            }
+        }
+        
+        return clearOnDirection;
+    }
+
+    private int getMinShipSize() {
+        int minShipSize = SizeLimits.getShipsMaximumSize();
         
         for (Ship ship : foe.getShips()) {
             if (!ship.isDestroyed()) {
@@ -153,37 +209,6 @@ public class ComputerGuessingPattern {
             }
         }
         
-        Map<Direction, List<Square>> squaresBasedOnDirection = new HashMap<>();
-        
-        for (Direction direction : Direction.EAST.getMainDirections()) {
-                squaresBasedOnDirection.put(direction, foesTable.getSquaresBasedOnDirection(square, direction, minShipSize));
-        }
-        
-        int horizontalClear = 0;
-        int verticalClear = 0;
-        
-        for (Direction direction : squaresBasedOnDirection.keySet()) {
-            int clearOnDirection = 0;
-            boolean stillClear = true;
-            
-            for (Square squareOnList : squaresBasedOnDirection.get(direction)) {
-                if (!squareOnList.isHit() && stillClear) {
-                    clearOnDirection++;
-                } else {
-                    stillClear = false;
-                }
-            }
-            
-            if (direction.getVerticalOrHorizontal() == InLine.HORIZONTAL) {
-                horizontalClear += clearOnDirection;
-            } else if (direction.getVerticalOrHorizontal() == InLine.VERTICAL) {
-                verticalClear += clearOnDirection;
-            }
-        }
-        
-        if (!(horizontalClear >= minShipSize - 1)) horizontalSpace = false;
-        if (!(verticalClear >= minShipSize - 1)) verticalSpace = false;
-        
-        return horizontalSpace|verticalSpace;
+        return minShipSize;
     }
 }

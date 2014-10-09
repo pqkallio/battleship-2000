@@ -136,7 +136,8 @@ public class GameTable implements Table {
         return neighborSquares;
     }
     
-    private boolean checkCoordinatesAreOnTheTable(int x, int y) {
+    @Override
+    public boolean checkCoordinatesAreOnTheTable(int x, int y) {
         if (x > -1 && x < width && y > -1 && y < height) {
             return true;
         } else {
