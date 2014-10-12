@@ -213,4 +213,48 @@ public class GameTableTest {
     public void shipPartsNotOnTableDoesNothingButSatisfiesTheNeedOfTestingOfEveryLineOfCode() {
         gt.removePartsFromTable(shipPartsNotOnTable);
     }
+    
+    @Test
+    public void checkCoordinatesAreOnTheTableMethodReturnsTrueIfCoordinatesOnTheTable() {
+        assertTrue(gt.checkCoordinatesAreOnTheTable(0, 0));
+    }
+    
+    @Test
+    public void checkCoordinatesAreOnTheTableMethodReturnsTrueIfCoordinatesOnTheTablePart2() {
+        assertTrue(gt.checkCoordinatesAreOnTheTable(gt.getWidth() - 1, gt.getHeight() - 1));
+    }
+    
+    @Test
+    public void checkCoordinatesAreOnTheTableMethodReturnsFalseIfCoordinatesNotOnTheTable() {
+        assertFalse(gt.checkCoordinatesAreOnTheTable(-1, -1));
+    }
+    
+    @Test
+    public void checkCoordinatesAreOnTheTableMethodReturnsFalseIfCoordinatesNotOnTheTablePart2() {
+        assertFalse(gt.checkCoordinatesAreOnTheTable(gt.getWidth(), gt.getHeight()));
+    }
+    
+    @Test
+    public void returnSquaresBasedOnDirectionReturnsAnEmptyListIfNoSquaresCanBeFoundInAppointedDirection() {
+        Square square = gt.getTableAsMap().get(0).get(0);
+        Direction direction = Direction.WEST;
+        
+        assertEquals(0, gt.getSquaresBasedOnDirection(square, direction, 10).size());
+    }
+    
+    @Test
+    public void returnSquaresBasedOnDirectionReturnsAListWithSizeOfOneIfOneSquareCanBeFoundInAppointedDirection() {
+        Square square = gt.getTableAsMap().get(0).get(1);
+        Direction direction = Direction.WEST;
+        
+        assertEquals(1, gt.getSquaresBasedOnDirection(square, direction, 10).size());
+    }
+    
+    @Test
+    public void returnSquaresBasedOnDirectionReturnsAListWithSizeOfOneIfAtLeastOneSquareCanBeFoundInAppointedDirection() {
+        Square square = gt.getTableAsMap().get(0).get(2);
+        Direction direction = Direction.WEST;
+        
+        assertEquals(1, gt.getSquaresBasedOnDirection(square, direction, 1).size());
+    }
 }

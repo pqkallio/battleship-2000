@@ -15,13 +15,11 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
@@ -109,7 +107,7 @@ public class VisualGameTable extends JPanel {
                         playersTable.getTableAsMap().get(i).get(j), getSquareWidth());
                 
                 if (this.player.getClass() == Human.class) {
-                    square.addMouseListener(new ShipPlacementListener(square));
+                    square.addMouseListener(new ShipPlacementListener(square, gameCommands));
                 }
                 
                 layout.setConstraints(square, gbc);
@@ -154,8 +152,11 @@ public class VisualGameTable extends JPanel {
         Image crosshair = null;
         
         try {
-            crosshair = ImageIO.read(new File("src/main/java/battleship2000/media/graphics/crosshair_gray_25.png"));
-        } catch (IOException ex) {}
+            InputStream is = this.getClass().getResourceAsStream(("/graphics/crosshair_gray_25.png"));
+            crosshair = ImageIO.read(is);
+        } catch (NullPointerException|IOException ex) {
+            gamePane.getGui().alertException("Unable to load graphics", ex);
+        }
         
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         

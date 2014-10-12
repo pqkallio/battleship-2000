@@ -11,6 +11,8 @@ public enum StateChange {
     UPDATE_POINTS,
     COMPUTERS_TURN,
     PLACE_SHIPS,
+    SET_SHIP,
+    TAKE_SHIP,
     START_GAME,
     SHIP_HIT,
     END_GAME;

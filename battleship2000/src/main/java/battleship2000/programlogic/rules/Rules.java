@@ -84,8 +84,7 @@ public class Rules {
     public int getTableHeight() {
         return getTableSize().get(Rule.TABLE_HEIGHT);
     }
-    // REFAKTOROI NÄMÄ!!!!
-    // SizeLimits HashMap<EnumSaanto, HashMap<EnumMinMax, Integer>>
+    
     private Integer validatedTableLength(int tableSideLegth) {
         int min = SizeLimits.getMinimumTableWidth();
         int max = SizeLimits.getMaximumTableWidth();

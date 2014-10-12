@@ -229,26 +229,26 @@ public class RulesTest {
     
     @Test
     public void ifValidatedTableLengthMethodIsGivenTheMinimumWidthItReturnsTheMinimumWidth() {
-        emptyRules.setTableSize(10, 10);
-        assertEquals(10, emptyRules.getTableWidth());
+        emptyRules.setTableSize(SizeLimits.getMinimumTableWidth(), SizeLimits.getMinimumTableWidth());
+        assertEquals(SizeLimits.getMinimumTableWidth(), emptyRules.getTableWidth());
     }
     
     @Test
     public void ifValidatedTableLengthMethodIsGivenLessThanMinimumWidthItReturnsTheMinimumWidth() {
-        emptyRules.setTableSize(9, 9);
-        assertEquals(10, emptyRules.getTableWidth());
+        emptyRules.setTableSize(SizeLimits.getMinimumTableWidth() - 1, SizeLimits.getMinimumTableWidth() - 1);
+        assertEquals(SizeLimits.getMinimumTableWidth(), emptyRules.getTableWidth());
     }
     
     @Test
     public void ifValidatedTableLengthMethodIsGivenTheMaximumWidthItReturnsTheMaximumWidth() {
-        emptyRules.setTableSize(25, 25);
-        assertEquals(25, emptyRules.getTableWidth());
+        emptyRules.setTableSize(SizeLimits.getMaximumTableWidth(), SizeLimits.getMaximumTableWidth());
+        assertEquals(SizeLimits.getMaximumTableWidth(), emptyRules.getTableWidth());
     }
     
     @Test
     public void ifValidatedTableLengthMethodIsGivenMoreThanMaximumWidthItReturnsTheMaximumWidth() {
-        emptyRules.setTableSize(26, 26);
-        assertEquals(25, emptyRules.getTableWidth());
+        emptyRules.setTableSize(SizeLimits.getMaximumTableWidth() + 1, SizeLimits.getMaximumTableWidth() + 1);
+        assertEquals(SizeLimits.getMaximumTableWidth(), emptyRules.getTableWidth());
     }
     
 }

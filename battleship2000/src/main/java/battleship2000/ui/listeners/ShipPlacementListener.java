@@ -1,5 +1,7 @@
 package battleship2000.ui.listeners;
 
+import battleship2000.programlogic.GameCommands;
+import battleship2000.programlogic.StateChange;
 import battleship2000.programlogic.control.ShipPlacement;
 import battleship2000.programlogic.domain.position.Position;
 import battleship2000.programlogic.domain.ship.Ship;
@@ -18,10 +20,12 @@ import java.util.List;
  */
 public class ShipPlacementListener implements MouseListener {
     private VisualSquare square;
+    private GameCommands gc;
     private Position[] shipInSquarePartsPositioning;
     
-    public ShipPlacementListener(VisualSquare square) {
+    public ShipPlacementListener(VisualSquare square, GameCommands gc) {
         this.square = square;
+        this.gc = gc;
     }
     
     @Override
@@ -117,12 +121,13 @@ public class ShipPlacementListener implements MouseListener {
         square.getVisualGameTable().setOkToBeginGame(false);
         highlight(ship);
         
+        gc.getGame().notifyObservers(StateChange.TAKE_SHIP, (Object)null);
         square.getVisualGameTable().repaintAll();
     }
 
     private void placeShipOnTable() {
         removeHighlight();
-        
+        gc.getGame().notifyObservers(StateChange.SET_SHIP, (Object)null);
         for (VisualSquare tableSquare : square.getVisualGameTable().getSquares()) {
             tableSquare.repaint();
         }

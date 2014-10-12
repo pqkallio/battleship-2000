@@ -2,9 +2,9 @@
 package battleship2000.ui.playback;
 
 import battleship2000.ui.BattleshipGui;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -16,16 +16,11 @@ public class AudioClip implements Audible {
     
     public AudioClip(String fileName, BattleshipGui gui) {
         try {
-            File file = new File(fileName);
-            
-            if (file.exists()) {
-                AudioInputStream track = AudioSystem.getAudioInputStream(file);
-                this.audio = AudioSystem.getClip();
-                this.audio.open(track);
-            } else {
-                gui.alertException("Error loading audio, file not found", 
-                        new FileNotFoundException());
-            }
+            InputStream is = this.getClass().getResourceAsStream(fileName);
+            InputStream bufferedIs = new BufferedInputStream(is);
+            AudioInputStream track = AudioSystem.getAudioInputStream(bufferedIs);
+            this.audio = AudioSystem.getClip();
+            this.audio.open(track);
         } catch (NullPointerException|IOException|UnsupportedAudioFileException
                 |LineUnavailableException ex) {
             gui.alertException("Error loading audio", ex);

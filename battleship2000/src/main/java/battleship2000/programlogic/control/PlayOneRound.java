@@ -6,6 +6,7 @@ import battleship2000.programlogic.StateChange;
 import battleship2000.programlogic.domain.player.Computer;
 import battleship2000.programlogic.domain.player.Human;
 import battleship2000.programlogic.domain.player.Player;
+import battleship2000.programlogic.domain.player.ai.ComputerThinksAndChoosesASquare;
 import battleship2000.programlogic.domain.points.Points;
 import battleship2000.programlogic.domain.table.Square;
 import java.util.logging.Level;
@@ -95,6 +96,16 @@ public class PlayOneRound implements Controller {
         
         game.notifyObservers(StateChange.UPDATE_TABLE, game.getHuman());
         game.notifyObservers(StateChange.UPDATE_POINTS, 0);
+//        ComputerThinksAndChoosesASquare thinker = new ComputerThinksAndChoosesASquare(game);
+//        thinker.start();
+//        
+//        while (thinker.isRunning()) {
+//            try {
+//                Thread.sleep(100);
+//            } catch (InterruptedException ex) {
+//                Logger.getLogger(PlayOneRound.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
         
         if (squareToHit.getSetShipPart() != null) {
             game.notifyObservers(StateChange.SHIP_HIT, 0);

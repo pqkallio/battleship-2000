@@ -11,8 +11,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
@@ -39,8 +39,9 @@ public class VisualSquare extends JPanel {
         this.destroyed = false;
         this.squareWidth = squareWidth;
         
-        try { 
-           this.sea = ImageIO.read(new File("src/main/java/battleship2000/media/graphics/sea_25.png"));
+        try {
+            InputStream is = this.getClass().getResourceAsStream("/graphics/sea_25.png");
+            this.sea = ImageIO.read(is);
         } catch (NullPointerException|IOException ex) {
             gameTable.alertException("Unable to load graphic content", ex);
         }
@@ -196,7 +197,4 @@ public class VisualSquare extends JPanel {
         g.drawRect(0, 0, squareWidth - 1, squareWidth - 1);
     }
 
-    private void drawContent(Graphics2D g2d) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

@@ -169,4 +169,32 @@ public class SquareTest {
         
         assertEquals(Points.DESTROYED.getPoints(), testSquare.bomb());
     }
+    
+    @Test
+    public void getFloatingPieceReturnsTheShipPartThatHasBeenSetToTheSquare() {
+        Ship ship = new Ship(2);
+        Square testSquare = new Square(gameTable, 1, 1);
+        
+        testSquare.floatAPiece(ship.getParts()[0]);
+        
+        assertEquals(ship.getParts()[0], testSquare.getFloatingPiece());
+    }
+    
+    @Test
+    public void getFloatingPieceReturnsNullIfNoneIsFloated() {
+        Square testSquare = new Square(gameTable, 1, 1);
+        
+        assertNull(testSquare.getFloatingPiece());
+    }
+    
+    @Test
+    public void getFloatingPieceReturnsNullIfTheFloatingPieceIsRemoved() {
+        Ship ship = new Ship(2);
+        Square testSquare = new Square(gameTable, 1, 1);
+        
+        testSquare.floatAPiece(ship.getParts()[0]);
+        testSquare.removeFloatingPiece();
+        
+        assertNull(testSquare.getFloatingPiece());
+    }
 }

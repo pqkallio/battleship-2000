@@ -3,11 +3,12 @@ package battleship2000.ui.domain;
 
 import battleship2000.programlogic.domain.ship.Direction;
 import battleship2000.programlogic.domain.ship.ShipPart;
+import battleship2000.ui.BattleshipGui;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import javax.imageio.ImageIO;
@@ -17,7 +18,7 @@ public class VisualShipPartPack {
     private String size;
     private Map<ShipPartPlace, String> fileNames;
     private Map<ShipPartPlace, BufferedImage> images;
-    private final String PATH = "src/main/java/battleship2000/media/graphics/";
+    private final String PATH = "/graphics/";
     private final String FILE_HEAD = "ship_";
     private final String FRONT = ShipPartPlace.FRONT.getFileIndicator();
     private final String MIDDLE = ShipPartPlace.MIDDLE.getFileIndicator();
@@ -26,13 +27,15 @@ public class VisualShipPartPack {
     private final Color RED = new Color(255, 0, 0);
     private final Color GREEN = new Color(0, 255, 0);
     private Map<Direction, String> directionIndicators;
+    private BattleshipGui gui;
     
-    public VisualShipPartPack(Direction direction, int size) {
+    public VisualShipPartPack(Direction direction, int size, BattleshipGui gui) {
         this.direction = direction;
         this.size = "" + size;
         this.fileNames = new HashMap<>();
         this.directionIndicators = new HashMap<>();
         this.images = new HashMap<>();
+        this.gui = gui;
         
         addDirectionIndicators();
         addFileNames();
@@ -92,14 +95,10 @@ public class VisualShipPartPack {
     private void addImages() {
         BufferedImage front = null; BufferedImage middle = null; BufferedImage rear = null;
         
-        try {
-            front = ImageIO.read(new File(fileNames.get(ShipPartPlace.FRONT)));
-            rear = ImageIO.read(new File(fileNames.get(ShipPartPlace.REAR)));
-            middle = ImageIO.read(new File(fileNames.get(ShipPartPlace.MIDDLE)));
-        } catch (IOException ex) {
-            System.out.println("No no! " + ex.toString());
-        }
-        
+        front = addAnImage(fileNames.get(ShipPartPlace.FRONT));
+        rear = addAnImage(fileNames.get(ShipPartPlace.REAR));
+        middle = addAnImage(fileNames.get(ShipPartPlace.MIDDLE));
+
         images.put(ShipPartPlace.REAR, rear);
         images.put(ShipPartPlace.MIDDLE, middle);
         images.put(ShipPartPlace.FRONT, front);
@@ -118,6 +117,19 @@ public class VisualShipPartPack {
                 pixels[2] = color.getBlue();
                 raster.setPixel(x, y, pixels);
             }
+        }
+        
+        return image;
+    }
+
+    private BufferedImage addAnImage(String string) {
+        InputStream is = this.getClass().getResourceAsStream(string);
+        BufferedImage image = null;
+        
+        try {
+            image = ImageIO.read(is);
+        } catch (IOException ex) {
+            gui.alertException("Unable to load graphics", ex);
         }
         
         return image;

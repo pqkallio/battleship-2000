@@ -87,8 +87,7 @@ public class GameTable implements Table {
     public void removePartsFromTable(ShipPart[] parts) {
         for (ShipPart part : parts) {
             if (part.getPosition() != null) {
-                if (part.getX() > -1 && part.getX() < getWidth()
-                        && part.getY() > -1 && part.getY() < getHeight()) {
+                if (checkCoordinatesAreOnTheTable(part.getX(), part.getY())) {
                     if (part == this.table.get(part.getY()).get(part.getX()).getSetShipPart()) {
                         this.table.get(part.getY()).get(part.getX()).removeShipPart();
                     }
@@ -105,12 +104,12 @@ public class GameTable implements Table {
     @Override
     public Square getNextSquareBasedOnDirection(Square square, Direction direction) {
         Square nextSquare = null;
+        int x = square.getX() + direction.getDx();
+        int y = square.getY() + direction.getDy();
         
-        if (square.getTable() == this && square.getX() + direction.getDx() >= 0
-            && square.getX() + direction.getDx() < this.width
-            && square.getY() + direction.getDy() >= 0
-            && square.getY() + direction.getDy() < this.height) {
-            nextSquare = table.get(square.getY() + direction.getDy()).get(square.getX() + direction.getDx());
+        if (square.getTable() == this 
+                && checkCoordinatesAreOnTheTable(x, y)) {
+            nextSquare = table.get(y).get(x);
         }
         
         return nextSquare;
@@ -138,7 +137,7 @@ public class GameTable implements Table {
     
     @Override
     public boolean checkCoordinatesAreOnTheTable(int x, int y) {
-        if (x > -1 && x < width && y > -1 && y < height) {
+        if (x >= 0 && x <= width - 1 && y >= 0 && y <= height - 1) {
             return true;
         } else {
             return false;
@@ -149,7 +148,11 @@ public class GameTable implements Table {
     public List<Square> getSquaresBasedOnDirection(Square square, Direction direction, int amount) {
         List<Square> squaresBasedOnDirection = null;
         
-        squaresBasedOnDirection = getNSquaresToTheDirection(square, direction, amount);
+        if (amount < 1) {
+            return new ArrayList<>();
+        } else {
+            squaresBasedOnDirection = getNSquaresToTheDirection(square, direction, amount);
+        }
         
         return squaresBasedOnDirection;
     }
@@ -162,20 +165,8 @@ public class GameTable implements Table {
         int dDy = direction.getDy();
         
         for (int i = 1; i <= amount; i++) {
-            int x = 0;
-            int y = 0;
-            
-            if (dDx != 0) {
-                x = sx + (dDx * i);
-            } else {
-                x = sx;
-            }
-            
-            if (dDy != 0) {
-                y = sy + (dDy * i);
-            } else {
-                y = sy;
-            }
+            int x = sx + (dDx * i);
+            int y = sy + (dDy * i);
             
             if (checkCoordinatesAreOnTheTable(x, y)) {
                 squares.add(table.get(y).get(x));

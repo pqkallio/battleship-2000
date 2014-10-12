@@ -5,9 +5,6 @@ import battleship2000.ui.listeners.AllShipsAreSetListener;
 import battleship2000.ui.listeners.ShipChooserListener;
 import battleship2000.programlogic.GameCommands;
 import battleship2000.programlogic.StateChange;
-import battleship2000.programlogic.control.PlayOneRound;
-import battleship2000.programlogic.domain.player.Computer;
-import battleship2000.programlogic.domain.player.Human;
 import battleship2000.programlogic.domain.player.Player;
 import battleship2000.programlogic.domain.ship.Direction;
 import battleship2000.programlogic.observers.LogicObserver;
@@ -24,15 +21,13 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -60,7 +55,7 @@ public class GamePane extends JPanel implements LogicObserver, Pane {
     private JPanel shipChooserArea;
     private final String POINTS = "Points: ";
     private final String ACCURACY = "Accuracy: ";
-    private final String CROSSHAIR_PATH = "src/main/java/battleship2000/media/graphics/crosshair_25.png";
+    private final String CROSSHAIR_PATH = "/graphics/crosshair_25.png";
     private boolean updated;
     private Cursor crosshairCursor;
     private Map<Direction, VisualShipPartPack> visualShipParts;
@@ -218,6 +213,10 @@ public class GamePane extends JPanel implements LogicObserver, Pane {
             endGame(object);
         } else if (stateChange.equals(StateChange.SHIP_HIT)) {
             playExplosion();
+        } else if (stateChange.equals(StateChange.SET_SHIP)) {
+            playSetShip();
+        } else if (stateChange.equals(StateChange.TAKE_SHIP)) {
+            playTakeShip();
         }
     }
     
@@ -382,6 +381,10 @@ public class GamePane extends JPanel implements LogicObserver, Pane {
         this.revalidate();
     }
 
+    public BattleshipGui getGui() {
+        return gui;
+    }
+
     private JPanel done(Player player) {
         JPanel gameOver = new JPanel();
         GridBagLayout layout = new GridBagLayout();
@@ -441,7 +444,7 @@ public class GamePane extends JPanel implements LogicObserver, Pane {
 
     private void loadVisualShipParts() {
         for (Direction direction : Direction.EAST.getCardinalDirections()) {
-            visualShipParts.put(direction, new VisualShipPartPack(direction, squareWidth));
+            visualShipParts.put(direction, new VisualShipPartPack(direction, squareWidth, gui));
         }
     }
 
@@ -456,7 +459,8 @@ public class GamePane extends JPanel implements LogicObserver, Pane {
         Image crosshair = null;
         
         try {
-            crosshair = ImageIO.read(new File(CROSSHAIR_PATH));
+            InputStream is = this.getClass().getResourceAsStream(CROSSHAIR_PATH);
+            crosshair = ImageIO.read(is);
         } catch (IOException ex) {
             System.out.println("Couldn't load cursor");
         }
@@ -473,11 +477,19 @@ public class GamePane extends JPanel implements LogicObserver, Pane {
     }
 
     private void playExplosion() {
-        this.gui.getExplosion().play();
+        this.gui.getAudioContent().getExplosion().play();
     }
 
     @Override
     public void alertException(String message, Exception ex) {
         gui.alertException(message, ex);
+    }
+
+    private void playSetShip() {
+        this.gui.getAudioContent().getSetShip().play();
+    }
+
+    private void playTakeShip() {
+        this.gui.getAudioContent().getTakeShip().play();
     }
 }
