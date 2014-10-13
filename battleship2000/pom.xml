@@ -42,6 +42,14 @@
             <groupId>org.pitest</groupId>
             <artifactId>pitest-maven</artifactId>
             <version>0.30</version>
+            <configuration>
+                <targetClasses>
+                    <param>battleship2000.programlogic.*</param>
+                </targetClasses>
+                <targetTests>
+                    <param>battleship2000.programlogic.*</param>
+                </targetTests>
+            </configuration>
         </plugin>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -62,6 +70,11 @@
                     </configuration>
                 </execution>
             </executions>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>2.9.1</version>
         </plugin>
     </plugins>
   </build>

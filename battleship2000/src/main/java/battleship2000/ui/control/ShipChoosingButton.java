@@ -1,21 +1,28 @@
 
 package battleship2000.ui.control;
 
-import battleship2000.programlogic.domain.ship.ShipType;
+import battleship2000.programlogic.domain.ship.Ship;
+import battleship2000.ui.BattleshipGui;
+import battleship2000.ui.GraphicContentPack;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;
 import javax.swing.JPanel;
 
 public class ShipChoosingButton extends JPanel {
-    private ShipType shipType;
-    private final int BUTTON_WIDTH = 30;
-    private final int BUTTON_HEIGHT = 20;
+    private Ship ship;
+    private BattleshipGui gui;
+    private Image image; 
+    private final int BUTTON_WIDTH = 50;
+    private final int BUTTON_HEIGHT = 30;
 
-    public ShipChoosingButton(ShipType shipType) {
-        this.shipType = shipType;
+    public ShipChoosingButton(Ship ship, BattleshipGui gui) {
+        this.ship = ship;
+        this.gui = gui;
+        this.image = loadImage(gui.getGraphicContent());
     }
     
     @Override
@@ -28,14 +35,16 @@ public class ShipChoosingButton extends JPanel {
         g2d.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
         
         g2d.setColor(Color.YELLOW);
-        g2d.fillRoundRect(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, 5, 5);
+        g2d.fillRoundRect(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, 10, 10);
         
         g2d.setColor(Color.BLUE);
         g2d.setStroke(new BasicStroke(3.0f));
-        g2d.drawRoundRect(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, 5, 5);
+        g2d.drawRoundRect(0, 0, BUTTON_WIDTH, BUTTON_HEIGHT, 10, 10);
+        
+        g2d.drawImage(image, 0, 0, null);
     }
 
-    public Class getShipClass() {
-        return shipType.getShipClass();
+    private Image loadImage(GraphicContentPack gcp) {
+        return gcp.getShipChooserImage(ship);
     }
 }

@@ -72,6 +72,8 @@ public class ShipChooserListener implements ActionListener {
             }
         }
         
+        playersSide.getGamePane().getGui().getAudioContent().getKlikOrKlok().play();
+        
     }
 
     private void whatIfShipIsAlreadyOnTable_Question_DealWithIt_Exclamation(Ship ship) {

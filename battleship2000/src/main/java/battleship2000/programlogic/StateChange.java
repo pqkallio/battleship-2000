@@ -15,5 +15,6 @@ public enum StateChange {
     TAKE_SHIP,
     START_GAME,
     SHIP_HIT,
+    SHOT_MISSED,
     END_GAME;
 }

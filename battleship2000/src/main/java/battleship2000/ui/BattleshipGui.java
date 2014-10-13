@@ -28,7 +28,8 @@ public class BattleshipGui implements Runnable {
     private JPanel cards;
     private String jarPath;
     private AudioContent audioContent;
-    private final int FRAME_WIDTH = 650;
+    private GraphicContentPack graphicContent;
+    private final int FRAME_WIDTH = 660;
     private final int FRAME_HEIGHT = 550;
     private final int SQUARE_WIDTH = 25;
     
@@ -41,11 +42,16 @@ public class BattleshipGui implements Runnable {
             alertException("Unable to load content", ex);
         }
         
-        System.out.println(jarPath);
         this.audioContent = new AudioContent(this);
         new Thread(this.audioContent).start();
+        
+        this.graphicContent = new GraphicContentPack(this);
     }
 
+    public GraphicContentPack getGraphicContent() {
+        return graphicContent;
+    }
+    
     public String getJarPath() {
         return jarPath;
     }
@@ -75,7 +81,7 @@ public class BattleshipGui implements Runnable {
         
         this.frame.setLocation((int)screenSize.getWidth() / 2 - FRAME_WIDTH / 2,
                 (int)screenSize.getHeight() / 2 - FRAME_HEIGHT / 2);
-        
+        frame.setResizable(false);
         createContent(frame.getContentPane());
         
         this.frame.pack();

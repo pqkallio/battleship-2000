@@ -23,6 +23,7 @@ public class StartNewGameListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
+        gui.getAudioContent().getKlikOrKlok().play();
         CardLayout layout = (CardLayout)this.cards.getLayout();
         layout.show(cards, CardNames.LOAD.toString());
         cards.repaint();

@@ -17,12 +17,14 @@ import javax.swing.JButton;
 public class AllShipsAreSetListener implements ActionListener {
     private GameCommands gameCommands;
     private Player player;
+    private VisualGameTable playersSide;
     
     public AllShipsAreSetListener(GameCommands gameCommands, 
             Player player, VisualGameTable playersSide, VisualGameTable foesSide,
             List<JButton> buttons) {
         this.gameCommands = gameCommands;
         this.player = player;
+        this.playersSide = playersSide;
     }
 
     @Override
@@ -32,7 +34,7 @@ public class AllShipsAreSetListener implements ActionListener {
                 return;
             }
         }
-        
+        playersSide.getGamePane().getGui().getAudioContent().getKlikKlok().play();
         gameCommands.playerReadyToStart();
     }
 }
