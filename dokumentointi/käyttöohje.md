@@ -1,5 +1,6 @@
 ###BATTLESHIP 2000 - käyttöohje
 Tervetuloa pelaamaan Battleship 2000 laivanupotuspeliä!
+
 Aloita uusi peli klikkaamalla **START**-painiketta
 
 #####Laivojen asetteleminen pelikentälle
@@ -28,4 +29,4 @@ Kun jompikumpi pelaajista saa kaikki toisen laivat upotettua, peli päättyy
 * Painikkeesta _Play again_ voit aloittaa uuden pelin
 * Painikkeesta _Exit_ voit palata "alkuvalikkoon"
 
-Vihje: Pelin äänet saat vaimennetua laittamalla tietokoneestasi äänenvoimakkuuden nollalle tai sulkemalla pelin.
+Vihje: Pelin äänet saat vaimennettua laittamalla tietokoneestasi äänenvoimakkuuden nollalle tai sulkemalla pelin.
