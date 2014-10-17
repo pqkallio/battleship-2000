@@ -11,9 +11,20 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+/**
+ * Handles the loading and playback of an audio file.
+ * 
+ * @author Petri Kallio
+ */
 public class AudioClip implements Audible {
     private Clip audio;
     
+    /**
+     * Constructs a new instantiation of the class.
+     * 
+     * @param fileName  the path and name of the audio file to be loaded
+     * @param gui       the graphical user interface this AudioClip is related to
+     */
     public AudioClip(String fileName, BattleshipGui gui) {
         try {
             InputStream is = this.getClass().getResourceAsStream(fileName);

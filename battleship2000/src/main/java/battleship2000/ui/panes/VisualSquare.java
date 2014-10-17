@@ -1,5 +1,6 @@
 package battleship2000.ui.panes;
 
+import battleship2000.programlogic.domain.player.Computer;
 import battleship2000.programlogic.domain.player.Human;
 import battleship2000.programlogic.domain.position.Position;
 import battleship2000.programlogic.domain.ship.Ship;
@@ -31,6 +32,13 @@ public class VisualSquare extends JPanel {
     private Image sea;
     private int squareWidth;
     
+    /**
+     * Constructs a new instantiation of the class.
+     * 
+     * @param gameTable     the table the visual square is a part of
+     * @param square        the square the visual square represents
+     * @param squareWidth   the visual square's width and height in pixels
+     */
     public VisualSquare(VisualGameTable gameTable, Square square, int squareWidth) {
         this.gameTable = gameTable;
         this.square = square;
@@ -54,6 +62,7 @@ public class VisualSquare extends JPanel {
     public VisualGameTable getVisualGameTable() {
         return gameTable;
     }
+    
     public Position getPosition() {
         return new Position(square.getX(), square.getY());
     }
@@ -65,8 +74,9 @@ public class VisualSquare extends JPanel {
         super.paintComponent(g2d);
         
         drawBackground(g2d);
-//        drawContent(g2d);
-        if (gameTable.getPlayer().getClass() == Human.class
+
+        if (gameTable.getPlayer().getClass() == Human.class 
+                || gameTable.getPlayer().getClass() == Computer.class
                 || square.isHit()) {
             
             if (square.getSetShipPart() != null) {
@@ -125,12 +135,18 @@ public class VisualSquare extends JPanel {
         drawFrame(g2d);
     }
 
+    /**
+     * Highlights the visual square.
+     */
     public void highlight() {
         this.highlighted = true;
         this.reddened = false;
         repaint();
     }
 
+    /**
+     * Removes the highlight of the visual square.
+     */
     public void removeHighlight() {
         this.highlighted = false;
         this.reddened = false;
@@ -142,12 +158,18 @@ public class VisualSquare extends JPanel {
         return square;
     }
 
+    /**
+     * Makes the visual square red.
+     */
     public void redden() {
         this.highlighted = false;
         this.reddened = true;
         repaint();
     }
     
+    /**
+     * Makes the visual square grey.
+     */
     public void makeGray() {
         this.gray = true;
         this.reddened = false;

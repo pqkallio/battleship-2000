@@ -107,31 +107,6 @@ public class SquareTest {
         assertEquals(Points.HIT.getPoints(), testSquare.bomb());
     }
     
-    @Test(expected=IllegalArgumentException.class)
-    public void whenANewSquareIsCreatedWithNoTableParameterAnIllegalArgumentExceptionIsThrown() {
-        Square invalidArgumentsSquare = new Square(null, 0, 0);
-    }
-    
-    @Test(expected=IllegalArgumentException.class)
-    public void whenANewSquareIsCreatedWithAnXOfMinusOneAnIllegalArgumentExceptionIsThrown() {
-        Square invalidArgumentsSquare = new Square(gameTable, -1, 0);
-    }
-    
-    @Test(expected=IllegalArgumentException.class)
-    public void whenANewSquareIsCreatedWithAYOfMinusOneAnIllegalArgumentExceptionIsThrown() {
-        Square invalidArgumentsSquare = new Square(gameTable, 0, -1);
-    }
-    
-    @Test(expected=IllegalArgumentException.class)
-    public void whenANewSquareIsCreatedWithAnXGreaterThanTablesWidthAnIllegalArgumentExceptionIsThrown() {
-        Square invalidArgumentsSquare = new Square(gameTable, gameTable.getWidth(), 0);
-    }
-    
-    @Test(expected=IllegalArgumentException.class)
-    public void whenANewSquareIsCreatedWithAYGreaterThanTablesHeightAnIllegalArgumentExceptionIsThrown() {
-        Square invalidArgumentsSquare = new Square(gameTable, 0, gameTable.getHeight());
-    }
-    
     @Test
     public void getTableMethodReturnsTheTableItHasBeenGivenAsAParameter() {
         assertEquals(gameTable, x0y0.getTable());
@@ -150,21 +125,9 @@ public class SquareTest {
     @Test
     public void ifASquareContainsTheLastIntactShipPartOfAShipAndItIsHitBombingTheSquareReturnsDESTROYEDPoints() {
         Ship ship = new Ship(2);
-        System.out.println("Should be intact: ");
-        for (ShipPart shipPart : ship.getParts()) {
-            System.out.println(shipPart.isIntact());
-        }
-        System.out.println("Ship is destroyed = " + ship.isDestroyed());
-        System.out.println("Ship is intact = " + ship.isIntact());
         Square testSquare = new Square(gameTable, 1, 1);
         
         ship.getParts()[1].hit();
-        System.out.println("Second part should be hit: ");
-        for (ShipPart shipPart : ship.getParts()) {
-            System.out.println(shipPart.isIntact());
-        }
-        System.out.println("Ship is destroyed = " + ship.isDestroyed());
-        System.out.println("Ship is intact = " + ship.isIntact());
         testSquare.setShipPart(ship.getParts()[0]);
         
         assertEquals(Points.DESTROYED.getPoints(), testSquare.bomb());
@@ -175,7 +138,7 @@ public class SquareTest {
         Ship ship = new Ship(2);
         Square testSquare = new Square(gameTable, 1, 1);
         
-        testSquare.floatAPiece(ship.getParts()[0]);
+        testSquare.floatAPart(ship.getParts()[0]);
         
         assertEquals(ship.getParts()[0], testSquare.getFloatingPiece());
     }
@@ -192,8 +155,8 @@ public class SquareTest {
         Ship ship = new Ship(2);
         Square testSquare = new Square(gameTable, 1, 1);
         
-        testSquare.floatAPiece(ship.getParts()[0]);
-        testSquare.removeFloatingPiece();
+        testSquare.floatAPart(ship.getParts()[0]);
+        testSquare.removeFloatingPart();
         
         assertNull(testSquare.getFloatingPiece());
     }

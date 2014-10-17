@@ -19,9 +19,15 @@ public class AllShipsAreSetListener implements ActionListener {
     private Player player;
     private VisualGameTable playersSide;
     
+    /**
+     * Constructs a new instance of the class.
+     * 
+     * @param gameCommands  the game commands of the game
+     * @param player        the player object commanded by the user
+     * @param playersSide   the user's visual game table   
+     */
     public AllShipsAreSetListener(GameCommands gameCommands, 
-            Player player, VisualGameTable playersSide, VisualGameTable foesSide,
-            List<JButton> buttons) {
+            Player player, VisualGameTable playersSide) {
         this.gameCommands = gameCommands;
         this.player = player;
         this.playersSide = playersSide;

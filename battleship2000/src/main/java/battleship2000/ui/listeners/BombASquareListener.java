@@ -17,6 +17,13 @@ public class BombASquareListener implements MouseListener {
     private GamePane gamePane;
     private boolean isAlreadyHit;
     
+    /**
+     * Constructs a new instance of the class.
+     * 
+     * @param vs            the visual square the listener is added to
+     * @param gamePane      the gui's game pane
+     * @param playersTable  the user's visual game table
+     */
     public BombASquareListener(VisualSquare vs, GamePane gamePane, VisualGameTable playersTable) {
         this.vs = vs;
         this.gamePane = gamePane;
@@ -52,7 +59,7 @@ public class BombASquareListener implements MouseListener {
     private void chooseSquare() {
         if (!vs.getSquare().isHit() && !this.isAlreadyHit) {
             this.isAlreadyHit = true;
-            this.gamePane.getGameCommmands().playOneRound(vs.getSquare());
+            this.gamePane.getGameCommands().playOneRound(vs.getSquare());
         }
     }
 }

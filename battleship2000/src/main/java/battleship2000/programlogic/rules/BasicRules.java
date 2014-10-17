@@ -19,6 +19,21 @@ public class BasicRules extends Rules {
                                              ShipType.MISSILE_SHIP,
                                              ShipType.AIRCARRIER};
     
+    /**
+     * An instantiation of the class.
+     * <p>
+     * Creates a set of rules used to create the {@link battleship2000.programlogic.BattleShipGame}.
+     * If the boolean value given as parameter is true, the game shall be played
+     * against a {@link battleship2000.programlogic.domain.player.Computer}. If false,
+     * a {@link battleship2000.programlogic.domain.player.Human} player shall be the
+     * opponent
+     * <p>
+     * <strong>Note!</strong> The program logic doesn't actually yet support a 
+     * game between two human players, so only games against a computer player should
+     * be started until the multi-player gaming feature has been added.
+     * 
+     * @param againstTheComputer    if true, played against a computer player
+     */
     public BasicRules(boolean againstTheComputer) {
         setShips();
         setPlayers(againstTheComputer);

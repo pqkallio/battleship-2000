@@ -1,7 +1,7 @@
 package battleship2000.ui;
 
+import battleship2000.ui.graphics.GraphicContentPack;
 import battleship2000.programlogic.GameCommands;
-import battleship2000.ui.playback.Audible;
 import battleship2000.ui.panes.CardNames;
 import battleship2000.ui.panes.LoadingPane;
 import battleship2000.ui.panes.TitlePane;
@@ -10,9 +10,6 @@ import java.awt.CardLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.net.URLDecoder;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -26,22 +23,16 @@ import javax.swing.WindowConstants;
 public class BattleshipGui implements Runnable {
     private JFrame frame;
     private JPanel cards;
-    private String jarPath;
     private AudioContent audioContent;
     private GraphicContentPack graphicContent;
     private final int FRAME_WIDTH = 660;
     private final int FRAME_HEIGHT = 550;
     private final int SQUARE_WIDTH = 25;
     
+    /**
+     * Creates a new instantiation of the class.
+     */
     public BattleshipGui() {
-        URL jarLocation = this.getClass().getProtectionDomain().getCodeSource().getLocation();
-        
-        try {
-            jarPath = URLDecoder.decode(jarLocation.getFile(), "UTF-8");
-        } catch (UnsupportedEncodingException ex) {
-            alertException("Unable to load content", ex);
-        }
-        
         this.audioContent = new AudioContent(this);
         new Thread(this.audioContent).start();
         
@@ -52,9 +43,6 @@ public class BattleshipGui implements Runnable {
         return graphicContent;
     }
     
-    public String getJarPath() {
-        return jarPath;
-    }
     
     public AudioContent getAudioContent() {
         return audioContent;
@@ -106,14 +94,17 @@ public class BattleshipGui implements Runnable {
         contentPane.add(cards);
     }
     
+    /**
+     * Handles the alerting of exceptions while the game in the game and forces
+     * the game to quit.
+     * 
+     * @param message   the message to show to the user
+     * @param ex        the triggered exception
+     */
     public final void alertException(String message, Exception ex) {
         JOptionPane.showMessageDialog(null, message + "\n" + ex.toString(), ex.getClass().getName(), 
                 JOptionPane.ERROR_MESSAGE);
         frame.dispose();
-    }
-
-    public Audible getExplosion() {
-        return audioContent.getExplosion();
     }
 
     public JPanel getCards() {

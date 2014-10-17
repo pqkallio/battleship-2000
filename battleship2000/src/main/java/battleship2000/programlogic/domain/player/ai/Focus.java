@@ -69,8 +69,11 @@ public class Focus {
             lookForDeadEnds();
         }
         
-        // Must refactor to find the "most" possible direction first
-        // Must take in consideration the case of longest possible ship on focus
+        /* 
+         * TODO
+         * Must refactor to find the "most" possible direction first
+         * Must take in consideration the case of longest possible ship on focus
+         */
         if (thisWayBoys == null) {
             thisWayBoys = chooseARandomDirection();
         }

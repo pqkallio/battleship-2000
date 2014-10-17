@@ -13,6 +13,11 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.imageio.ImageIO;
 
+/**
+ * File-handling for the visual representations of the {@link battleship2000.programlogic.domain.ship.ShipPart}s.
+ * 
+ * @author Petri Kallio
+ */
 public class VisualShipPartPack {
     private Direction direction;
     private String size;
@@ -29,6 +34,13 @@ public class VisualShipPartPack {
     private Map<Direction, String> directionIndicators;
     private BattleshipGui gui;
     
+    /**
+     * Constructs a new instantiation of the class.
+     * 
+     * @param direction     the {@link battleship2000.programlogic.domain.ship.Direction} of the parts' visual representation in the VisualShipPartPack
+     * @param size          the size of the images to be created in pixels
+     * @param gui           the {@link battleship2000.ui.BattleshipGui} the VisualShipPartPack is related to
+     */
     public VisualShipPartPack(Direction direction, int size, BattleshipGui gui) {
         this.direction = direction;
         this.size = "" + size;
@@ -62,18 +74,40 @@ public class VisualShipPartPack {
         fileNames.put(ShipPartPlace.REAR, rear);
     }
 
+    /**
+     * Gets the visual representation of the {@link battleship2000.programlogic.domain.ship.ShipPart}
+     * that has been set on a {@link battleship2000.programlogic.domain.table.GameTable}.
+     * 
+     * @param part  the part of which to get the visual representation
+     * @return      the visual representation of the part
+     */
     public BufferedImage getSetPiece(ShipPart part) {
         if (part.isShipsFront()) return recoloredImage(images.get(ShipPartPlace.FRONT), Color.DARK_GRAY);
         else if (part.isShipsRear()) return recoloredImage(images.get(ShipPartPlace.REAR), Color.DARK_GRAY);
         else return recoloredImage(images.get(ShipPartPlace.MIDDLE), Color.DARK_GRAY);
     }
     
+    /**
+     * Gets the visual representation of the {@link battleship2000.programlogic.domain.ship.ShipPart}
+     * that has been floated on a {@link battleship2000.programlogic.domain.table.GameTable}.
+     * 
+     * @see         battleship2000.programlogic.domain.table.Square#floatAPart(battleship2000.programlogic.domain.ship.ShipPart) 
+     * @param part  the part of which to get the visual representation
+     * @return      the visual representation of the part
+     */
     public BufferedImage getGrayPiece(ShipPart part) {
         if (part.isShipsFront()) return recoloredImage(images.get(ShipPartPlace.FRONT), GREEN);
         else if (part.isShipsRear()) return recoloredImage(images.get(ShipPartPlace.REAR), GREEN);
         else return recoloredImage(images.get(ShipPartPlace.MIDDLE), GREEN);
     }
     
+    /**
+     * Gets the visual representation of the {@link battleship2000.programlogic.domain.ship.ShipPart}
+     * that can not be set in the current position on a {@link battleship2000.programlogic.domain.table.GameTable}.
+     * 
+     * @param part  the part of which to get the visual representation
+     * @return      the visual representation of the part
+     */
     public BufferedImage getRedPiece(ShipPart part) {
         if (part.isShipsFront()) return recoloredImage(images.get(ShipPartPlace.FRONT), RED);
         else if (part.isShipsRear()) return recoloredImage(images.get(ShipPartPlace.REAR), RED);

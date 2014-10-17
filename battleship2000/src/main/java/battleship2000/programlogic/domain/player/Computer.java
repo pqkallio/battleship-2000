@@ -5,6 +5,7 @@ import battleship2000.programlogic.domain.player.ai.ComputerGuessingPattern;
 import battleship2000.programlogic.domain.ship.Ship;
 import battleship2000.programlogic.domain.table.Table;
 import battleship2000.programlogic.domain.table.Square;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -47,7 +48,8 @@ public class Computer extends Player {
     @Override
     public void placeShipsOnTable() {
         List<Ship> ships = super.getShips();
-
+        Collections.shuffle(ships);
+        
         for (Ship ship : ships) {
             placeAShipOnTable(ship);
         }

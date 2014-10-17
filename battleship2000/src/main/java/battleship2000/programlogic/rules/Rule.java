@@ -2,7 +2,7 @@ package battleship2000.programlogic.rules;
 
 /**
  * An enum type used as a key in storing and retrieving rules from an instance of
- * Rules class.
+ * the {@link battleship2000.programlogic.rules.Rules} class.
  *
  * @author Petri Kallio
  */

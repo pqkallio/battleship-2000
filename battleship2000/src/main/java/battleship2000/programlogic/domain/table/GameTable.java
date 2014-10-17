@@ -20,6 +20,12 @@ public class GameTable implements Table {
     private int width;
     private int height;
     
+    /**
+     * A constructor to create a new instance of the class.
+     * 
+     * @param width     the width of the GameTable
+     * @param height    the height of the GameTable
+     */
     public GameTable(int width, int height) {
         this.width = width;
         this.height = height;

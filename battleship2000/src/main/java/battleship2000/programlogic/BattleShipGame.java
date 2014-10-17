@@ -45,7 +45,6 @@ public class BattleShipGame {
     /**
      * Increments the games turn by 1.
      */
-    
     public void incrementTurn() {
         this.turn++;
     }

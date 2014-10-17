@@ -16,6 +16,9 @@ import java.util.Map;
 public class Rules {
     private Map<Rule, Object> rules;
     
+    /**
+     * A new instantiation of the class.
+     */
     public Rules() {
         this.rules = new HashMap<>();
     }

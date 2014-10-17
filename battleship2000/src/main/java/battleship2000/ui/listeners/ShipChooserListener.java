@@ -23,8 +23,21 @@ public class ShipChooserListener implements ActionListener {
     private JButton missileShip;
     private JButton aircarrier;
     
-    public ShipChooserListener(GameCommands gameCommmands, VisualGameTable playersSide, JButton commander, JButton cannonShip, JButton submarine, JButton missileShip, JButton aircarrier) {
-        this.player = gameCommmands.getGame().getPlayers().get(0);
+    /**
+     * Constructs a new instance of the class.
+     * 
+     * @param gameCommands  the game commands object of the game
+     * @param playersSide   the user's visual game table
+     * @param commander     the user's first ship
+     * @param cannonShip    the user's second ship
+     * @param submarine     the user's third ship
+     * @param missileShip   the user's fourth ship
+     * @param aircarrier    the user's fifth ship
+     */
+    public ShipChooserListener(GameCommands gameCommands, VisualGameTable playersSide, 
+            JButton commander, JButton cannonShip, JButton submarine, 
+            JButton missileShip, JButton aircarrier) {
+        this.player = gameCommands.getGame().getPlayers().get(0);
         this.playersSide = playersSide;
         this.cannonShip = cannonShip;
         this.commander = commander;
@@ -38,35 +51,35 @@ public class ShipChooserListener implements ActionListener {
         if (ae.getSource() == commander) {
             for (Ship ship : player.getShips()) {
                 if (ship.getClass() == ShipType.COMMANDER.getShipClass()) {
-                    whatIfShipIsAlreadyOnTable_Question_DealWithIt_Exclamation(ship);
+                    checkIfShipIsAlreadyOnTable(ship);
                     playersSide.setChosenShip(ship);
                 }
             }
         } else if (ae.getSource() == cannonShip) {
             for (Ship ship : player.getShips()) {
                 if (ship.getClass() == ShipType.CANNON_SHIP.getShipClass()) {
-                    whatIfShipIsAlreadyOnTable_Question_DealWithIt_Exclamation(ship);
+                    checkIfShipIsAlreadyOnTable(ship);
                     playersSide.setChosenShip(ship);
                 }
             }
         } else if (ae.getSource() == submarine) {
             for (Ship ship : player.getShips()) {
                 if (ship.getClass() == ShipType.SUBMARINE.getShipClass()) {
-                    whatIfShipIsAlreadyOnTable_Question_DealWithIt_Exclamation(ship);
+                    checkIfShipIsAlreadyOnTable(ship);
                     playersSide.setChosenShip(ship);
                 }
             }
         } else if (ae.getSource() == missileShip) {
             for (Ship ship : player.getShips()) {
                 if (ship.getClass() == ShipType.MISSILE_SHIP.getShipClass()) {
-                    whatIfShipIsAlreadyOnTable_Question_DealWithIt_Exclamation(ship);
+                    checkIfShipIsAlreadyOnTable(ship);
                     playersSide.setChosenShip(ship);
                 }
             }
         } else if (ae.getSource() == aircarrier) {
             for (Ship ship : player.getShips()) {
                 if (ship.getClass() == ShipType.AIRCARRIER.getShipClass()) {
-                    whatIfShipIsAlreadyOnTable_Question_DealWithIt_Exclamation(ship);
+                    checkIfShipIsAlreadyOnTable(ship);
                     playersSide.setChosenShip(ship);
                 }
             }
@@ -76,7 +89,7 @@ public class ShipChooserListener implements ActionListener {
         
     }
 
-    private void whatIfShipIsAlreadyOnTable_Question_DealWithIt_Exclamation(Ship ship) {
+    private void checkIfShipIsAlreadyOnTable(Ship ship) {
         if (ship.isOnTable()) {
             ship.setIsOnTable(false);
             player.getTable().removePartsFromTable(ship);

@@ -9,6 +9,7 @@ import battleship2000.programlogic.domain.player.Player;
 import battleship2000.programlogic.domain.ship.Direction;
 import battleship2000.programlogic.observers.LogicObserver;
 import battleship2000.ui.BattleshipGui;
+import battleship2000.ui.control.PaneAdministrator;
 import battleship2000.ui.domain.VisualShipPartPack;
 import battleship2000.ui.listeners.BombASquareListener;
 import battleship2000.ui.listeners.StartNewGameListener;
@@ -45,22 +46,19 @@ public class GamePane extends JPanel implements LogicObserver, Pane {
     private GameCommands gc;
     private int squareWidth;
     private GridBagLayout mainLayout;
-    private GridBagConstraints mainConstraints;
     private JButton allShipsSet;
     private List<JButton> shipChoosingButtons;
-    private VisualGameTable playersSide;
-    private VisualGameTable computersSide;
     private JLabel humansPoints;
     private JLabel computersPoints;
     private JLabel humanAccuracy;
     private JLabel computerAccuracy;
     private JPanel shipChooserArea;
-    private final Font titleFont = new Font(Font.DIALOG, Font.BOLD, 24);
-    private final Font pointsHeaderFont = new Font(Font.DIALOG, Font.BOLD, 16);
-    private final Font pointsFont = new Font(Font.MONOSPACED, Font.BOLD, 16);
-    private final Color backgroundColor = new Color(0, 170, 170);
-    private final Color titleFontColor = new Color(0, 255, 255);
-    private final Color pointsColor = new Color(0, 230, 230);
+    private final Font TITLE_FONT = new Font(Font.DIALOG, Font.BOLD, 24);
+    private final Font POINTS_HEADER_FONT = new Font(Font.DIALOG, Font.BOLD, 16);
+    private final Font POINTS_FONT = new Font(Font.MONOSPACED, Font.BOLD, 16);
+    private final Color BACKGROUND_COLOR = new Color(0, 170, 170);
+    private final Color TITLE_FONT_COLOR = new Color(0, 255, 255);
+    private final Color POINTS_COLOR = new Color(0, 230, 230);
     private final String POINTS = "Points: ";
     private final String ACCURACY = "Accuracy: ";
     private final String CROSSHAIR_PATH = "/graphics/crosshair_25.png";
@@ -68,18 +66,31 @@ public class GamePane extends JPanel implements LogicObserver, Pane {
     private Cursor crosshairCursor;
     private Map<Direction, VisualShipPartPack> visualShipParts;
     private BattleshipGui gui;
+    private PaneAdministrator mainAdministrator;
+    private GameArea gameArea;
     
+    /**
+     * Constructs a new instance of the class.
+     * 
+     * @param gameCommands  the GameCommands object of the game
+     * @param squareWidth   the square width and height of Visual Squares
+     * @param gui           the gui that displays the pane
+     */
     public GamePane(GameCommands gameCommands, int squareWidth, BattleshipGui gui) {
         this.gc = gameCommands;
         this.squareWidth = squareWidth;
         this.gui = gui;
-        createGameLayout();
-        this.gc.getGame().addObserver(this);
-        this.updated = false;
-        this.visualShipParts = new HashMap<>();
-        this.crosshairCursor = loadCrosshair();
         
+        createGameLayout();
+        
+        this.gc.getGame().addObserver(this);
+        
+        this.updated = false;
+        
+        this.visualShipParts = new HashMap<>();
         loadVisualShipParts();
+        
+        this.crosshairCursor = loadCrosshair();
     }
 
     public int getSquareWidth() {
@@ -87,91 +98,45 @@ public class GamePane extends JPanel implements LogicObserver, Pane {
     }
     
     private void createGameLayout() {
-        mainLayout = new GridBagLayout();
-        mainConstraints = new GridBagConstraints();
-        this.setLayout(mainLayout);
-        this.setBackground(backgroundColor);
-        
-        Player human = gc.getGame().getHuman();
-        Player computer = gc.getGame().getComputer();
-        
-        int[] layoutWidths = {human.getTable().getWidth() * squareWidth + 50 + computer.getTable().getWidth() * squareWidth};
-        int[] layoutHeights = {100, 25, human.getTable().getHeight() * squareWidth, 25, 50};
-        
-        mainLayout.columnWidths = layoutWidths;
-        mainLayout.rowHeights = layoutHeights;
+        mainLayout = setupLayout();
+        this.mainAdministrator = new PaneAdministrator(this, mainLayout);
         
         JPanel header = createHeader();
+        this.mainAdministrator.addComponent(header, 0, 0);
         
-        mainConstraints.gridx = 0; mainConstraints.gridy = 0;
-        mainLayout.setConstraints(header, mainConstraints);
-        this.add(header);
+        this.gameArea = new GameArea(this);
+        this.mainAdministrator.addComponent(gameArea.getGameArea(), 0, 2);
         
-        JPanel createTables = createTables();
+        this.shipChooserArea = createShipChooser(gameArea.getPlayersSide(), 
+                gameArea.getComputersSide());
+        this.mainAdministrator.addComponent(shipChooserArea, 0, 4);
         
-        mainConstraints.gridy = 2;
-        mainLayout.setConstraints(createTables, mainConstraints);
-        this.add(createTables);
-        
-        this.shipChooserArea = createShipChooser(playersSide, computersSide);
-        
-        mainConstraints.gridy = 4;
-        mainLayout.addLayoutComponent(shipChooserArea, mainConstraints);
-        this.add(shipChooserArea);
+        this.setBackground(BACKGROUND_COLOR);
     }
 
-    public GameCommands getGameCommmands() {
+    public GameCommands getGameCommands() {
         return gc;
     }
 
     private JPanel createShipChooser(VisualGameTable playersSide, VisualGameTable foesSide) {
         JPanel shipChoosingButtonArea = new JPanel();
-        GridBagLayout layout = new GridBagLayout();
-        GridBagConstraints gbc = new GridBagConstraints();
-        shipChoosingButtonArea.setBackground(backgroundColor);
-        shipChoosingButtonArea.setLayout(layout);
+        GridBagLayout layout = setupShipChooserLayout();
+        PaneAdministrator administrator = new PaneAdministrator(shipChoosingButtonArea, layout);
         
-        int[] layoutWidths = {50, 50, 50, 50, 50, 50, gc.getGame().getComputer().getTable().getWidth() * squareWidth};
-        int[] layoutHeights = {25, 25};
+        shipChoosingButtons = createShipChoosingButtons();
         
-        layout.columnWidths = layoutWidths;
-        layout.rowHeights = layoutHeights;
-        
-        JButton commander = new JButton("Com");
-        JButton cannonShip = new JButton("Can");
-        JButton submarine = new JButton("Sub");
-        JButton missileShip = new JButton("Mis");
-        JButton aircarrier = new JButton("Air");
-        
-        ActionListener shipChooserListener = new ShipChooserListener(gc, 
-                playersSide, commander, cannonShip, submarine, missileShip, aircarrier);
-        
-        commander.addActionListener(shipChooserListener);
-        cannonShip.addActionListener(shipChooserListener);
-        submarine.addActionListener(shipChooserListener);
-        missileShip.addActionListener(shipChooserListener);
-        aircarrier.addActionListener(shipChooserListener);
-        
-        shipChoosingButtons = new ArrayList<>();
-        Collections.addAll(shipChoosingButtons, commander, cannonShip, submarine, missileShip, aircarrier);
-
-        gbc.insets = new Insets(5, 5, 5, 5);
-        gbc.fill = GridBagConstraints.BOTH;
+        Insets insets = new Insets(5, 5, 5, 5);
         
         for (int i = 0; i < shipChoosingButtons.size(); i++) {
-            gbc.gridx = i; gbc.gridy = 0;
-            layout.addLayoutComponent(shipChoosingButtons.get(i), gbc);
-            shipChoosingButtonArea.add(shipChoosingButtons.get(i));
+            administrator.addComponent(shipChoosingButtons.get(i), i, 0, 
+                    GridBagConstraints.CENTER, GridBagConstraints.BOTH, 1, insets);
         }
         
-        allShipsSet = new JButton("OK");
+        allShipsSet = createAllShipsSetButton();
         shipChoosingButtons.add(allShipsSet);
-        allShipsSet.addActionListener(new AllShipsAreSetListener(gc, playersSide.getPlayer(), playersSide, foesSide, shipChoosingButtons));
-        allShipsSet.setEnabled(false);
+        administrator.addComponent(allShipsSet, 2, 1);
         
-        gbc.gridx = 2; gbc.gridy = 1;
-        layout.addLayoutComponent(allShipsSet, gbc);
-        shipChoosingButtonArea.add(allShipsSet);
+        shipChoosingButtonArea.setBackground(BACKGROUND_COLOR);
         
         return shipChoosingButtonArea;
     }
@@ -180,30 +145,31 @@ public class GamePane extends JPanel implements LogicObserver, Pane {
         return allShipsSet.isEnabled();
     }
 
+    /**
+     * If the parameter given is true, displays and enables the JButton that starts the game.
+     * 
+     * @param isSet     the value that defines the visibility and enabling of the "OK" button
+     */
     public void setAllShipsSetEnabled(boolean isSet) {
         this.allShipsSet.setEnabled(isSet);
+        
+        if (isSet) {
+            this.allShipsSet.setVisible(true);
+        }
     }
     
+    /**
+     * Ends the ship-setting phase and starts the bombing phase of the game.
+     */
     public void startGame() {
-        for (VisualSquare vSquare : playersSide.getSquares()) {
-            for (MouseListener ml : vSquare.getMouseListeners()) {
-                vSquare.removeMouseListener(ml);
-            }
-        }
-        
-        for (JButton jButton : shipChoosingButtons) {
-            for (ActionListener al : jButton.getActionListeners()) {
-                jButton.removeActionListener(al);
-            }
-        }
+        removeMouseListeners(gameArea.getPlayersSide());
+        removeActionListeners(shipChoosingButtons);
         
         this.remove(shipChooserArea);
         
-        for (VisualSquare vs : computersSide.getSquares()) {
-            vs.addMouseListener(new BombASquareListener(vs, this, playersSide));
-        }
+        addBombASquareListeners(gameArea.getComputersSide());
         
-        computersSide.setCursor(crosshairCursor);
+        gameArea.getComputersSide().setCursor(crosshairCursor);
         
         this.repaint();
     }
@@ -220,15 +186,6 @@ public class GamePane extends JPanel implements LogicObserver, Pane {
             updatePoints();
         } else if (stateChange.equals(StateChange.END_GAME)) {
             endGame(object);
-            playDestruction();
-        } else if (stateChange.equals(StateChange.SHIP_HIT)) {
-            playExplosion();
-        } else if (stateChange.equals(StateChange.SHOT_MISSED)) {
-            playSetShip();
-        } else if (stateChange.equals(StateChange.SET_SHIP)) {
-            playSetShip();
-        } else if (stateChange.equals(StateChange.TAKE_SHIP)) {
-            playTakeShip();
         }
     }
     
@@ -238,150 +195,42 @@ public class GamePane extends JPanel implements LogicObserver, Pane {
     }
 
     private void updateTable(Object[] object) {
-        
-            if (object[0] == gc.getGame().getHuman()) {
-                playersSide.repaintAll();
-            } else if (object[0] == gc.getGame().getComputer()) {
-                computersSide.repaintAll();
-            }
-        
+        if (object[0] == gc.getGame().getHuman()) {
+            gameArea.getPlayersSide().repaintAll();
+        } else if (object[0] == gc.getGame().getComputer()) {
+            gameArea.getComputersSide().repaintAll();
+        }
     }
 
     private JPanel createHeader() {
         JPanel header = new JPanel();
-        GridBagLayout layout = new GridBagLayout();
-        GridBagConstraints gbc = new GridBagConstraints();
-        header.setLayout(layout);
-        header.setBackground(backgroundColor);
+        GridBagLayout layout = setupHeaderLayout();
+        PaneAdministrator administrator = new PaneAdministrator(header, layout);
         
-        int[] layoutWidths = {
-            (gc.getGame().getHuman().getTable().getWidth() * squareWidth) / 2, 
-            (gc.getGame().getHuman().getTable().getWidth() * squareWidth) / 2,
-            50, 
-            gc.getGame().getComputer().getTable().getWidth() * squareWidth / 2,
-            gc.getGame().getComputer().getTable().getWidth() * squareWidth / 2};
-        int[] layoutHeights = {50, 25, 25};
+        JLabel[] playerTitleLabels = createPlayerTitleLabels();
+        JLabel[] pointAndAccuracyLabels = createPointLabels();
+        setupPlayerPointAndAccuracyCounters();
         
-        layout.columnWidths = layoutWidths;
-        layout.rowHeights = layoutHeights;
+        administrator.addComponent(playerTitleLabels[0], 0, 0, 
+                GridBagConstraints.CENTER, GridBagConstraints.NONE, 2);
+        administrator.addComponent(playerTitleLabels[1], 3, 0);
+        administrator.addComponent(pointAndAccuracyLabels[0], 0, 1, 
+                GridBagConstraints.CENTER, GridBagConstraints.NONE, 1);
+        administrator.addComponent(humansPoints, 1, 1);
+        administrator.addComponent(pointAndAccuracyLabels[1], 3, 1);
+        administrator.addComponent(computersPoints, 4, 1);
+        administrator.addComponent(pointAndAccuracyLabels[2], 0, 2);
+        administrator.addComponent(humanAccuracy, 1, 2);
+        administrator.addComponent(pointAndAccuracyLabels[3], 3, 2);
+        administrator.addComponent(computerAccuracy, 4, 2);
         
-        JLabel human = new JLabel(gc.getGame().getHuman().toString());
-        JLabel computer = new JLabel(gc.getGame().getComputer().toString());
-        human.setFont(titleFont);
-        computer.setFont(titleFont);
-        human.setForeground(titleFontColor);
-        computer.setForeground(titleFontColor);
-        
-        JLabel pointLabel1 = new JLabel(POINTS);
-        JLabel pointLabel2 = new JLabel(POINTS);
-        JLabel accuracyLabel1 = new JLabel(ACCURACY);
-        JLabel accuracyLabel2 = new JLabel(ACCURACY);
-        pointLabel1.setFont(pointsHeaderFont);
-        pointLabel2.setFont(pointsHeaderFont);
-        accuracyLabel1.setFont(pointsHeaderFont);
-        accuracyLabel2.setFont(pointsHeaderFont);
-        pointLabel1.setForeground(pointsColor);
-        pointLabel2.setForeground(pointsColor);
-        accuracyLabel1.setForeground(pointsColor);
-        accuracyLabel2.setForeground(pointsColor);
-        
-        humansPoints = new JLabel("" + gc.getGame().getHuman().getPoints());
-        computersPoints = new JLabel("" + gc.getGame().getComputer().getPoints());
-        humanAccuracy = new JLabel("" + gc.getGame().getHuman().getAccuracy());
-        computerAccuracy = new JLabel("" + gc.getGame().getComputer().getAccuracy());
-        humansPoints.setFont(pointsFont);
-        computersPoints.setFont(pointsFont);
-        humanAccuracy.setFont(pointsFont);
-        computerAccuracy.setFont(pointsFont);
-        humansPoints.setForeground(pointsColor);
-        computersPoints.setForeground(pointsColor);
-        humanAccuracy.setForeground(pointsColor);
-        computerAccuracy.setForeground(pointsColor);
-        
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        
-        layout.setConstraints(human, gbc);
-        header.add(human);
-        
-        gbc.gridx = 3;
-        layout.setConstraints(computer, gbc);
-        header.add(computer);
-        
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.gridwidth = 1;
-        layout.setConstraints(pointLabel1, gbc);
-        header.add(pointLabel1);
-        
-        gbc.gridx = 1;
-        layout.setConstraints(humansPoints, gbc);
-        header.add(humansPoints);
-        
-        gbc.gridx = 3;
-        layout.setConstraints(pointLabel2, gbc);
-        header.add(pointLabel2);
-        
-        gbc.gridx = 4;
-        layout.setConstraints(computersPoints, gbc);
-        header.add(computersPoints);
-        
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        layout.setConstraints(accuracyLabel1, gbc);
-        header.add(accuracyLabel1);
-        
-        gbc.gridx = 1;
-        layout.setConstraints(humanAccuracy, gbc);
-        header.add(humanAccuracy);
-        
-        gbc.gridx = 3;
-        layout.setConstraints(accuracyLabel2, gbc);
-        header.add(accuracyLabel2);
-        
-        gbc.gridx = 4;
-        layout.setConstraints(computerAccuracy, gbc);
-        header.add(computerAccuracy);
+        header.setBackground(BACKGROUND_COLOR);
         
         return header;
     }
 
-    private JPanel createTables() {
-        Player human = gc.getGame().getHuman();
-        Player computer = gc.getGame().getComputer();
-        
-        JPanel tables = new JPanel();
-        GridBagLayout layout = new GridBagLayout();
-        GridBagConstraints gbc = new GridBagConstraints();
-        tables.setLayout(layout);
-        tables.setBackground(backgroundColor);
-        
-        int[] layoutWidths = {human.getTable().getWidth() * squareWidth, 50, computer.getTable().getWidth() * squareWidth};
-        int[] layoutHeights = {human.getTable().getHeight() * squareWidth};
-        
-        layout.columnWidths = layoutWidths;
-        layout.rowHeights = layoutHeights;
-        
-        playersSide = new VisualGameTable(human, gc, this);
-        computersSide = new VisualGameTable(computer, gc, this);
-        
-        gbc.fill = GridBagConstraints.NONE;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.gridx = 0; gbc.gridy = 0;
-        
-        layout.setConstraints(playersSide, gbc);
-        
-        tables.add(playersSide);
-        
-        gbc.gridx = 2;
-        
-        layout.setConstraints(computersSide, gbc);
-        
-        tables.add(computersSide);
-        
-        return tables;
+    public Color getBACKGROUND_COLOR() {
+        return BACKGROUND_COLOR;
     }
 
     private void updatePoints() {
@@ -393,24 +242,18 @@ public class GamePane extends JPanel implements LogicObserver, Pane {
     }
 
     private void endGame(Object[] object) {
-        for (VisualSquare vs : computersSide.getSquares()) {
-            for (MouseListener ml : vs.getMouseListeners()) {
-                vs.removeMouseListener(ml);
-            }
-        }
+        removeMouseListeners(gameArea.getComputersSide());
         
         Player player = null;
         
         try {
             player = (Player)object[0];
-        } catch (Exception e) {}
+        } catch (ClassCastException|NullPointerException ex) {
+            gui.alertException("Illegal argument", ex);
+        }
         
         JPanel done = done(player);
-        
-        mainConstraints.gridy = 4;
-        mainConstraints.gridx = 0;
-        mainLayout.setConstraints(done, mainConstraints);
-        this.add(done);
+        mainAdministrator.addComponent(done, 0, 4);
         
         this.revalidate();
     }
@@ -421,59 +264,24 @@ public class GamePane extends JPanel implements LogicObserver, Pane {
 
     private JPanel done(Player player) {
         JPanel gameOver = new JPanel();
-        GridBagLayout layout = new GridBagLayout();
-        GridBagConstraints gbc = new GridBagConstraints();
-        gameOver.setBackground(backgroundColor);
-        gameOver.setLayout(layout);
+        GridBagLayout layout = createGameOverButtonAreaLayout();
+        PaneAdministrator administrator = new PaneAdministrator(gameOver, layout);
         
-        JLabel winner = new JLabel();
-        winner.setFont(titleFont);
-        winner.setForeground(new Color(230, 255, 255));
-        
-        if (player == null) {
-            winner.setText("Couldn't decide who won!");
-        } else {
-            winner.setText(player + " wins!");
-        }
-        
+        JLabel winner = createWinnerLabel(player);
         JButton playAgain = new JButton("Play again");
         JButton exit = new JButton("Exit");
         
         ActionListener endOfGameListener = new EndOfGameListener(gui.getCards());
-        
         playAgain.addActionListener(new StartNewGameListener(gui.getCards(), gc, gui));
         exit.addActionListener(endOfGameListener);
         
-        int fullWidth = this.gui.getFRAME_WIDTH();
-//        int fullWidth = gc.getGame().getHuman().getTable().getWidth() * squareWidth + 50 + gc.getGame().getComputer().getTable().getWidth() * squareWidth;
+        administrator.addComponent(winner, 0, 0, GridBagConstraints.CENTER, 
+                GridBagConstraints.NONE, GridBagConstraints.REMAINDER);
+        administrator.addComponent(playAgain, 0, 1, GridBagConstraints.CENTER, 
+                GridBagConstraints.BOTH, 1, new Insets(2, 10, 2, 10));
+        administrator.addComponent(exit, 1, 1);
         
-        int[] layoutWidths = {fullWidth / 2, fullWidth / 2};
-        int[] layoutHeights = {25, 25};
-        
-        layout.columnWidths = layoutWidths;
-        layout.rowHeights = layoutHeights;
-        
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.anchor = GridBagConstraints.CENTER;
-        
-        layout.setConstraints(winner, gbc);
-        gameOver.add(winner);
-        
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.gridwidth = 1;
-        gbc.insets = new Insets(2, 10, 2, 10);
-        gbc.fill = GridBagConstraints.BOTH;
-        
-        layout.setConstraints(playAgain, gbc);
-        gameOver.add(playAgain);
-        
-        gbc.gridx = 1;
-        
-        layout.setConstraints(exit, gbc);
-        gameOver.add(exit);
+        gameOver.setBackground(BACKGROUND_COLOR);
         
         return gameOver;
     }
@@ -488,8 +296,6 @@ public class GamePane extends JPanel implements LogicObserver, Pane {
         return visualShipParts;
     }
     
-    
-
     private Cursor loadCrosshair() {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Image crosshair = null;
@@ -498,7 +304,7 @@ public class GamePane extends JPanel implements LogicObserver, Pane {
             InputStream is = this.getClass().getResourceAsStream(CROSSHAIR_PATH);
             crosshair = ImageIO.read(is);
         } catch (IOException ex) {
-            System.out.println("Couldn't load cursor");
+            alertException("Couldn't load graphics", ex);
         }
         
         Point hotSpot = new Point(crosshair.getWidth(null) / 2, crosshair.getHeight(null)/ 2);
@@ -512,24 +318,167 @@ public class GamePane extends JPanel implements LogicObserver, Pane {
         return this.crosshairCursor;
     }
 
-    private void playExplosion() {
-        this.gui.getAudioContent().getExplosion().play();
-    }
-
     @Override
     public void alertException(String message, Exception ex) {
         gui.alertException(message, ex);
     }
 
-    private void playSetShip() {
-        this.gui.getAudioContent().getSetShip().play();
+    private GridBagLayout setupLayout() {
+        GridBagLayout layout = new GridBagLayout();
+        Player human = gc.getGame().getHuman();
+        Player computer = gc.getGame().getComputer();
+        
+        int[] layoutWidths = {human.getTable().getWidth() * squareWidth + 50 + computer.getTable().getWidth() * squareWidth};
+        int[] layoutHeights = {100, 25, human.getTable().getHeight() * squareWidth, 25, 50};
+        
+        layout.columnWidths = layoutWidths;
+        layout.rowHeights = layoutHeights;
+        
+        return layout;
     }
 
-    private void playTakeShip() {
-        this.gui.getAudioContent().getTakeShip().play();
+    private GridBagLayout setupShipChooserLayout() {
+        GridBagLayout layout = new GridBagLayout();
+        int[] layoutWidths = {50, 50, 50, 50, 50, 50, gc.getGame().getComputer().getTable().getWidth() * squareWidth};
+        int[] layoutHeights = {25, 25};
+        
+        layout.columnWidths = layoutWidths;
+        layout.rowHeights = layoutHeights;
+        
+        return layout;
     }
 
-    private void playDestruction() {
-        this.gui.getAudioContent().getDestruction().play();
+    private List<JButton> createShipChoosingButtons() {
+        JButton commander = new JButton("Com");
+        JButton cannonShip = new JButton("Can");
+        JButton submarine = new JButton("Sub");
+        JButton missileShip = new JButton("Mis");
+        JButton aircarrier = new JButton("Air");
+        
+        List<JButton> buttons = new ArrayList<>();
+        Collections.addAll(buttons, commander, cannonShip, submarine, missileShip, aircarrier);
+        
+        ActionListener shipChooserListener = new ShipChooserListener(gc, 
+                gameArea.getPlayersSide(), commander, cannonShip, submarine, missileShip, aircarrier);
+        
+        for (JButton button : buttons) {
+            button.addActionListener(shipChooserListener);
+        }
+        
+        return buttons;
+    }
+
+    private JButton createAllShipsSetButton() {
+        JButton button = new JButton("OK");
+        button.addActionListener(new AllShipsAreSetListener(gc, gc.getGame().getHuman(), 
+                gameArea.getPlayersSide()));
+        button.setEnabled(false);
+        button.setVisible(false);
+        
+        return button;
+    }
+
+    private void removeMouseListeners(VisualGameTable visualGameTable) {
+        for (VisualSquare vSquare : visualGameTable.getSquares()) {
+            for (MouseListener ml : vSquare.getMouseListeners()) {
+                vSquare.removeMouseListener(ml);
+            }
+        }
+    }
+
+    private void removeActionListeners(List<JButton> buttons) {
+        for (JButton button : buttons) {
+            for (ActionListener al : button.getActionListeners()) {
+                button.removeActionListener(al);
+            }
+        }
+    }
+
+    private void addBombASquareListeners(VisualGameTable computersSide) {
+        for (VisualSquare vs : computersSide.getSquares()) {
+            vs.addMouseListener(new BombASquareListener(vs, this, gameArea.getPlayersSide()));
+        }
+    }
+
+    private GridBagLayout setupHeaderLayout() {
+        GridBagLayout layout = new GridBagLayout();
+        
+        int[] layoutWidths = {
+            (gc.getGame().getHuman().getTable().getWidth() * squareWidth) / 2, 
+            (gc.getGame().getHuman().getTable().getWidth() * squareWidth) / 2,
+            50, 
+            gc.getGame().getComputer().getTable().getWidth() * squareWidth / 2,
+            gc.getGame().getComputer().getTable().getWidth() * squareWidth / 2};
+        int[] layoutHeights = {50, 25, 25};
+        
+        layout.columnWidths = layoutWidths;
+        layout.rowHeights = layoutHeights;
+        
+        return layout;
+    }
+
+    private JLabel[] createPlayerTitleLabels() {
+        JLabel human = new JLabel(gc.getGame().getHuman().toString());
+        JLabel computer = new JLabel(gc.getGame().getComputer().toString());
+        JLabel[] titles = {human, computer};
+        
+        for (JLabel label : titles) {
+            label.setFont(TITLE_FONT);
+            label.setForeground(TITLE_FONT_COLOR);
+        }
+        
+        return titles;
+    }
+
+    private JLabel[] createPointLabels() {
+        JLabel[] labels = {new JLabel(POINTS), new JLabel(POINTS),
+                           new JLabel(ACCURACY), new JLabel(ACCURACY)};
+        
+        for (JLabel label : labels) {
+            label.setFont(POINTS_HEADER_FONT);
+            label.setForeground(POINTS_COLOR);
+        }
+        
+        return labels;
+    }
+
+    private void setupPlayerPointAndAccuracyCounters() {
+        humansPoints = new JLabel("" + gc.getGame().getHuman().getPoints());
+        computersPoints = new JLabel("" + gc.getGame().getComputer().getPoints());
+        humanAccuracy = new JLabel("" + gc.getGame().getHuman().getAccuracy());
+        computerAccuracy = new JLabel("" + gc.getGame().getComputer().getAccuracy());
+        JLabel[] labels = {humansPoints, computersPoints, humanAccuracy, computerAccuracy};
+        
+        for (JLabel label : labels) {
+            label.setFont(POINTS_FONT);
+            label.setForeground(POINTS_COLOR);
+        }
+    }
+
+    private GridBagLayout createGameOverButtonAreaLayout() {
+        GridBagLayout layout = new GridBagLayout();
+        int fullWidth = this.gui.getFRAME_WIDTH();
+        
+        int[] layoutWidths = {fullWidth / 2, fullWidth / 2};
+        int[] layoutHeights = {25, 25};
+        
+        layout.columnWidths = layoutWidths;
+        layout.rowHeights = layoutHeights;
+        
+        return layout;
+    }
+
+    private JLabel createWinnerLabel(Player player) {
+        JLabel winner = new JLabel();
+        winner.setFont(TITLE_FONT);
+        winner.setForeground(new Color(230, 255, 255));
+        
+        if (player == null) {
+            winner.setText("Couldn't decide who won!");
+        } else {
+            winner.setText(player + " wins!");
+        }
+        
+        return winner;
     }
 }

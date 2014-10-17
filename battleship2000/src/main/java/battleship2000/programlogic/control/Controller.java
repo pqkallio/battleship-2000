@@ -6,5 +6,12 @@ package battleship2000.programlogic.control;
  * @author Petri Kallio
  */
 public interface Controller {
-    Object execute();
+    
+    /**
+     * Method to execute the necessary actions of the controller class, returning
+     * an object needed by the class that calls the method.
+     * 
+     * @return 
+     */
+    public Object execute();
 }

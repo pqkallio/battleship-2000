@@ -6,12 +6,9 @@ import battleship2000.programlogic.control.ShipPlacement;
 import battleship2000.programlogic.domain.position.Position;
 import battleship2000.programlogic.domain.ship.Ship;
 import battleship2000.programlogic.domain.ship.ShipPart;
-import battleship2000.programlogic.domain.table.Square;
 import battleship2000.ui.panes.VisualSquare;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A mouse listener used for placing and setting a ship on the table.
@@ -23,6 +20,12 @@ public class ShipPlacementListener implements MouseListener {
     private GameCommands gc;
     private Position[] shipInSquarePartsPositioning;
     
+    /**
+     * Constructs a new instance of the class.
+     * 
+     * @param square    the visual square the listener is listening
+     * @param gc        the game commands object of the game
+     */
     public ShipPlacementListener(VisualSquare square, GameCommands gc) {
         this.square = square;
         this.gc = gc;
@@ -105,7 +108,7 @@ public class ShipPlacementListener implements MouseListener {
             for (Position position : shipInSquarePartsPositioning) {
                 if (tableSquare.getSquare().getX() == position.getX() 
                         && tableSquare.getSquare().getY() == position.getY()) {
-                    tableSquare.getSquare().floatAPiece(parts[i]);
+                    tableSquare.getSquare().floatAPart(parts[i]);
                     if (redden) tableSquare.redden();
                     else tableSquare.makeGray();
                     i++;

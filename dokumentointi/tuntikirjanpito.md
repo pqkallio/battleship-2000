@@ -69,4 +69,18 @@
 |Ensimmäinen ääni, refaktorointi   | 4h  |
 |**9.10.2014**             |             |
 |Otsikkopaneeli erikseen, sekvenssikaavio, luokkakaavio   | 6h  |
-|**YHTEENSÄ**            |**approx. 87.5 h**      |
+|**10.10.2014**             |             |
+|Äänten lisäämistä, refaktotointia      | 2h  |
+|**11.10.2014**             |             |
+|Otsikkopaneeli erikseen, sekvenssikaavio, luokkakaavio   | 2h  |
+|**13.10.2014**             |             |
+|Graafisen ilmeen parantamista, tekoälyn parantelua   | 2h  |
+|**14.10.2014**             |             |
+|Demo-tilaisuus                   | 2h  |
+|**15.10.2014**             |             |
+|Refaktorointi, javadoc   | 2h  |
+|**16.10.2014**             |             |
+|Refaktotointi                   | 2h  |
+|**17.10.2014**             |             |
+|Viimeinen deadline, javadoc, dokumentaation päivitys, kaiken testaaminen   | 6h  |
+|**YHTEENSÄ**            |**approx. 105.5 h**      |

@@ -11,6 +11,18 @@ package battleship2000.programlogic.domain.ship;
  * @author Petri Kallio
  */
 public interface Hittable {
+    
+    /**
+     * Returns the Hittable's status of being intact or hit.
+     * 
+     * @return  true if not hit, false otherwisw
+     */
     boolean isIntact();
+    
+    /**
+     * Returns the Hittable's status of being destroyed.
+     * 
+     * @return  true if destroyed, false otherwise
+     */
     boolean isDestroyed();
 }

@@ -3,7 +3,7 @@ package battleship2000.ui.control;
 
 import battleship2000.programlogic.domain.ship.Ship;
 import battleship2000.ui.BattleshipGui;
-import battleship2000.ui.GraphicContentPack;
+import battleship2000.ui.graphics.GraphicContentPack;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -12,16 +12,29 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import javax.swing.JPanel;
 
+/**
+ * The class inherits the {@link javax.swing.JPanel} class and is used to create
+ * a panel that works as a button to choose a {@link battleship2000.programlogic.domain.ship.Ship}
+ * to place on a {@link battleship2000.programlogic.domain.table.GameTable}
+ * <p>
+ * <strong>Note!</strong> Not yet in use in this version of the game.
+ * 
+ * @author Petri Kallio
+ */
 public class ShipChoosingButton extends JPanel {
     private Ship ship;
-    private BattleshipGui gui;
     private Image image; 
     private final int BUTTON_WIDTH = 50;
     private final int BUTTON_HEIGHT = 30;
 
+    /**
+     * Constructs an instantiation of the class.
+     * 
+     * @param ship  the ship the ShipChoosingButton chooses
+     * @param gui   the {@link battleship2000.ui.BattleshipGui} the ShipChoosingButton is related to
+     */
     public ShipChoosingButton(Ship ship, BattleshipGui gui) {
         this.ship = ship;
-        this.gui = gui;
         this.image = loadImage(gui.getGraphicContent());
     }
     

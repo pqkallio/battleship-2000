@@ -40,9 +40,7 @@ public class CreateGame implements Controller {
         
         try {
             game.setPlayers(createPlayers());
-        } catch (InstantiationException | IllegalAccessException e) {
-            System.out.println(e.getClass() + ": " + e.getLocalizedMessage());
-        }
+        } catch (InstantiationException | IllegalAccessException e) {}
         
         game.setShipsAreMovable(this.rules.shipsAreMovable());
         game.setShipsAreSpecialized(this.rules.shipsAreSpecialized());

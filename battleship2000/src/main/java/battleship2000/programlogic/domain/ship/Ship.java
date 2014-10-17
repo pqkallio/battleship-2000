@@ -52,7 +52,13 @@ public class Ship implements Movable, Turnable, Hittable {
     public boolean isOnTable() {
         return isOnTable;
     }
-
+    
+    /**
+     * Sets the ships isOnTable value and removes the ship's parts' earlier 
+     * positions from the table.
+     * 
+     * @param isOnTable
+     */
     public void setIsOnTable(boolean isOnTable) {
         this.isOnTable = isOnTable;
         table.removePartsFromTable(this);
